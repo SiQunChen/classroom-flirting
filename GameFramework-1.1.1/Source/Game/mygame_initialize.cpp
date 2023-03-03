@@ -26,7 +26,14 @@ void CGameStateInit::OnInit()
 	//
 	// 開始載入資料
 	//
-	Sleep(1000);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
+	Sleep(200);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
+
+	init_back.LoadBitmapByString({ "../../RES/initScreen2.bmp" });
+	init_back.SetTopLeft(0, 0);
+
+
+	ShowInitProgress(66, "Initializing...");
+	Sleep(200);
 	//
 	// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
 	//
@@ -49,4 +56,5 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 
 void CGameStateInit::OnShow()
 {
+	init_back.ShowBitmap();
 }
