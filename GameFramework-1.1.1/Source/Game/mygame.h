@@ -66,13 +66,7 @@ namespace game_framework {
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
 		CMovingBitmap logo;								// csie的logo
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
 		void load_background();
-=======
->>>>>>> ac68218ac1123b4859ad8aaa4dfa4bace8f7ad92
->>>>>>> Stashed changes
 		CMovingBitmap init_back;
 	};
 
@@ -114,6 +108,18 @@ namespace game_framework {
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
+		CMovingBitmap end1_start;
+		CMovingBitmap end1_loop;
+		CMovingBitmap end2_start;
+		CMovingBitmap end2_loop;
+		CMovingBitmap end3_start;
+		CMovingBitmap end3_loop;
+		CMovingBitmap end4_start;
+		CMovingBitmap end4_loop;
+		CMovingBitmap end5_start;
+		CMovingBitmap end5_loop;
+		CMovingBitmap end6_start;
+		CMovingBitmap end6_loop;
 		int counter;	// 倒數之計數器
 	};
 

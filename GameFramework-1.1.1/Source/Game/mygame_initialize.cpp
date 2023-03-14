@@ -28,19 +28,7 @@ void CGameStateInit::OnInit()
 	//
 	Sleep(200);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 
-<<<<<<< Updated upstream
-	init_back.LoadBitmapByString({ "../../RES/initScreen2.bmp" });
-	init_back.SetTopLeft(0, 0);
-
-=======
-<<<<<<< HEAD
 	load_background();
-=======
-	init_back.LoadBitmapByString({ "../../RES/initScreen2.bmp" });
-	init_back.SetTopLeft(0, 0);
-
->>>>>>> ac68218ac1123b4859ad8aaa4dfa4bace8f7ad92
->>>>>>> Stashed changes
 
 	ShowInitProgress(66, "Initializing...");
 	Sleep(200);
