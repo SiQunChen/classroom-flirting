@@ -235,6 +235,8 @@ void CGameStateRun::LoadStuff()
 		"../../RES/init/intro/intro6/intro6 (4).bmp"
 		});
 
+	tutorial[6].LoadEmptyBitmap(800, 600);						// spared, in order to unshow picture
+
 	for (int i = 0; i < 6; i++) {
 		tutorial[i].SetTopLeft(0, 0);
 		tutorial[i].SetAnimation(280, false);
