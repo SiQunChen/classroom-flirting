@@ -38,7 +38,6 @@
  *      3. Use ShowInitProgress(percent) to display loading progress.
 */
 
-
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// Constants
@@ -66,14 +65,8 @@ namespace game_framework {
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
 		CMovingBitmap logo;								// csie的logo
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-		void load_background();
-=======
->>>>>>> ac68218ac1123b4859ad8aaa4dfa4bace8f7ad92
->>>>>>> Stashed changes
 		CMovingBitmap init_back;
+		void load_background();
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -98,6 +91,10 @@ namespace game_framework {
 		int phase = 1;
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
+		CMovingBitmap game_back1, game_back2, game_back3, game_back4;
+		CMovingBitmap tutorial[7];						// 6 tutorial+ 1 tutorial_current_show
+		void LoadStuff();
+		int tutorial_stage = 0;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
