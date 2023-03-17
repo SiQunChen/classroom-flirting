@@ -89,7 +89,13 @@ namespace game_framework {
 		void OnRButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
 		void OnRButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
 	protected:
-		int phase = 1;
+		CMovingBitmap map;
+		CMovingBitmap girl_walk_left;
+		CMovingBitmap girl_run_left;
+		CMovingBitmap girl_walk_right;
+		CMovingBitmap girl_run_right;
+		int floor = 1;
+		int maingirl = 1;
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	};
