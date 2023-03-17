@@ -5,7 +5,7 @@
 #include "../Library/audio.h"
 #include "../Library/gameutil.h"
 #include "../Library/gamecore.h"
-#include "mygame.h"
+ #include "mygame.h"
 
 using namespace game_framework;
 
@@ -69,7 +69,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 		"../../RES/mainGirl/left/girl_walk (4).bmp",
 		"../../RES/mainGirl/left/girl_walk (5).bmp",
 		"../../RES/mainGirl/left/girl_walk (6).bmp",
-		"../../RES/mainGirl/left/girl_walk (7).bmp",},
+		"../../RES/mainGirl/left/girl_walk (7).bmp", },
 		RGB(230, 230, 196));
 	girl_walk_left.SetTopLeft(250, 300);
 	girl_walk_left.SetAnimation(150, false);
@@ -81,7 +81,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 		"../../RES/mainGirl/left/girl_run (4).bmp",
 		"../../RES/mainGirl/left/girl_run (5).bmp",
 		"../../RES/mainGirl/left/girl_run (6).bmp",
-		"../../RES/mainGirl/left/girl_run (7).bmp",},
+		"../../RES/mainGirl/left/girl_run (7).bmp", },
 		RGB(0, 0, 0));
 	girl_run_left.SetTopLeft(250, 300);
 	girl_run_left.SetAnimation(150, false);
@@ -93,7 +93,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 		"../../RES/mainGirl/right/girl_walk (4).bmp",
 		"../../RES/mainGirl/right/girl_walk (5).bmp",
 		"../../RES/mainGirl/right/girl_walk (6).bmp",
-		"../../RES/mainGirl/right/girl_walk (7).bmp",},
+		"../../RES/mainGirl/right/girl_walk (7).bmp", },
 		RGB(230, 230, 196));
 	girl_walk_right.SetTopLeft(250, 300);
 	girl_walk_right.SetAnimation(150, false);
@@ -105,7 +105,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 		"../../RES/mainGirl/right/girl_run (4).bmp",
 		"../../RES/mainGirl/right/girl_run (5).bmp",
 		"../../RES/mainGirl/right/girl_run (6).bmp",
-		"../../RES/mainGirl/right/girl_run (7).bmp",},
+		"../../RES/mainGirl/right/girl_run (7).bmp", },
 		RGB(0, 0, 0));
 	girl_run_right.SetTopLeft(250, 300);
 	girl_run_right.SetAnimation(150, false);
@@ -113,12 +113,12 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	
+
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	
+
 }
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
