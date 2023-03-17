@@ -65,8 +65,11 @@ namespace game_framework {
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
 		CMovingBitmap logo;								// csie的logo
-		CMovingBitmap init_back;
 		void load_background();
+		CMovingBitmap init_back;
+		CMovingBitmap tutorial[7];						// 6 tutorial+ 1 tutorial_current_show
+		int tutorial_stage = 0;
+		int flag = 0;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -88,13 +91,15 @@ namespace game_framework {
 		void OnRButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
 		void OnRButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
 	protected:
-		int phase = 1;
+		CMovingBitmap map;
+		CMovingBitmap girl_walk_left;
+		CMovingBitmap girl_run_left;
+		CMovingBitmap girl_walk_right;
+		CMovingBitmap girl_run_right;
+		int floor = 1;
+		int maingirl = 1;
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
-		CMovingBitmap game_back1, game_back2, game_back3, game_back4;
-		CMovingBitmap tutorial[7];						// 6 tutorial+ 1 tutorial_current_show
-		void LoadStuff();
-		int tutorial_stage = 0;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -111,6 +116,18 @@ namespace game_framework {
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
+		CMovingBitmap end1_start;
+		CMovingBitmap end1_loop;
+		CMovingBitmap end2_start;
+		CMovingBitmap end2_loop;
+		CMovingBitmap end3_start;
+		CMovingBitmap end3_loop;
+		CMovingBitmap end4_start;
+		CMovingBitmap end4_loop;
+		CMovingBitmap end5_start;
+		CMovingBitmap end5_loop;
+		CMovingBitmap end6_start;
+		CMovingBitmap end6_loop;
 		int counter;	// 倒數之計數器
 	};
 
