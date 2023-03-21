@@ -31,23 +31,60 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	GetCursorPos(&p);
 	HWND hwnd = FindWindowA(NULL, "Game");
 	ScreenToClient(hwnd, &p);
-	if (p.x - girl_walk_right.GetLeft() > 0 && p.x - girl_walk_right.GetLeft() < 300) {
+	if (map.GetLeft() >= -2094 && map.GetLeft() <= 0) {
+		MainGirlMove(p);
+	}
+	else {
+		if (map.GetLeft() >= -50 && p.x < MainGirl_walk_right.GetLeft()) {
+			maingirl = 5;	//左邊
+			MainGirl.SetFrameIndexOfBitmap(0);
+			MainGirl.SetTopLeft(450, 300);
+			up.SetTopLeft(75, 170);
+			down.SetTopLeft(90, 380);
+		}
+		else if (map.GetLeft() <= -2044 && p.x > MainGirl_walk_right.GetLeft()) {
+			maingirl = 6;	//右邊
+			MainGirl.SetFrameIndexOfBitmap(1);
+			MainGirl.SetTopLeft(250, 300);
+			up.SetTopLeft(535, 170);
+			down.SetTopLeft(550, 380);
+		}
+		else {
+			MainGirlMove(p);
+		}
+	}
+}
+
+void CGameStateRun::MainGirlMove(POINT p) {
+	if (p.x - MainGirl_walk_right.GetLeft() > 0 && p.x - MainGirl_walk_right.GetLeft() < 300) {
 		maingirl = 1;
+		if (MainGirl_walk_right.GetLeft() > 250) {
+			MainGirl_walk_right.SetTopLeft(MainGirl_walk_right.GetLeft() - 5, 300);
+		}
 		map.SetTopLeft(map.GetLeft() - 5, 0);
 	}
-	else if (p.x - girl_walk_right.GetLeft() >= 300 && p.x - girl_walk_right.GetLeft() < 600) {
+	else if (p.x - MainGirl_walk_right.GetLeft() >= 300) {
 		maingirl = 2;
-		girl_run_right.SetTopLeft(girl_walk_right.GetLeft(), 300);
+		MainGirl_run_right.SetTopLeft(MainGirl_walk_right.GetLeft(), 300);
+		if (MainGirl_walk_right.GetLeft() > 250) {
+			MainGirl_walk_right.SetTopLeft(MainGirl_walk_right.GetLeft() - 10, 300);
+		}
 		map.SetTopLeft(map.GetLeft() - 10, 0);
 	}
-	else if (p.x - girl_walk_right.GetLeft() > -300 && p.x - girl_walk_right.GetLeft() <= 0) {
+	else if (p.x - MainGirl_walk_right.GetLeft() > -300 && p.x - MainGirl_walk_right.GetLeft() <= 0) {
 		maingirl = 3;
-		girl_walk_left.SetTopLeft(girl_walk_right.GetLeft(), 300);
+		MainGirl_walk_left.SetTopLeft(MainGirl_walk_right.GetLeft(), 300);
+		if (MainGirl_walk_right.GetLeft() < 450) {
+			MainGirl_walk_right.SetTopLeft(MainGirl_walk_right.GetLeft() + 5, 300);
+		}
 		map.SetTopLeft(map.GetLeft() + 5, 0);
 	}
-	else{
+	else {
 		maingirl = 4;
-		girl_run_left.SetTopLeft(girl_walk_right.GetLeft(), 300);
+		MainGirl_run_left.SetTopLeft(MainGirl_walk_right.GetLeft(), 300);
+		if (MainGirl_walk_right.GetLeft() < 450) {
+			MainGirl_walk_right.SetTopLeft(MainGirl_walk_right.GetLeft() + 10, 300);
+		}
 		map.SetTopLeft(map.GetLeft() + 10, 0);
 	}
 }
@@ -62,7 +99,14 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 		});
 	map.SetTopLeft(0, 0);
 
-	girl_walk_left.LoadBitmapByString({
+	up.LoadBitmapByString({"../../RES/UI/up.bmp", "../../RES/UI/up_hover.bmp",}, RGB(255, 255, 255));
+
+	down.LoadBitmapByString({"../../RES/UI/down.bmp", "../../RES/UI/down_hover.bmp",}, RGB(255, 255, 255));
+
+	MainGirl.LoadBitmapByString({ "../../RES/mainGirl/left/stand.bmp", "../../RES/mainGirl/right/stand.bmp", }, RGB(0, 0, 0));
+	MainGirl.SetTopLeft(250, 300);
+
+	MainGirl_walk_left.LoadBitmapByString({
 		"../../RES/mainGirl/left/girl_walk (1).bmp",
 		"../../RES/mainGirl/left/girl_walk (2).bmp",
 		"../../RES/mainGirl/left/girl_walk (3).bmp",
@@ -71,10 +115,10 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 		"../../RES/mainGirl/left/girl_walk (6).bmp",
 		"../../RES/mainGirl/left/girl_walk (7).bmp", },
 		RGB(230, 230, 196));
-	girl_walk_left.SetTopLeft(250, 300);
-	girl_walk_left.SetAnimation(150, false);
+	MainGirl_walk_left.SetTopLeft(250, 300);
+	MainGirl_walk_left.SetAnimation(150, false);
 
-	girl_run_left.LoadBitmapByString({
+	MainGirl_run_left.LoadBitmapByString({
 		"../../RES/mainGirl/left/girl_run (1).bmp",
 		"../../RES/mainGirl/left/girl_run (2).bmp",
 		"../../RES/mainGirl/left/girl_run (3).bmp",
@@ -83,10 +127,10 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 		"../../RES/mainGirl/left/girl_run (6).bmp",
 		"../../RES/mainGirl/left/girl_run (7).bmp", },
 		RGB(0, 0, 0));
-	girl_run_left.SetTopLeft(250, 300);
-	girl_run_left.SetAnimation(150, false);
+	MainGirl_run_left.SetTopLeft(250, 300);
+	MainGirl_run_left.SetAnimation(150, false);
 
-	girl_walk_right.LoadBitmapByString({
+	MainGirl_walk_right.LoadBitmapByString({
 		"../../RES/mainGirl/right/girl_walk (1).bmp",
 		"../../RES/mainGirl/right/girl_walk (2).bmp",
 		"../../RES/mainGirl/right/girl_walk (3).bmp",
@@ -95,10 +139,10 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 		"../../RES/mainGirl/right/girl_walk (6).bmp",
 		"../../RES/mainGirl/right/girl_walk (7).bmp", },
 		RGB(230, 230, 196));
-	girl_walk_right.SetTopLeft(250, 300);
-	girl_walk_right.SetAnimation(150, false);
+	MainGirl_walk_right.SetTopLeft(250, 300);
+	MainGirl_walk_right.SetAnimation(150, false);
 
-	girl_run_right.LoadBitmapByString({
+	MainGirl_run_right.LoadBitmapByString({
 		"../../RES/mainGirl/right/girl_run (1).bmp",
 		"../../RES/mainGirl/right/girl_run (2).bmp",
 		"../../RES/mainGirl/right/girl_run (3).bmp",
@@ -107,8 +151,8 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 		"../../RES/mainGirl/right/girl_run (6).bmp",
 		"../../RES/mainGirl/right/girl_run (7).bmp", },
 		RGB(0, 0, 0));
-	girl_run_right.SetTopLeft(250, 300);
-	girl_run_right.SetAnimation(150, false);
+	MainGirl_run_right.SetTopLeft(250, 300);
+	MainGirl_run_right.SetAnimation(150, false);
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -161,15 +205,25 @@ void CGameStateRun::OnShow()
 {
 	map.ShowBitmap();
 	if (maingirl == 1) {
-		girl_walk_right.ShowBitmap();
+		MainGirl_walk_right.ShowBitmap();
 	}
 	else if (maingirl == 2) {
-		girl_run_right.ShowBitmap();
+		MainGirl_run_right.ShowBitmap();
 	}
 	else if (maingirl == 3) {
-		girl_walk_left.ShowBitmap();
+		MainGirl_walk_left.ShowBitmap();
+	}
+	else if (maingirl == 4) {
+		MainGirl_run_left.ShowBitmap();
+	}
+	else if (maingirl == 5) {
+		MainGirl.ShowBitmap();
+		up.ShowBitmap(1.8);
+		down.ShowBitmap(1.9);
 	}
 	else {
-		girl_run_left.ShowBitmap();
+		MainGirl.ShowBitmap();
+		up.ShowBitmap(1.8);
+		down.ShowBitmap(1.9);
 	}
 }
