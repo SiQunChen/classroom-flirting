@@ -67,9 +67,10 @@ namespace game_framework {
 		CMovingBitmap logo;								// csie的logo
 		void load_background();
 		CMovingBitmap init_back;
-		CMovingBitmap tutorial[7];						// 6 tutorial+ 1 tutorial_current_show
-		int tutorial_stage = 0;
-		int flag = 0;
+		CMovingBitmap tutorial[7];						// 6 tutorial+ 1 tutorial_current_show (spare, to unshow scene)
+		int tutorial_stage = 0;							// FLAG: tutorial stage
+		int start_frame = 0;							// start frame
+		CTextDraw mouse_tracking;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

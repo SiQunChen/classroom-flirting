@@ -26,7 +26,7 @@ void CGameStateInit::OnInit()
 	//
 	// 開始載入資料
 	//
-	Sleep(200);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
+	//Sleep(200);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 
 	load_background();
 
@@ -147,7 +147,6 @@ void CGameStateInit::OnInit()
 	}
 
 	ShowInitProgress(66, "Initializing...");
-	Sleep(200);
 
 	//
 	// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
@@ -161,38 +160,68 @@ void CGameStateInit::OnBeginState()
 
 void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	if (tutorial_stage == 0) {
-		if (nChar == VK_RIGHT) {
-			tutorial_stage += 1;
+	if (start_frame == 1) {
+		if (tutorial_stage == 0) {
+			if (nChar == VK_RIGHT) {
+				tutorial_stage = 1;					// assign to ensure safety
+			}
+		}
+		else if (tutorial_stage == 5) {
+			if (nChar == VK_LEFT) {
+				tutorial_stage = 4;					// assign to ensure safety
+			}
+		}
+		else {
+			if (nChar == VK_RIGHT) {
+				tutorial_stage += 1;
+			}
+			else if (nChar == VK_LEFT) {
+				tutorial_stage -= 1;
+			}
+		}
+		if (nChar == VK_RETURN) {
+			GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
 		}
 	}
-	else if (tutorial_stage == 5) {
-		if (nChar == VK_LEFT) {
-			tutorial_stage -= 1;
-		}
-	}
-	else {
-		if (nChar == VK_RIGHT) {
-			tutorial_stage += 1;
-		}
-		else if (nChar == VK_LEFT) {
-			tutorial_stage -= 1;
-		}
-	}
-	if (nChar == VK_RETURN) {
-		GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
-	}
+	
 }
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	flag = 1;
+	if (start_frame == 1) {
+		POINT p;
+		GetCursorPos(&p);
+		HWND hwnd = FindWindowA(NULL, "Game");
+		ScreenToClient(hwnd, &p);
+		if (p.x >= 300 && p.x <= 500 && p.y >= 520 && p.y <= 600) {
+			GotoGameState(GAME_STATE_RUN);
+		}
+		else if (tutorial_stage == 0) {
+			if (p.x >= 730 && p.x <= 760 && p.y >= 300 && p.y <= 450) {
+				tutorial_stage = 1;					// assign to ensure safety
+			}
+		}
+		else if (tutorial_stage == 5) {
+			if (p.x >= 40 && p.x <= 70 && p.y >= 300 && p.y <= 450) {
+				tutorial_stage = 4;					// assign to ensure safety
+			}
+		}
+		else {
+			if (p.x >= 730 && p.x <= 760 && p.y >= 300 && p.y <= 450) {
+				tutorial_stage += 1;
+			}
+			else if (p.x >= 40 && p.x <= 70 && p.y >= 300 && p.y <= 450) {
+				tutorial_stage -= 1;
+			}
+		}
+	}
+	start_frame = 1;
 }
 
 void CGameStateInit::OnShow()
 {
 	init_back.ShowBitmap();
-	if (flag == 1) {
+	if (start_frame == 1) {
 		if (tutorial_stage == 0) {
 			tutorial[6].UnshowBitmap();
 			tutorial[0].ShowBitmap();
