@@ -18,7 +18,6 @@ CGameStateInit::CGameStateInit(CGame *g) : CGameState(g)
 
 void CGameStateInit::OnInit()
 {
-
 	//
 	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
 	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
@@ -162,38 +161,50 @@ void CGameStateInit::OnBeginState()
 
 void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	if (tutorial_stage == 0) {
-		if (nChar == VK_RIGHT) {
-			tutorial_stage += 1;
+	if (start_frame == 1) {
+		if (tutorial_stage == 0) {
+			if (nChar == VK_RIGHT) {
+				tutorial_stage += 1;
+			}
+		}
+		else if (tutorial_stage == 5) {
+			if (nChar == VK_LEFT) {
+				tutorial_stage -= 1;
+			}
+		}
+		else {
+			if (nChar == VK_RIGHT) {
+				tutorial_stage += 1;
+			}
+			else if (nChar == VK_LEFT) {
+				tutorial_stage -= 1;
+			}
+		}
+		if (nChar == VK_RETURN) {
+			GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
 		}
 	}
-	else if (tutorial_stage == 5) {
-		if (nChar == VK_LEFT) {
-			tutorial_stage -= 1;
-		}
-	}
-	else {
-		if (nChar == VK_RIGHT) {
-			tutorial_stage += 1;
-		}
-		else if (nChar == VK_LEFT) {
-			tutorial_stage -= 1;
-		}
-	}
-	if (nChar == VK_RETURN) {
-		GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
-	}
+	
 }
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	flag = 1;
+	if (start_frame == 1) {
+		POINT p;
+		GetCursorPos(&p);
+		HWND hwnd = FindWindowA(NULL, "Game");
+		ScreenToClient(hwnd, &p);
+		if (p.x >= 300 && p.x <= 500 && p.y >= 520 && p.y <= 600) {
+			GotoGameState(GAME_STATE_RUN);
+		}
+	}
+	start_frame = 1;
 }
 
 void CGameStateInit::OnShow()
 {
 	init_back.ShowBitmap();
-	if (flag == 1) {
+	if (start_frame == 1) {
 		if (tutorial_stage == 0) {
 			tutorial[6].UnshowBitmap();
 			tutorial[0].ShowBitmap();
