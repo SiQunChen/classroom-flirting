@@ -27,64 +27,161 @@ void CGameStateRun::OnBeginState()
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
 {
-	POINT p;
 	GetCursorPos(&p);
 	HWND hwnd = FindWindowA(NULL, "Game");
 	ScreenToClient(hwnd, &p);
 	if (map.GetLeft() >= -2094 && map.GetLeft() <= 0) {
-		MainGirlMove(p);
+		MainGirlMove();
 	}
 	else {
-		if (map.GetLeft() >= -50 && p.x < MainGirl_walk_right.GetLeft()) {
-			maingirl = 5;	//左邊
-			MainGirl.SetFrameIndexOfBitmap(0);
-			MainGirl.SetTopLeft(450, 300);
-			up.SetTopLeft(75, 170);
-			down.SetTopLeft(90, 380);
+		if (up_down == 0) {
+			if (map.GetLeft() >= -50 && p.x < MainGirl_walk_right.GetLeft()) {
+				maingirl = 5;	//左邊
+				MainGirl.SetFrameIndexOfBitmap(0);
+				MainGirl.SetTopLeft(450, 300);
+				MainGirl_walk_right.SetTopLeft(450, 300); //不設定的話，上下樓會造成短暫瞬間移動
+				up.SetTopLeft(75, 170);
+				down.SetTopLeft(90, 380);
+			}
+			else if (map.GetLeft() <= -2044 && p.x > MainGirl_walk_right.GetLeft()) {
+				maingirl = 6;	//右邊
+				MainGirl.SetFrameIndexOfBitmap(1);
+				MainGirl.SetTopLeft(250, 300);
+				MainGirl_walk_right.SetTopLeft(250, 300);
+				up.SetTopLeft(535, 170);
+				down.SetTopLeft(550, 380);
+			}
+			else {
+				MainGirlMove();
+			}
 		}
-		else if (map.GetLeft() <= -2044 && p.x > MainGirl_walk_right.GetLeft()) {
-			maingirl = 6;	//右邊
-			MainGirl.SetFrameIndexOfBitmap(1);
-			MainGirl.SetTopLeft(250, 300);
-			up.SetTopLeft(535, 170);
-			down.SetTopLeft(550, 380);
-		}
-		else {
-			MainGirlMove(p);
+		else { //這一大串全部都在做上下樓動畫==
+			time++;
+			if (maingirl == 1 && up_down == 1 && floor == 1) {
+				if (MainGirl_walk_right.GetLeft() < 500) {
+					MainGirl_walk_right.SetTopLeft(MainGirl_walk_right.GetLeft() + 5, 300);
+				}
+				else {
+					MainGirl_walk_right.SetTopLeft(MainGirl_walk_right.GetLeft() + 5, MainGirl_walk_right.GetTop() - 5);
+				}
+			}
+			else if (maingirl == 3 && up_down == 1 && floor == 1) {
+				if (MainGirl_walk_right.GetLeft() > 270) {
+					MainGirl_walk_right.SetTopLeft(MainGirl_walk_right.GetLeft() - 5, 300);
+				}
+				else {
+					MainGirl_walk_right.SetTopLeft(MainGirl_walk_right.GetLeft() - 5, MainGirl_walk_right.GetTop() - 5);
+				}
+			}
+			else if (maingirl == 1 && floor == 4) {
+				MainGirl_walk_right.SetTopLeft(MainGirl_walk_right.GetLeft() + 5, 300);
+			}
+			else if (maingirl == 3 && floor == 4) {
+				MainGirl_walk_right.SetTopLeft(MainGirl_walk_right.GetLeft() - 5, 300);
+			}
+			else if (maingirl == 1 && up_down == 1) {
+				if (MainGirl_walk_right.GetLeft() < 380) {
+					MainGirl_walk_right.SetTopLeft(MainGirl_walk_right.GetLeft() + 5, 300);
+				}
+				else {
+					MainGirl_walk_right.SetTopLeft(MainGirl_walk_right.GetLeft() + 5, MainGirl_walk_right.GetTop() - 5);
+				}
+			}
+			else if (maingirl == 1 && up_down == 2) {
+				if (MainGirl_walk_right.GetLeft() < 650) {
+					MainGirl_walk_right.SetTopLeft(MainGirl_walk_right.GetLeft() + 5, 300);
+				}
+				else {
+					MainGirl_walk_right.SetTopLeft(MainGirl_walk_right.GetLeft() + 5, MainGirl_walk_right.GetTop() + 5);
+				}
+			}
+			else if (maingirl == 3 && up_down == 1) {
+				if (MainGirl_walk_right.GetLeft() > 330) {
+					MainGirl_walk_right.SetTopLeft(MainGirl_walk_right.GetLeft() - 5, 300);
+				}
+				else {
+					MainGirl_walk_right.SetTopLeft(MainGirl_walk_right.GetLeft() - 5, MainGirl_walk_right.GetTop() - 5);
+				}
+			}
+			else if (maingirl == 3 && up_down == 2) {
+				if (MainGirl_walk_right.GetLeft() > 70) {
+					MainGirl_walk_right.SetTopLeft(MainGirl_walk_right.GetLeft() - 5, 300);
+				}
+				else {
+					MainGirl_walk_right.SetTopLeft(MainGirl_walk_right.GetLeft() - 5, MainGirl_walk_right.GetTop() + 5);
+				}
+			}
+			MainGirl_walk_left.SetTopLeft(MainGirl_walk_right.GetLeft(), MainGirl_walk_right.GetTop());
+			if (time == 100) {
+				if (up_down == 1) {
+					if (floor == 1) {
+						floor = 2;
+						map.SetFrameIndexOfBitmap(1);
+					}
+					else if (floor == 2) {
+						floor = 3;
+						map.SetFrameIndexOfBitmap(2);
+					}
+					else if (floor == 3) {
+						floor = 4;
+						map.SetFrameIndexOfBitmap(3);
+					}
+					maingirl = 5;
+					MainGirl_walk_right.SetTopLeft(400, 300);
+				}
+				else if (up_down == 2) {
+					if (floor == 2) {
+						floor = 1;
+						map.SetFrameIndexOfBitmap(0);
+					}
+					else if (floor == 3) {
+						floor = 2;
+						map.SetFrameIndexOfBitmap(1);
+					}
+					else if (floor == 4) {
+						floor = 3;
+						map.SetFrameIndexOfBitmap(2);
+					}
+					maingirl = 6;
+					MainGirl_walk_right.SetTopLeft(300, 300);
+				}
+				up_down = 0;
+				time = 0;
+			}
 		}
 	}
 }
 
-void CGameStateRun::MainGirlMove(POINT p) {
-	if (p.x - MainGirl_walk_right.GetLeft() > 0 && p.x - MainGirl_walk_right.GetLeft() < 300) {
+void CGameStateRun::MainGirlMove() {
+	if (p.x - MainGirl_walk_right.GetLeft() > 0 && p.x - MainGirl_walk_right.GetLeft() < 200) {
 		maingirl = 1;
 		if (MainGirl_walk_right.GetLeft() > 250) {
 			MainGirl_walk_right.SetTopLeft(MainGirl_walk_right.GetLeft() - 5, 300);
 		}
 		map.SetTopLeft(map.GetLeft() - 5, 0);
 	}
-	else if (p.x - MainGirl_walk_right.GetLeft() >= 300) {
+	else if (p.x - MainGirl_walk_right.GetLeft() >= 200) {
 		maingirl = 2;
-		MainGirl_run_right.SetTopLeft(MainGirl_walk_right.GetLeft(), 300);
 		if (MainGirl_walk_right.GetLeft() > 250) {
 			MainGirl_walk_right.SetTopLeft(MainGirl_walk_right.GetLeft() - 10, 300);
 		}
+		MainGirl_run_right.SetTopLeft(MainGirl_walk_right.GetLeft(), 300);
 		map.SetTopLeft(map.GetLeft() - 10, 0);
 	}
-	else if (p.x - MainGirl_walk_right.GetLeft() > -300 && p.x - MainGirl_walk_right.GetLeft() <= 0) {
+	else if (p.x - MainGirl_walk_right.GetLeft() > -200 && p.x - MainGirl_walk_right.GetLeft() <= 0) {
 		maingirl = 3;
-		MainGirl_walk_left.SetTopLeft(MainGirl_walk_right.GetLeft(), 300);
 		if (MainGirl_walk_right.GetLeft() < 450) {
 			MainGirl_walk_right.SetTopLeft(MainGirl_walk_right.GetLeft() + 5, 300);
 		}
+		MainGirl_walk_left.SetTopLeft(MainGirl_walk_right.GetLeft(), 300);
 		map.SetTopLeft(map.GetLeft() + 5, 0);
 	}
 	else {
 		maingirl = 4;
-		MainGirl_run_left.SetTopLeft(MainGirl_walk_right.GetLeft(), 300);
 		if (MainGirl_walk_right.GetLeft() < 450) {
 			MainGirl_walk_right.SetTopLeft(MainGirl_walk_right.GetLeft() + 10, 300);
 		}
+		MainGirl_run_left.SetTopLeft(MainGirl_walk_right.GetLeft(), 300);
 		map.SetTopLeft(map.GetLeft() + 10, 0);
 	}
 }
@@ -167,26 +264,26 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
-	if (floor == 1) {
-		map.SetFrameIndexOfBitmap(0);
-		map.ShowBitmap();
-	}
-	else if (floor == 2) {
-		map.SetFrameIndexOfBitmap(1);
-		map.ShowBitmap();
-	}
-	else if (floor == 3) {
-		map.SetFrameIndexOfBitmap(2);
-		map.ShowBitmap();
-	}
-	else {
-		map.SetFrameIndexOfBitmap(3);
-		map.ShowBitmap();
-	}
 }
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
+	if ((p.x >= 100 && p.x <= 215) && (p.y >= 230 && p.y <= 340)) { //左邊上樓
+		maingirl = 3;
+		up_down = 1;
+	}
+	else if ((p.x >= 560 && p.x <= 675) && (p.y >= 230 && p.y <= 340)) { //右邊上樓
+		maingirl = 1;
+		up_down = 1;
+	}
+	else if ((p.x >= 95 && p.x <= 215) && (p.y >= 385 && p.y <= 505)) { //左邊下樓
+		maingirl = 3;
+		up_down = 2;
+	}
+	else if ((p.x >= 555 && p.x <= 675) && (p.y >= 385 && p.y <= 505)) { //右邊下樓
+		maingirl = 1;
+		up_down = 2;
+	}
 }
 
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
@@ -218,12 +315,40 @@ void CGameStateRun::OnShow()
 	}
 	else if (maingirl == 5) {
 		MainGirl.ShowBitmap();
-		up.ShowBitmap(1.8);
-		down.ShowBitmap(1.9);
+		if ((p.x >= 100 && p.x <= 215) && (p.y >= 230 && p.y <= 340)) {
+			up.SetFrameIndexOfBitmap(1);
+		}
+		else if ((p.x >= 95 && p.x <= 215) && (p.y >= 385 && p.y <= 505)) {
+			down.SetFrameIndexOfBitmap(1);
+		}
+		else {
+			up.SetFrameIndexOfBitmap(0);
+			down.SetFrameIndexOfBitmap(0);
+		}
+		if (floor != 4) {
+			up.ShowBitmap(1.8);
+		}
+		if (floor != 1) {
+			down.ShowBitmap(1.9);
+		}
 	}
 	else {
 		MainGirl.ShowBitmap();
-		up.ShowBitmap(1.8);
-		down.ShowBitmap(1.9);
+		if ((p.x >= 560 && p.x <= 675) && (p.y >= 230 && p.y <= 340)) {
+			up.SetFrameIndexOfBitmap(1);
+		}
+		else if ((p.x >= 555 && p.x <= 675) && (p.y >= 385 && p.y <= 505)) {
+			down.SetFrameIndexOfBitmap(1);
+		}
+		else {
+			up.SetFrameIndexOfBitmap(0);
+			down.SetFrameIndexOfBitmap(0);
+		}
+		if (floor != 4) {
+			up.ShowBitmap(1.8);
+		}
+		if (floor != 1) {
+			down.ShowBitmap(1.9);
+		}
 	}
 }
