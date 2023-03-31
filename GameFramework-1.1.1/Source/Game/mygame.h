@@ -37,6 +37,13 @@
  *      2. Replace the demonstration of animation as a new bouncing ball.
  *      3. Use ShowInitProgress(percent) to display loading progress.
 */
+#include "../Core/Resource.h"
+#include <mmsystem.h>
+#include <ddraw.h>
+#include "../Library/audio.h"
+#include "../Library/gameutil.h"
+#include "../Library/gamecore.h"
+#include "Main_girl.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
@@ -66,6 +73,7 @@ namespace game_framework {
 	private:
 		CMovingBitmap logo;								// csie的logo
 		void load_background();
+		void load_tutorial();
 		CMovingBitmap init_back;
 		CMovingBitmap tutorial[7];						// 6 tutorial+ 1 tutorial_current_show (spare, to unshow scene)
 		int tutorial_stage = 0;							// FLAG: tutorial stage
@@ -82,6 +90,7 @@ namespace game_framework {
 	public:
 		CGameStateRun(CGame *g);
 		~CGameStateRun();
+		void MainGirlMove();
 		void OnBeginState();							// 設定每次重玩所需的變數
 		void OnInit();  								// 遊戲的初值及圖形設定
 		void OnKeyDown(UINT, UINT, UINT);
@@ -92,22 +101,26 @@ namespace game_framework {
 		void OnRButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
 		void OnRButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
 	protected:
-		POINT p;
 		CMovingBitmap map;
-		CMovingBitmap MainGirl;
-		CMovingBitmap MainGirl_walk_left;
-		CMovingBitmap MainGirl_run_left;
-		CMovingBitmap MainGirl_walk_right;
-		CMovingBitmap MainGirl_run_right;
+		POINT p;
 		CMovingBitmap up;
 		CMovingBitmap down;
 		int up_down = 0; // 1 = 上樓，2 = 下樓
 		int time = 0;
 		int floor = 1;
 		int maingirl = 1;
-		void MainGirlMove();
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
+
+		Main_girl main_girl[5];
+		/**
+		 0: stand
+		 1: walk left
+		 2: walk right
+		 3: run left
+		 4: run right
+		 */
+
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
