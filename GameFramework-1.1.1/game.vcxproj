@@ -243,10 +243,16 @@
     <ClCompile Include="Source\Core\StdAfx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Source\Game\Audio.cpp" />
+    <ClCompile Include="Source\Game\Elevator.cpp" />
+    <ClCompile Include="Source\Game\HP.cpp" />
     <ClCompile Include="Source\Game\Main_girl.cpp" />
     <ClCompile Include="Source\Game\mygame_initialize.cpp" />
     <ClCompile Include="Source\Game\mygame_over.cpp" />
     <ClCompile Include="Source\Game\mygame_run.cpp" />
+    <ClCompile Include="Source\Game\Score.cpp" />
+    <ClCompile Include="Source\Game\Clock.cpp" />
+    <ClCompile Include="Source\Game\UI.cpp" />
     <ClCompile Include="Source\Library\audio.cpp" />
     <ClCompile Include="Source\Library\gamecore.cpp" />
     <ClCompile Include="Source\Library\gameutil.cpp">
@@ -263,6 +269,7 @@
     <ClInclude Include="Source\Game\config.h" />
     <ClInclude Include="Source\Game\Main_girl.h" />
     <ClInclude Include="Source\Game\mygame.h" />
+    <ClInclude Include="Source\Game\UI.h" />
     <ClInclude Include="Source\Library\audio.h" />
     <ClInclude Include="Source\Library\gamecore.h" />
     <ClInclude Include="Source\Library\gameutil.h" />

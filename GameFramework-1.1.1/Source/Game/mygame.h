@@ -44,6 +44,7 @@
 #include "../Library/gameutil.h"
 #include "../Library/gamecore.h"
 #include "Main_girl.h"
+#include "UI.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
@@ -84,8 +85,12 @@ namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// 這個class為遊戲的遊戲執行物件，主要的遊戲程式都在這裡
 	// 每個Member function的Implementation都要弄懂
-	/////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////
 
+	/*
+	 * at 110, 111: UI is a package of UIsys
+	 * -> make dirive class
+	 */
 	class CGameStateRun : public CGameState {
 	public:
 		CGameStateRun(CGame *g);
@@ -98,11 +103,13 @@ namespace game_framework {
 		void OnLButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
 		void OnLButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
 		void OnMouseMove(UINT nFlags, CPoint point);	// 處理滑鼠的動作 
-		void OnRButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
 		void OnRButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
+		void OnRButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
 	protected:
 		CMovingBitmap map;
 		POINT p;
+		// Elevator up;	//
+		// Elevator down;	// UI is a package of UIsys
 		CMovingBitmap up;
 		CMovingBitmap down;
 		int up_down = 0; // 1 = 上樓，2 = 下樓
@@ -112,15 +119,12 @@ namespace game_framework {
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 
+		/*
+		0: stand
+		1: walk left 2: walk right
+		3: run left 4: run right
+		*/
 		Main_girl main_girl[5];
-		/**
-		 0: stand
-		 1: walk left
-		 2: walk right
-		 3: run left
-		 4: run right
-		 */
-
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
