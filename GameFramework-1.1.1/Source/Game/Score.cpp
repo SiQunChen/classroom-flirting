@@ -1,18 +1,22 @@
 #include "stdafx.h"
 #include "UI.h"
-/*
+#include<iostream>
+
 Score::Score() {
 	score = 0;
-	load_ui_score();
 }
 
 int Score::get_score() {
 	return (score);
 }
 
-void Score::load_ui_score() {
+void Score::load_ui_score_board() {
 	score_board.LoadBitmapByString({
 		"./RES/UI/number/scoreBoard.bmp"});
+	score_board.SetTopLeft(0, 0);
+}
+
+void Score::load_ui_score_num() {
 	score_num[0].LoadBitmapByString({
 		"./RES/UI/number/number (0).bmp"});
 	score_num[1].LoadBitmapByString({
@@ -33,4 +37,4 @@ void Score::load_ui_score() {
 		"./RES/UI/number/number (8).bmp"});
 	score_num[9].LoadBitmapByString({
 		"./RES/UI/number/number (9).bmp"});
-}*/
+}

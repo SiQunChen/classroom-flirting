@@ -112,6 +112,9 @@ namespace game_framework {
 		// Elevator down;	// UI is a package of UIsys
 		CMovingBitmap up;
 		CMovingBitmap down;
+		Score score_board;
+		Clock clock_board;
+		HP hp_board;
 		int up_down = 0; // 1 = 上樓，2 = 下樓
 		int time = 0;
 		int floor = 1;

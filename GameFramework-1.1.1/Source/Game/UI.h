@@ -1,6 +1,6 @@
 #pragma once
 #include "../Library/gameutil.h"
-/*
+
 class UI : public game_framework::CMovingBitmap{
 public:
 	UI();
@@ -8,13 +8,15 @@ public:
 
 /**
  * dirive class below
- //
+ */
 
 class Score : public UI {
 public:
 	Score();
 	int get_score();
-	void load_ui_score();
+	//! can't be used
+	void load_ui_score_board();
+	void load_ui_score_num();
 private:
 	//! 收服的男生數量寫在男生那邊，UI這裡用一個 getter拿值，計算總成績
 	int score;					// 總成績
@@ -32,7 +34,7 @@ private:
 	 * min = 1;
 	 * max = 5;
 	 * to be fix
-	 //
+	 */
 	int audio_levle;
 	CMovingBitmap audio_button[4];
 };
@@ -42,7 +44,8 @@ public:
 	Clock();
 	int get_max_time_second();
 	int get_time_left_second();
-	void load_ui_clock();
+	void load_ui_clock_board();
+	void load_ui_clock_tick();
 private:
 	int time;					// current time
 	int time_left;				// max_time - time
@@ -54,10 +57,12 @@ private:
 
 class HP : public UI {
 public:
-	// HP();
-	// float get_hp();
-	// bool is_invincible();
-	// void load_ui_hp();
+	HP();
+	float get_hp();
+	bool is_invincible();
+	//! can't be used
+	void load_ui_hp_board();
+	void load_ui_hp_num();
 private:
 	//! HP寫在女主角那邊，UI這裡用一個getter 拿值，再想怎麼load血量的圖片
 	float hp;					// HP
@@ -79,5 +84,4 @@ private:
 	//! 上下樓梯的按鈕應該要放過來
 	CMovingBitmap up;
 	CMovingBitmap down;
-};
-*/
+}; 

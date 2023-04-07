@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "mygame.h"
-
+#include<iostream>
 using namespace game_framework;
 
 /////////////////////////////////////////////////////////////////////////////
@@ -76,6 +76,19 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 		"./RES/UI/elevator/down.bmp", 
 		"./RES/UI/elevator/down_hover.bmp",},
 		RGB(255, 255, 255));
+	
+	score_board.LoadBitmapByString({
+		"./RES/UI/number/scoreBoard.bmp"});
+	score_board.SetTopLeft(430, -1);
+
+	hp_board.LoadBitmapByString({
+		"./RES/UI/heart/heartPointBoard.bmp"});
+	hp_board.SetTopLeft(0, 0);
+
+	clock_board.LoadBitmapByString({
+		"./RES/UI/clock/clock.bmp",
+		"./RES/UI/clock/clock_background.bmp"});
+	clock_board.SetTopLeft(350, 0);
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -256,6 +269,13 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 
 void CGameStateRun::OnShow() {
 	map.ShowBitmap();
+
+	score_board.ShowBitmap();
+
+	hp_board.ShowBitmap();
+
+	clock_board.ShowBitmap();
+
 	if (maingirl == 1) {
 		main_girl[2].ShowBitmap();
 	}

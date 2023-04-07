@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "UI.h"
-/*
+
 Elevator::Elevator() {
 	current_floor = 1;
 	load_ui_elevator();
@@ -16,4 +16,3 @@ void Elevator::load_ui_elevator() {
 		"./RES/UI/elevator/down_hover.bmp",},
 		RGB(255, 255, 255));
 }
-*/

@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "UI.h"
 
-/*
 HP::HP() {
 	hp = 9;
 	bool_invincible_state = false;
@@ -15,9 +14,12 @@ bool HP::is_invincible() {
 	return (bool_invincible_state);
 }
 
-void HP::load_ui_hp() {
+void HP::load_ui_hp_board() {
 	hp_board.LoadBitmapByString({
-    	"./RES/UI/heart/heartPointBoard.bmp"});
+		"./RES/UI/heart/heartPointBoard.bmp"});
+}
+
+void HP::load_ui_hp_num() {
     hp_heart[19].LoadBitmapByString({
     	"./RES/UI/heart/heart (20).bmp"});
     hp_heart[18].LoadBitmapByString({
@@ -64,4 +66,3 @@ void HP::load_ui_hp() {
     	"./RES/UI/heart/warning (3).bmp"});
 	//invincible_board.LoadBitmapByString();
 }
-*/
