@@ -1,21 +1,14 @@
 #include "stdafx.h"
-#include "../Core/Resource.h"
-#include <mmsystem.h>
-#include <ddraw.h>
-#include "../Library/audio.h"
-#include "../Library/gameutil.h"
-#include "../Library/gamecore.h"
-#include "UI.h"
+#include "UI.h"//
 
-
-using namespace game_framework;
-
-void UI::UI{}
-
-void UI::init() {
-	int time = 0;						// by second
-	const int max_time = 60;			//! not sure the actuall time yet
-	int hp = 9.0;
-	bool is_invincible = false;
-	int score = 0;
-}
+UI::UI() = default;
+/*
+audio_button[0].LoadBitmapByString({
+		"./RES/UI/audio/audio_button_off.bmp"});
+audio_button[1].LoadBitmapByString({
+	"./RES/UI/audio/audio_button_off_hovered.bmp"});
+audio_button[2].LoadBitmapByString({
+	"./RES/UI/audio/audio_button_on.bmp"});
+audio_button[3].LoadBitmapByString({
+	"./RES/UI/audio/audio_button_on_hovered.bmp"});
+*/
