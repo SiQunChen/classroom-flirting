@@ -19,10 +19,11 @@ public:
 	void Load_run_left();
 	void Load_run_right();
 private:
-
+	/* 
 	POINT p;
 	int maingirl = -1;
 	int flag_girl_movement = -1;
+	*/
 
 	CMovingBitmap MainGirl[5];
     /*

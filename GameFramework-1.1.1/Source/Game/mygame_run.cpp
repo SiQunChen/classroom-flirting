@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "mygame.h"
-
+#include<iostream>
 using namespace game_framework;
 
 /////////////////////////////////////////////////////////////////////////////
@@ -15,12 +15,139 @@ CGameStateRun::~CGameStateRun()
 {
 }
 
+void CGameStateRun::MainGirlMove() {
+	if (p.x - main_girl[2].GetLeft() > 0 && p.x - main_girl[2].GetLeft() < 200) {
+		maingirl = 1;
+		if (main_girl[2].GetLeft() > 250) {
+			main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 5, 300);
+		}
+		map.SetTopLeft(map.GetLeft() - 5, 0);
+	}
+	else if (p.x - main_girl[2].GetLeft() >= 200) {
+		maingirl = 2;
+		if (main_girl[2].GetLeft() > 250) {
+			main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 10, 300);
+		}
+		main_girl[4].SetTopLeft(main_girl[2].GetLeft(), 300);
+		map.SetTopLeft(map.GetLeft() - 10, 0);
+	}
+	else if (p.x - main_girl[2].GetLeft() > -200 && p.x - main_girl[2].GetLeft() <= 0) {
+		maingirl = 3;
+		if (main_girl[2].GetLeft() < 450) {
+			main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 5, 300);
+		}
+		main_girl[1].SetTopLeft(main_girl[2].GetLeft(), 300);
+		map.SetTopLeft(map.GetLeft() + 5, 0);
+	}
+	else {
+		maingirl = 4;
+		if (main_girl[2].GetLeft() < 450) {
+			main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 10, 300);
+		}
+		main_girl[3].SetTopLeft(main_girl[2].GetLeft(), 300);
+		map.SetTopLeft(map.GetLeft() + 10, 0);
+	}
+}
+
 void CGameStateRun::OnBeginState()
+{
+}
+
+void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
+{
+	map.LoadBitmapByString({
+		"./RES/map1.bmp",
+		"./RES/map2.bmp",
+		"./RES/map3.bmp",
+		"./RES/map4.bmp",});
+	map.SetTopLeft(0, 0);
+	
+	main_girl[0].Load_main();
+	main_girl[1].Load_walk_left();
+	main_girl[2].Load_walk_right();
+	main_girl[3].Load_run_left();
+	main_girl[4].Load_run_right();
+
+	up.LoadBitmapByString({
+		"./RES/UI/elevator/up.bmp", 
+		"./RES/UI/elevator/up_hover.bmp",},
+		RGB(255, 255, 255));
+	down.LoadBitmapByString({
+		"./RES/UI/elevator/down.bmp", 
+		"./RES/UI/elevator/down_hover.bmp",},
+		RGB(255, 255, 255));
+	
+	score_board.LoadBitmapByString({
+		"./RES/UI/number/scoreBoard.bmp"});
+	score_board.SetTopLeft(430, -1);
+
+	hp_board.LoadBitmapByString({
+		"./RES/UI/heart/heartPointBoard.bmp"});
+	hp_board.SetTopLeft(0, 0);
+	
+	clock_board.LoadBitmapByString({
+		"./RES/UI/clock/clock.bmp",
+		"./RES/UI/clock/clock_background.bmp"});
+	clock_board.SetTopLeft(350, 0); 
+}
+
+void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+}
+
+void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+}
+
+
+void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
+{
+}
+
+void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
+{
+	GetCursorPos(&p);
+	HWND hwnd = FindWindowA(NULL, "Game");
+	ScreenToClient(hwnd, &p);
+	
+	if ((p.x >= 100 && p.x <= 215) && (p.y >= 230 && p.y <= 340)) { //左邊上樓
+		maingirl = 3;
+		up_down = 1;
+	}
+	else if ((p.x >= 560 && p.x <= 675) && (p.y >= 230 && p.y <= 340)) { //右邊上樓
+		maingirl = 1;
+		up_down = 1;
+	}
+	else if ((p.x >= 95 && p.x <= 215) && (p.y >= 385 && p.y <= 505)) { //左邊下樓
+		maingirl = 3;
+		up_down = 2;
+	}
+	else if ((p.x >= 555 && p.x <= 675) && (p.y >= 385 && p.y <= 505)) { //右邊下樓
+		maingirl = 1;
+		up_down = 2;
+	}
+}
+
+void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
+{
+}
+
+void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
+{
+}
+
+void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
 }
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
 {
+
+	/* //can't update hp
+	while (hp_board.hp >= 10) {
+		hp_board.hp -= 5;
+	}*/
+	
 	GetCursorPos(&p);
 	HWND hwnd = FindWindowA(NULL, "Game");
 	ScreenToClient(hwnd, &p);
@@ -68,10 +195,10 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 				}
 			}
 			else if (maingirl == 1 && floor == 4) {
-				main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 5, 300);
+				main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 3, 300);
 			}
 			else if (maingirl == 3 && floor == 4) {
-				main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 5, 300);
+				main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 3, 300);
 			}
 			else if (maingirl == 1 && up_down == 1) {
 				if (main_girl[2].GetLeft() < 380) {
@@ -146,119 +273,17 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	}
 }
 
-void CGameStateRun::MainGirlMove() {
-	if (p.x - main_girl[2].GetLeft() > 0 && p.x - main_girl[2].GetLeft() < 200) {
-		maingirl = 1;
-		if (main_girl[2].GetLeft() > 250) {
-			main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 5, 300);
-		}
-		map.SetTopLeft(map.GetLeft() - 5, 0);
-	}
-	else if (p.x - main_girl[2].GetLeft() >= 200) {
-		maingirl = 2;
-		if (main_girl[2].GetLeft() > 250) {
-			main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 10, 300);
-		}
-		main_girl[4].SetTopLeft(main_girl[2].GetLeft(), 300);
-		map.SetTopLeft(map.GetLeft() - 10, 0);
-	}
-	else if (p.x - main_girl[2].GetLeft() > -200 && p.x - main_girl[2].GetLeft() <= 0) {
-		maingirl = 3;
-		if (main_girl[2].GetLeft() < 450) {
-			main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 5, 300);
-		}
-		main_girl[1].SetTopLeft(main_girl[2].GetLeft(), 300);
-		map.SetTopLeft(map.GetLeft() + 5, 0);
-	}
-	else {
-		maingirl = 4;
-		if (main_girl[2].GetLeft() < 450) {
-			main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 10, 300);
-		}
-		main_girl[3].SetTopLeft(main_girl[2].GetLeft(), 300);
-		map.SetTopLeft(map.GetLeft() + 10, 0);
-	}
-}
-
-void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
-{
-	map.LoadBitmapByString({
-		"./RES/map1.bmp",
-		"./RES/map2.bmp",
-		"./RES/map3.bmp",
-		"./RES/map4.bmp",});
-	map.SetTopLeft(0, 0);
-
-	up.LoadBitmapByString({
-		"./RES/UI/up.bmp", 
-		"./RES/UI/up_hover.bmp",},
-		RGB(255, 255, 255));
-
-	down.LoadBitmapByString({
-		"./RES/UI/down.bmp", 
-		"./RES/UI/down_hover.bmp",},
-		RGB(255, 255, 255));
-
-	main_girl[0].Load_main();
-	main_girl[1].Load_walk_left();
-	main_girl[2].Load_walk_right();
-	main_girl[3].Load_run_left();
-	main_girl[4].Load_run_right();
-}
-
-void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
-{
-
-}
-
-void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
-{
-
-}
-
-void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
-{
-}
-
-void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
-{
-	GetCursorPos(&p);
-	HWND hwnd = FindWindowA(NULL, "Game");
-	ScreenToClient(hwnd, &p);
-	
-	if ((p.x >= 100 && p.x <= 215) && (p.y >= 230 && p.y <= 340)) { //左邊上樓
-		maingirl = 3;
-		up_down = 1;
-	}
-	else if ((p.x >= 560 && p.x <= 675) && (p.y >= 230 && p.y <= 340)) { //右邊上樓
-		maingirl = 1;
-		up_down = 1;
-	}
-	else if ((p.x >= 95 && p.x <= 215) && (p.y >= 385 && p.y <= 505)) { //左邊下樓
-		maingirl = 3;
-		up_down = 2;
-	}
-	else if ((p.x >= 555 && p.x <= 675) && (p.y >= 385 && p.y <= 505)) { //右邊下樓
-		maingirl = 1;
-		up_down = 2;
-	}
-}
-
-void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
-{
-}
-
-void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
-{
-}
-
-void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
-{
-}
-
-void CGameStateRun::OnShow()
-{
+void CGameStateRun::OnShow() {
 	map.ShowBitmap();
+
+	score_board.ShowBitmap();
+
+	hp_board.ShowBitmap();
+
+	clock_board.ShowBitmap();
+
+	hp_board.show_hp();
+
 	if (maingirl == 1) {
 		main_girl[2].ShowBitmap();
 	}
@@ -307,6 +332,6 @@ void CGameStateRun::OnShow()
 		}
 		if (floor != 1) {
 			down.ShowBitmap(1.9);
-		}
-	} 
+		} 
+	}
 }

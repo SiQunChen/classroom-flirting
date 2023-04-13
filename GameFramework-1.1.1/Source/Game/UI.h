@@ -1,26 +1,88 @@
-using namespace game_framework {
+#pragma once
+#include "../Library/gameutil.h"
 
-	class UI{
-		public:
-			UI();						// constructor
-			void init();
-			void load_ui_pictures();
-		private:
-			int time;					// current time
-			int time_left;				// max_time - time
-			const int max_time;			// maximum time of the game
-			CMovingBitmap clock;
-			//! ¤W¤U¼Ó±èªº«ö¶sÀ³¸Ó­n©ñ¹L¨Ó
-			//! HP¼g¦b¤k¥D¨¤¨ºÃä¡AUI³o¸Ì¥Î¤@­Ógetter ®³­È¡A¦A·Q«ç»òload¦å¶qªº¹Ï¤ù
-			float hp;					// HP
-			CMovingBitmap hp_board;
-			CMovingBitmap hp_heart[9];
-			//! beauty time¼g¦b¤k¥D¨¤¨ºÃä¡AUI³o¸Ì¥Î¤@­Ógetter ®³¥¬ªL¡AÅã¥ÜµL¼Ä®É¶¡
-			bool is_invincible;
-			CMovingBitmap invincible_board;
-			//! ¦¬ªAªº¨k¥Í¼Æ¶q¼g¦b¨k¥Í¨ºÃä¡AUI³o¸Ì¥Î¤@­Ó getter®³­È¡A­pºâÁ`¦¨ÁZ
-			int score;					// Á`¦¨ÁZ
-			CMovingBitmap score_board;
-			CMovingBitmap score_num[8];
-	};
-}
+class UI : public game_framework::CMovingBitmap{
+public:
+	UI();
+};
+
+/**
+ * dirive class below
+ */
+
+class Score : public UI {
+public:
+	Score();
+	int get_score();
+	//! can't be used
+	void load_ui_score_board();
+	void load_ui_score_num();
+private:
+	//! æ”¶æœçš„ç”·ç”Ÿæ•¸é‡å¯«åœ¨ç”·ç”Ÿé‚£é‚Šï¼ŒUIé€™è£¡ç”¨ä¸€å€‹ getteræ‹¿å€¼ï¼Œè¨ˆç®—ç¸½æˆç¸¾
+	int score;					// ç¸½æˆç¸¾
+	CMovingBitmap score_board;
+	CMovingBitmap score_num[8];
+};
+
+
+class Audio : public UI {
+public:
+	Audio();
+	void load_ui_audio();
+private:
+	/*
+	 * min = 1;
+	 * max = 5;
+	 * to be fix
+	 */
+	int audio_levle;
+	CMovingBitmap audio_button[4];
+};
+
+class Clock : public UI {
+public:
+	Clock();
+	int get_max_time_second();
+	int get_time_left_second();
+	void load_ui_clock_board();
+	void load_ui_clock_tick();
+private:
+	int time;					// current time
+	int time_left;				// max_time - time
+	const int max_time = 60;			// maximum time of the game
+	CMovingBitmap clock;
+	CMovingBitmap clock_back;
+	CMovingBitmap clock_pointer;
+};
+
+class HP : public UI {
+public:
+	HP();
+	int hp;									// with maximum HP 900
+	bool is_invincible();
+	//! can't be used
+	void load_ui_hp_board();
+	void load_ui_hp_num();
+	void show_hp();
+private:
+	//! HPå¯«åœ¨å¥³ä¸»è§’é‚£é‚Šï¼ŒUIé€™è£¡ç”¨ä¸€å€‹getter æ‹¿å€¼ï¼Œå†æƒ³æ€éº¼loadè¡€é‡çš„åœ–ç‰‡
+	CMovingBitmap hp_board;
+	CMovingBitmap hp_posision[9];			// 0 is the left
+	CMovingBitmap hp_heart[20];
+	CMovingBitmap hp_heart_warning;
+	
+	//! beauty timeå¯«åœ¨å¥³ä¸»è§’é‚£é‚Šï¼ŒUIé€™è£¡ç”¨ä¸€å€‹getter æ‹¿å¸ƒæ—ï¼Œé¡¯ç¤ºç„¡æ•µæ™‚é–“
+	bool bool_invincible_state;
+	CMovingBitmap invincible_board;
+};
+
+class Elevator : public UI {
+public:
+	Elevator();
+	void load_ui_elevator();
+private:
+	int current_floor;
+	//! ä¸Šä¸‹æ¨“æ¢¯çš„æŒ‰éˆ•æ‡‰è©²è¦æ”¾éä¾†
+	CMovingBitmap up;
+	CMovingBitmap down;
+}; 
