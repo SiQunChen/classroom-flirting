@@ -84,11 +84,11 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	hp_board.LoadBitmapByString({
 		"./RES/UI/heart/heartPointBoard.bmp"});
 	hp_board.SetTopLeft(0, 0);
-
+	
 	clock_board.LoadBitmapByString({
 		"./RES/UI/clock/clock.bmp",
 		"./RES/UI/clock/clock_background.bmp"});
-	clock_board.SetTopLeft(350, 0);
+	clock_board.SetTopLeft(350, 0); 
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -142,6 +142,12 @@ void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
 {
+
+	/* //can't update hp
+	while (hp_board.hp >= 10) {
+		hp_board.hp -= 5;
+	}*/
+	
 	GetCursorPos(&p);
 	HWND hwnd = FindWindowA(NULL, "Game");
 	ScreenToClient(hwnd, &p);
@@ -275,6 +281,8 @@ void CGameStateRun::OnShow() {
 	hp_board.ShowBitmap();
 
 	clock_board.ShowBitmap();
+
+	hp_board.show_hp();
 
 	if (maingirl == 1) {
 		main_girl[2].ShowBitmap();

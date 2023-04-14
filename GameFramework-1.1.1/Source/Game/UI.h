@@ -58,15 +58,16 @@ private:
 class HP : public UI {
 public:
 	HP();
-	float get_hp();
+	int hp;									// with maximum HP 900
 	bool is_invincible();
 	//! can't be used
 	void load_ui_hp_board();
 	void load_ui_hp_num();
+	void show_hp();
 private:
 	//! HP寫在女主角那邊，UI這裡用一個getter 拿值，再想怎麼load血量的圖片
-	float hp;					// HP
 	CMovingBitmap hp_board;
+	CMovingBitmap hp_posision[9];			// 0 is the left
 	CMovingBitmap hp_heart[20];
 	CMovingBitmap hp_heart_warning;
 	
