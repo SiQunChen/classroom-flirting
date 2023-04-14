@@ -156,7 +156,7 @@ namespace game_framework {
 		CMovingBitmap end5_loop;
 		CMovingBitmap end6_start;
 		CMovingBitmap end6_loop;
-		int counter;	// 倒數之計數器
+		int counter;									// 倒數之計數器
 	};
 
 }

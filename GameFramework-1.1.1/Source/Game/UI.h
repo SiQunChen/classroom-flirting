@@ -1,5 +1,6 @@
 #pragma once
 #include "../Library/gameutil.h"
+#include <math.h>
 
 class UI : public game_framework::CMovingBitmap{
 public:
@@ -17,9 +18,11 @@ public:
 	//! can't be used
 	void load_ui_score_board();
 	void load_ui_score_num();
+	void show_score();
 private:
 	//! 收服的男生數量寫在男生那邊，UI這裡用一個 getter拿值，計算總成績
 	int score;					// 總成績
+	CMovingBitmap score_posision[8];		// 0 is the right
 	CMovingBitmap score_board;
 	CMovingBitmap score_num[8];
 };
