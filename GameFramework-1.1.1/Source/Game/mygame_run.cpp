@@ -68,10 +68,10 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 				}
 			}
 			else if (maingirl == 1 && floor == 4) {
-				main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 5, 300);
+				main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 3, 300);
 			}
 			else if (maingirl == 3 && floor == 4) {
-				main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 5, 300);
+				main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 3, 300);
 			}
 			else if (maingirl == 1 && up_down == 1) {
 				if (main_girl[2].GetLeft() < 380) {
@@ -144,6 +144,22 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 			}
 		}
 	}
+	ManMove();
+}
+
+void CGameStateRun::ManMove() {
+	if (floor == 1) {
+
+	}
+	else if (floor == 2) {
+
+	}
+	else if (floor == 3) {
+
+	}
+	else {
+
+	}
 }
 
 void CGameStateRun::MainGirlMove() {
@@ -183,20 +199,20 @@ void CGameStateRun::MainGirlMove() {
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
 	map.LoadBitmapByString({
-		"./RES/map1.bmp",
-		"./RES/map2.bmp",
-		"./RES/map3.bmp",
-		"./RES/map4.bmp",});
+		"../RES/map1.bmp",
+		"../RES/map2.bmp",
+		"../RES/map3.bmp",
+		"../RES/map4.bmp",});
 	map.SetTopLeft(0, 0);
 
 	up.LoadBitmapByString({
-		"./RES/UI/up.bmp", 
-		"./RES/UI/up_hover.bmp",},
+		"../RES/UI/up.bmp", 
+		"../RES/UI/up_hover.bmp",},
 		RGB(255, 255, 255));
 
 	down.LoadBitmapByString({
-		"./RES/UI/down.bmp", 
-		"./RES/UI/down_hover.bmp",},
+		"../RES/UI/down.bmp", 
+		"../RES/UI/down_hover.bmp",},
 		RGB(255, 255, 255));
 
 	main_girl[0].Load_main();
@@ -204,6 +220,13 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	main_girl[2].Load_walk_right();
 	main_girl[3].Load_run_left();
 	main_girl[4].Load_run_right();
+
+	/*man[0].Load_alive_left();
+	man[1].Load_alive_right();
+	man[2].Load_dead_left();
+	man[3].Load_dead_right();
+	man[4].Load_follow_left();
+	man[5].Load_follow_right();*/
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)

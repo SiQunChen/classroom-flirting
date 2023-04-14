@@ -1,4 +1,4 @@
-/*
+﻿/*
  * mygame.h: 本檔案儲遊戲本身的class的interface
  * Copyright (C) 2002-2008 Woei-Kae Chen <wkc@csie.ntut.edu.tw>
  *
@@ -44,6 +44,13 @@
 #include "../Library/gameutil.h"
 #include "../Library/gamecore.h"
 #include "Main_girl.h"
+#include "Man.h"
+#include "NormalMan1.h"
+#include "NormalMan2.h"
+#include "NormalMan3.h"
+#include "SpecialMan1.h"
+#include "SpecialMan2.h"
+#include "SpecialMan3.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
@@ -90,6 +97,7 @@ namespace game_framework {
 	public:
 		CGameStateRun(CGame *g);
 		~CGameStateRun();
+		void ManMove();
 		void MainGirlMove();
 		void OnBeginState();							// 設定每次重玩所需的變數
 		void OnInit();  								// 遊戲的初值及圖形設定
@@ -111,7 +119,12 @@ namespace game_framework {
 		int maingirl = 1;
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
-
+		Normalman1 n1;
+		Normalman2 n2;
+		Normalman3 n3;
+		Specialman1 s1;
+		Specialman2 s2;
+		Specialman3 s3;
 		Main_girl main_girl[5];
 		/**
 		 0: stand
