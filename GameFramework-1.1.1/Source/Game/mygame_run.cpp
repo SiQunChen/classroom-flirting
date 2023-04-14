@@ -144,18 +144,17 @@ void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
 {
-
-	/*//can't update hp
-	while (hp_board.hp >= 10) {
-		hp_board.hp -= 5;
-		// sleep for 0.1 sec
-	}*/
-
+	/*
 	if (hp_board.hp > -10) {
 		hp_board.hp -= 10;
 	}
 	else {
 		hp_board.hp = 800;
+	}*/
+
+	hp_board.hp -= 2;
+	if(hp_board.hp < -100) {
+		GotoGameState(GAME_STATE_OVER);	
 	}
 	
 	GetCursorPos(&p);
