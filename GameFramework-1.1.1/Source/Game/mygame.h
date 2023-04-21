@@ -44,6 +44,13 @@
 #include "../Library/gameutil.h"
 #include "../Library/gamecore.h"
 #include "Main_girl.h"
+#include "Man.h"
+#include "NormalMan1.h"
+#include "NormalMan2.h"
+#include "NormalMan3.h"
+#include "SpecialMan1.h"
+#include "SpecialMan2.h"
+#include "SpecialMan3.h"
 #include "UI.h"
 
 namespace game_framework {
@@ -95,8 +102,6 @@ namespace game_framework {
 	public:
 		CGameStateRun(CGame *g);
 		~CGameStateRun();
-		void MainGirlMove();
-		void OnBeginState();							// 設定每次重玩所需的變數
 		void OnInit();  								// 遊戲的初值及圖形設定
 		void OnKeyDown(UINT, UINT, UINT);
 		void OnKeyUp(UINT, UINT, UINT);
@@ -105,8 +110,11 @@ namespace game_framework {
 		void OnMouseMove(UINT nFlags, CPoint point);	// 處理滑鼠的動作 
 		void OnRButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
 		void OnRButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
-	protected:
 		CMovingBitmap map;
+	protected:
+		void MainGirlMove();
+		void OnBeginState();							// 設定每次重玩所需的變數
+		void SetupMan(int floor, bool left);
 		POINT p;
 		// Elevator up;	//
 		// Elevator down;	// UI is a package of UIsys
@@ -121,13 +129,21 @@ namespace game_framework {
 		int maingirl = 1;
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
-
+		bool second_floor_arrive = false;
+		bool third_floor_arrive = false;
+		bool forth_floor_arrive = false;
 		/*
 		0: stand
 		1: walk left 2: walk right
 		3: run left 4: run right
 		*/
 		Main_girl main_girl[5];
+		Normalman1 n1[8];
+		Normalman2 n2[8];
+		Normalman3 n3[8];
+		Specialman1 s1[2];
+		Specialman2 s2[2];
+		Specialman3 s3[2];
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

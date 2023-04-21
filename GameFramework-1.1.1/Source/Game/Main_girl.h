@@ -25,7 +25,6 @@ private:
 	int flag_girl_movement = -1;
 	*/
 
-	CMovingBitmap MainGirl[5];
     /*
      0: stand
      1: walk left
