@@ -14,7 +14,7 @@ public:
 	void Load_follow_left() override;
 	void Load_follow_right() override;
 private:
-
+	
 };
 
 #endif // !SPECIAL_H

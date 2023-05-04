@@ -126,7 +126,8 @@ namespace game_framework {
 		int up_down = 0; // 1 = 上樓，2 = 下樓
 		int time = 0;
 		int floor = 1;
-		int maingirl = 1;
+		int maingirl_state = 1;
+		int man_stop = 0;
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 		bool second_floor_arrive = false;
@@ -141,9 +142,9 @@ namespace game_framework {
 		Normalman1 n1[8];
 		Normalman2 n2[8];
 		Normalman3 n3[8];
-		Specialman1 s1[2];
-		Specialman2 s2[2];
-		Specialman3 s3[2];
+		Specialman1 s1;
+		Specialman2 s2;
+		Specialman3 s3;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
