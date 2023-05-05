@@ -120,6 +120,9 @@ namespace game_framework {
 		// Elevator down;	// UI is a package of UIsys
 		CMovingBitmap up;
 		CMovingBitmap down;
+		CMovingBitmap crosshair_on;
+		CMovingBitmap focusing_front;
+		CMovingBitmap focusing_behind;
 		Score score_board;
 		Clock clock_board;
 		HP hp_board;
@@ -133,6 +136,8 @@ namespace game_framework {
 		bool second_floor_arrive = false;
 		bool third_floor_arrive = false;
 		bool forth_floor_arrive = false;
+		bool maingirl_stop_left = false;
+		bool maingirl_stop_front = false;
 		/*
 		0: stand
 		1: walk left 2: walk right
