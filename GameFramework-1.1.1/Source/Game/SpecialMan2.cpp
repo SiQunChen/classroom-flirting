@@ -9,7 +9,7 @@ void Specialman2::Load_alive_left() {
 		"./RES/Man/specialMan2/alive/left/specialMan (4).bmp",
 		"./RES/Man/specialMan2/alive/left/specialMan (5).bmp",
 		"./RES/Man/specialMan2/alive/left/specialMan (6).bmp", },
-		RGB(255, 255, 255));
+		RGB(0,0,0));
 	ManState[0].SetAnimation(150, false);
 }
 void Specialman2::Load_alive_right() {
@@ -20,7 +20,7 @@ void Specialman2::Load_alive_right() {
 		"./RES/Man/specialMan2/alive/right/specialMan (4).bmp",
 		"./RES/Man/specialMan2/alive/right/specialMan (5).bmp",
 		"./RES/Man/specialMan2/alive/right/specialMan (6).bmp", },
-		RGB(255, 255, 255));
+		RGB(0,0,0));
 	ManState[1].SetAnimation(150, false);
 }
 void Specialman2::Load_dead_left() {
@@ -32,7 +32,7 @@ void Specialman2::Load_dead_left() {
 		"./RES/Man/specialMan2/dead/left/slave (5).bmp",
 		"./RES/Man/specialMan2/dead/left/slave (6).bmp",
 		"./RES/Man/specialMan2/dead/left/slave (7).bmp", },
-		RGB(255, 255, 255));
+		RGB(0,0,0));
 	ManState[2].SetAnimation(150, false);
 }
 void Specialman2::Load_dead_right() {
@@ -44,7 +44,7 @@ void Specialman2::Load_dead_right() {
 		"./RES/Man/specialMan2/dead/right/slave (5).bmp",
 		"./RES/Man/specialMan2/dead/right/slave (6).bmp",
 		"./RES/Man/specialMan2/dead/right/slave (7).bmp", },
-		RGB(255, 255, 255));
+		RGB(0,0,0));
 	ManState[3].SetAnimation(150, false);
 }
 void Specialman2::Load_follow_left() {
@@ -55,7 +55,7 @@ void Specialman2::Load_follow_left() {
 		"./RES/Man/specialMan2/follow/left/slave_girl (1).bmp",
 		"./RES/Man/specialMan2/follow/left/slave_girl (2).bmp",
 		"./RES/Man/specialMan2/follow/left/slave_girl (3).bmp", },
-		RGB(255, 255, 255));
+		RGB(0,0,0));
 	ManState[4].SetAnimation(150, false);
 }
 void Specialman2::Load_follow_right() {
@@ -66,6 +66,6 @@ void Specialman2::Load_follow_right() {
 		"./RES/Man/specialMan2/follow/right/slave_girl (1).bmp",
 		"./RES/Man/specialMan2/follow/right/slave_girl (2).bmp",
 		"./RES/Man/specialMan2/follow/right/slave_girl (3).bmp", },
-		RGB(255, 255, 255));
+		RGB(0,0,0));
 	ManState[5].SetAnimation(150, false);
 }

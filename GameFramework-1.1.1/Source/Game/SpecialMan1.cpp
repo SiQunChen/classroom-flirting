@@ -11,7 +11,7 @@ void Specialman1::Load_alive_left() {
 		"./RES/Man/specialMan1/alive/left/specialMan (6).bmp",
 		"./RES/Man/specialMan1/alive/left/specialMan (7).bmp",
 		"./RES/Man/specialMan1/alive/left/specialMan (8).bmp", },
-		RGB(255, 255, 255));
+		RGB(0,0,0));
 	ManState[0].SetAnimation(150, false);
 }
 void Specialman1::Load_alive_right() {
@@ -24,7 +24,7 @@ void Specialman1::Load_alive_right() {
 		"./RES/Man/specialMan1/alive/right/specialMan (6).bmp",
 		"./RES/Man/specialMan1/alive/right/specialMan (7).bmp",
 		"./RES/Man/specialMan1/alive/right/specialMan (8).bmp", },
-		RGB(255, 255, 255));
+		RGB(0,0,0));
 	ManState[1].SetAnimation(150, false);
 }
 void Specialman1::Load_dead_left() {
@@ -36,7 +36,7 @@ void Specialman1::Load_dead_left() {
 		"./RES/Man/specialMan1/dead/left/slave (5).bmp",
 		"./RES/Man/specialMan1/dead/left/slave (6).bmp",
 		"./RES/Man/specialMan1/dead/left/slave (7).bmp", },
-		RGB(255, 255, 255));
+		RGB(0,0,0));
 	ManState[2].SetAnimation(150, false);
 }
 void Specialman1::Load_dead_right() {
@@ -48,7 +48,7 @@ void Specialman1::Load_dead_right() {
 		"./RES/Man/specialMan1/dead/right/slave (5).bmp",
 		"./RES/Man/specialMan1/dead/right/slave (6).bmp",
 		"./RES/Man/specialMan1/dead/right/slave (7).bmp", },
-		RGB(255, 255, 255));
+		RGB(0,0,0));
 	ManState[3].SetAnimation(150, false);
 }
 void Specialman1::Load_follow_left() {
@@ -59,7 +59,7 @@ void Specialman1::Load_follow_left() {
 		"./RES/Man/specialMan1/follow/left/slave_girl (1).bmp",
 		"./RES/Man/specialMan1/follow/left/slave_girl (2).bmp",
 		"./RES/Man/specialMan1/follow/left/slave_girl (3).bmp", },
-		RGB(255, 255, 255));
+		RGB(0,0,0));
 	ManState[4].SetAnimation(150, false);
 }
 void Specialman1::Load_follow_right() {
@@ -70,6 +70,6 @@ void Specialman1::Load_follow_right() {
 		"./RES/Man/specialMan1/follow/right/slave_girl (1).bmp",
 		"./RES/Man/specialMan1/follow/right/slave_girl (2).bmp",
 		"./RES/Man/specialMan1/follow/right/slave_girl (3).bmp", },
-		RGB(255, 255, 255));
+		RGB(0,0,0));
 	ManState[5].SetAnimation(150, false);
 }
