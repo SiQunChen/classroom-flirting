@@ -1,6 +1,5 @@
 #pragma once
 #include "../Library/gameutil.h"
-#include <math.h>
 
 class UI : public game_framework::CMovingBitmap{
 public:
@@ -8,23 +7,33 @@ public:
 };
 
 /**
- * dirive class below
- */
+* derive class below
+*/
+
+class HDYLM_sys : public UI {
+public:
+	int how_much_do_you_love_me = 0;
+	bool man_love_me_sys(bool is_being_attack_state, int how_do_you_love_me_max);
+private:
+	bool killed = false;
+	int cd_time = 0;
+};
 
 class Score : public UI {
 public:
 	Score();
+	~Score()=default;
+	int score;					// 總成績
 	int get_score();
 	//! can't be used
-	void load_ui_score_board();
 	void load_ui_score_num();
 	void show_score();
 private:
 	//! 收服的男生數量寫在男生那邊，UI這裡用一個 getter拿值，計算總成績
-	int score;					// 總成績
+	int this_num;
 	CMovingBitmap score_posision[8];		// 0 is the right
 	CMovingBitmap score_board;
-	CMovingBitmap score_num[8];
+	CMovingBitmap score_num[10];
 };
 
 

@@ -16,9 +16,10 @@ public:
 	virtual void Load_follow_right() = 0;
 	void Load_flash_and_weakening();
 	void ShowMan(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left);
+	bool const get_being_attacking_state();
 	CMovingBitmap ManState[6];
 protected:
-
+	bool being_attacking = false;
 private:
 	int girl = 0;
 	bool left = false;

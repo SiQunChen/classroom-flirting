@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Man.h"
+#include "UI.h"
+#include "mygame.h"
 
 void Man::Load_flash_and_weakening() {
 	flash.LoadBitmapByString({
@@ -18,6 +20,8 @@ void Man::Load_flash_and_weakening() {
 }
 
 void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left) {
+	being_attacking = true;
+	
 	if (maingirl_state == 1) {
 		girl = -2;
 	}
@@ -66,10 +70,17 @@ void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 			this->ManState[1].SetFrameIndexOfBitmap(0);
 			this->ManState[1].ShowBitmap();
 		}*/
+		being_attacking = true;
+		
 		flash.SetTopLeft(ManState[0].GetLeft() - 40, ManState[0].GetTop() - 30);
 		flash.ShowBitmap();
 
 		weakening.SetTopLeft(ManState[0].GetLeft() - 20, ManState[0].GetTop() - 20);
 		weakening.ShowBitmap();
 	}
+}
+
+bool const Man::get_being_attacking_state()
+{
+	return (being_attacking);
 }

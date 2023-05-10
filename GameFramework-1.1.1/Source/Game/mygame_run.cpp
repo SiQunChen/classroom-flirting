@@ -152,6 +152,123 @@ void CGameStateRun::MainGirlMove() {
 	}
 }
 
+void CGameStateRun::MainGirlMoveUpAndDown() {
+	bool_moving_up_and_down_state = true;
+	time++;
+	if (maingirl_state == 1 && up_down == 1 && floor == 1) {
+		if (main_girl[2].GetLeft() < 500) {
+			main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 5, 300);
+		}
+		else {
+			main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 5, main_girl[2].GetTop() - 5);
+		}
+		if (second_floor_arrive == false) {
+			SetupMan(2, false);
+		}
+	}
+	else if (maingirl_state == 3 && up_down == 1 && floor == 1) {
+		if (main_girl[2].GetLeft() > 270) {
+			main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 5, 300);
+		}
+		else {
+			main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 5, main_girl[2].GetTop() - 5);
+		}
+		if (second_floor_arrive == false) {
+			SetupMan(2, true);
+		}
+	}
+	else if (maingirl_state == 1 && floor == 4) {
+		main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 3, 300);
+	}
+	else if (maingirl_state == 3 && floor == 4) {
+		main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 3, 300);
+	}
+	else if (maingirl_state == 1 && up_down == 1) {
+		if (main_girl[2].GetLeft() < 380) {
+			main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 5, 300);
+		}
+		else {
+			main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 5, main_girl[2].GetTop() - 5);
+		}
+		if (second_floor_arrive == false) {
+			if (floor == 2) {
+				SetupMan(3, false);
+			}
+			else {
+				SetupMan(4, false);
+			}
+		}
+	}
+	else if (maingirl_state == 1 && up_down == 2) {
+		if (main_girl[2].GetLeft() < 650) {
+			main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 5, 300);
+		}
+		else {
+			main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 5, main_girl[2].GetTop() + 5);
+		}
+	}
+	else if (maingirl_state == 3 && up_down == 1) {
+		if (main_girl[2].GetLeft() > 330) {
+			main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 5, 300);
+		}
+		else {
+			main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 5, main_girl[2].GetTop() - 5);
+		}
+		if (floor == 2) {
+			SetupMan(3, true);
+		}
+		else {
+			SetupMan(4, true);
+		}
+	}
+	else if (maingirl_state == 3 && up_down == 2) {
+		if (main_girl[2].GetLeft() > 70) {
+			main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 5, 300);
+		}
+		else {
+			main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 5, main_girl[2].GetTop() + 5);
+		}
+	}
+	main_girl[1].SetTopLeft(main_girl[2].GetLeft(), main_girl[2].GetTop());
+	if (time == 100) {
+		if (up_down == 1) {
+			if (floor == 1) {
+				floor = 2;
+				map.SetFrameIndexOfBitmap(1);
+			}
+			else if (floor == 2) {
+				floor = 3;
+				map.SetFrameIndexOfBitmap(2);
+			}
+			else if (floor == 3) {
+				floor = 4;
+				map.SetFrameIndexOfBitmap(3);
+			}
+			maingirl_state = 5;
+			main_girl[2].SetTopLeft(400, 300);
+		}
+		else if (up_down == 2) {
+			if (floor == 2) {
+				floor = 1;
+				map.SetFrameIndexOfBitmap(0);
+			}
+			else if (floor == 3) {
+				floor = 2;
+				map.SetFrameIndexOfBitmap(1);
+			}
+			else if (floor == 4) {
+				floor = 3;
+				map.SetFrameIndexOfBitmap(2);
+			}
+			maingirl_state = 6;
+			main_girl[2].SetTopLeft(300, 300);
+		}
+		up_down = 0;
+		time = 0;
+		bool_moving_up_and_down_state = false;
+	}
+}
+
 void CGameStateRun::OnBeginState()
 {
 }
@@ -183,11 +300,11 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	score_board.LoadBitmapByString({
 		"./RES/UI/number/scoreBoard.bmp"});
 	score_board.SetTopLeft(430, -1);
+	score_sys.load_ui_score_num();
 
 	hp_board.LoadBitmapByString({
 		"./RES/UI/heart/heartPointBoard.bmp"});
 	hp_board.SetTopLeft(0, 0);
-
 	hp_board.load_ui_hp_num();
 	
 	clock_board.LoadBitmapByString({
@@ -345,19 +462,18 @@ void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 }
 
 //在地圖範圍內的話，女主做移動，否則就上下樓。
-void CGameStateRun::OnMove()							// 移動遊戲元素
+void CGameStateRun::OnMove()							// 移動遊戲元素{
 {
-	/*
-	if (hp_board.hp > -10) {
-		hp_board.hp -= 10;
+	
+	if (!(bool_moving_up_and_down_state)) {
+		hp_board.hp -= 1;
+		if(HDYLM.man_love_me_sys(s1.get_being_attacking_state(), 100)) {
+			score_sys.score += 500;
+		}
 	}
-	else {
-		hp_board.hp = 800;
-	}*/
-
-	hp_board.hp -= 2;
-	if(hp_board.hp < -100) {
-		GotoGameState(GAME_STATE_OVER);	
+	
+	if (hp_board.hp < -100) {
+		GotoGameState(GAME_STATE_OVER);
 	}
 	
 	GetCursorPos(&p);
@@ -389,172 +505,59 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 				MainGirlMove();
 			}
 		}
-		else { //這一大串全部都在做上下樓動畫==
-			time++;
-			if (maingirl_state == 1 && up_down == 1 && floor == 1) {
-				if (main_girl[2].GetLeft() < 530) {
-					main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 5, 250);
-				}
-				else {
-					main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 5, main_girl[2].GetTop() - 5);
-				}
-				if (second_floor_arrive == false) {
-					SetupMan(2, false);
-				}
-			}
-			else if (maingirl_state == 3 && up_down == 1 && floor == 1) {
-				if (main_girl[2].GetLeft() > 250) {
-					main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 5, 250);
-				}
-				else {
-					main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 5, main_girl[2].GetTop() - 5);
-				}
-				if (second_floor_arrive == false) {
-					SetupMan(2, true);
-				}
-			}
-			else if (maingirl_state == 1 && floor == 4) {
-				main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 3, 250);
-			}
-			else if (maingirl_state == 3 && floor == 4) {
-				main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 3, 250);
-			}
-			else if (maingirl_state == 1 && up_down == 1) {
-				if (main_girl[2].GetLeft() < 380) {
-					main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 5, 250);
-				}
-				else {
-					main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 5, main_girl[2].GetTop() - 5);
-				}
-				if (second_floor_arrive == false) {
-					if (floor == 2) {
-						SetupMan(3, false);
-					}
-					else {
-						SetupMan(4, false);
-					}
-				}
-			}
-			else if (maingirl_state == 1 && up_down == 2) {
-				if (main_girl[2].GetLeft() < 600) {
-					main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 5, 250);
-				}
-				else {
-					main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 5, main_girl[2].GetTop() + 5);
-				}
-			}
-			else if (maingirl_state == 3 && up_down == 1) {
-				if (main_girl[2].GetLeft() > 330) {
-					main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 5, 250);
-				}
-				else {
-					main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 5, main_girl[2].GetTop() - 5);
-				}
-				if (floor == 2) {
-					SetupMan(3, true);
-				}
-				else {
-					SetupMan(4, true);
-				}
-			}
-			else if (maingirl_state == 3 && up_down == 2) {
-				if (main_girl[2].GetLeft() > 120) {
-					main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 5, 250);
-				}
-				else {
-					main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 5, main_girl[2].GetTop() + 5);
-				}
-			}
-			main_girl[1].SetTopLeft(main_girl[2].GetLeft(), main_girl[2].GetTop());
-			if (time == 100) {
-				maingirl_state = 5;
-				if (up_down == 1) {
-					if (floor == 1) {
-						floor = 2;
-						map.SetFrameIndexOfBitmap(1);
-					}
-					else if (floor == 2) {
-						floor = 3;
-						map.SetFrameIndexOfBitmap(2);
-					}
-					else if (floor == 3) {
-						floor = 4;
-						map.SetFrameIndexOfBitmap(3);
-					}
-					maingirl_stop_left = true;
-					main_girl[2].SetTopLeft(400, 250);
-				}
-				else if (up_down == 2) {
-					if (floor == 2) {
-						floor = 1;
-						map.SetFrameIndexOfBitmap(0);
-					}
-					else if (floor == 3) {
-						floor = 2;
-						map.SetFrameIndexOfBitmap(1);
-					}
-					else if (floor == 4) {
-						floor = 3;
-						map.SetFrameIndexOfBitmap(2);
-					}
-					maingirl_stop_left = false;
-					main_girl[2].SetTopLeft(300, 250);
-				}
-				up_down = 0;
-				time = 0;
-			}
+		else {
+			MainGirlMoveUpAndDown();
 		}
 	}
 }
 
 void CGameStateRun::OnShow() {
 	map.ShowBitmap();
-
-	score_board.ShowBitmap();
-
-	hp_board.ShowBitmap();
-
+	
 	clock_board.ShowBitmap();
 
+	hp_board.ShowBitmap();
 	hp_board.show_hp();
 
-	score_board.show_score();
+	score_board.ShowBitmap();
+	score_sys.show_score();
+	
 
 	if (man_stop != 1) {
-		n1[floor * 2 - 2].ShowMan(500, 800, map.GetLeft(), maingirl_state, 0, main_girl[2].GetLeft());
+		n1[floor * 2 - 2].ShowMan(500, 800, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft());
 	}
 	else {
-		n1[floor * 2 - 2].ShowMan(500, 800, map.GetLeft(), maingirl_state, 1, main_girl[2].GetLeft());
+		n1[floor * 2 - 2].ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft());
 	}
 	if (man_stop != 2) {
-		n1[floor * 2 - 1].ShowMan(1150, 1300, map.GetLeft(), maingirl_state, 0, main_girl[2].GetLeft());
+		n1[floor * 2 - 1].ShowMan(1150, 1300, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft());
 	}
 	else {
-		n1[floor * 2 - 1].ShowMan(500, 800, map.GetLeft(), maingirl_state, 1, main_girl[2].GetLeft());
+		n1[floor * 2 - 1].ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft());
 	}
 	if (man_stop != 3) {
-		n3[floor * 2 - 1].ShowMan(1950, 2200, map.GetLeft(), maingirl_state, 0, main_girl[2].GetLeft());
+		n3[floor * 2 - 1].ShowMan(1950, 2200, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft());
 	}
 	else {
-		n3[floor * 2 - 1].ShowMan(500, 800, map.GetLeft(), maingirl_state, 1, main_girl[2].GetLeft());
+		n3[floor * 2 - 1].ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft());
 	}
 	if (man_stop != 4 && floor == 2) {
-		s1.ShowMan(1600, 1700, map.GetLeft(), maingirl_state, 0, main_girl[2].GetLeft());
+		s1.ShowMan(1600, 1700, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft());
 	}
 	else if(floor == 2) {
-		s1.ShowMan(500, 800, map.GetLeft(), maingirl_state, 1, main_girl[2].GetLeft());
+		s1.ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft());
 	}
 	if (man_stop != 5 && floor == 3) {
-		s2.ShowMan(1600, 1700, map.GetLeft(), maingirl_state, 0, main_girl[2].GetLeft());
+		s2.ShowMan(1600, 1700, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft());
 	}
 	else if (floor == 3) {
-		s2.ShowMan(500, 800, map.GetLeft(), maingirl_state, 1, main_girl[2].GetLeft());
+		s2.ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft());
 	}
 	if (man_stop != 6 && floor == 4) {
-		s3.ShowMan(1600, 1700, map.GetLeft(), maingirl_state, 0, main_girl[2].GetLeft());
+		s3.ShowMan(1600, 1700, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft());
 	}
 	else if (floor == 4) {
-		s3.ShowMan(500, 800, map.GetLeft(), maingirl_state, 1, main_girl[2].GetLeft());
+		s3.ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft());
 	}
 
 	if (maingirl_state == 1) {
@@ -638,22 +641,22 @@ void CGameStateRun::OnShow() {
 	}
 	//圖層問題，故把這三個人和準心show在maingirl_state下面
 	if (man_stop != 7) {
-		n2[floor * 2 - 2].ShowMan(750, 1150, map.GetLeft(), maingirl_state, 0, main_girl[2].GetLeft());
+		n2[floor * 2 - 2].ShowMan(750, 1150, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft());
 	}
 	else {
-		n2[floor * 2 - 2].ShowMan(750, 1150, map.GetLeft(), maingirl_state, 1, main_girl[2].GetLeft());
+		n2[floor * 2 - 2].ShowMan(750, 1150, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft());
 	}
 	if (man_stop != 8) {
-		n3[floor * 2 - 2].ShowMan(1350, 1650, map.GetLeft(), maingirl_state, 0, main_girl[2].GetLeft());
+		n3[floor * 2 - 2].ShowMan(1350, 1650, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft());
 	}
 	else {
-		n3[floor * 2 - 2].ShowMan(750, 1150, map.GetLeft(), maingirl_state, 1, main_girl[2].GetLeft());
+		n3[floor * 2 - 2].ShowMan(750, 1150, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft());
 	}
 	if (man_stop != 9) {
-		n2[floor * 2 - 1].ShowMan(1700, 1900, map.GetLeft(), maingirl_state, 0, main_girl[2].GetLeft());
+		n2[floor * 2 - 1].ShowMan(1700, 1900, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft());
 	}
 	else {
-		n2[floor * 2 - 1].ShowMan(750, 1150, map.GetLeft(), maingirl_state, 1, main_girl[2].GetLeft());
+		n2[floor * 2 - 1].ShowMan(750, 1150, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft());
 	}
 	if (maingirl_state == 6 && man_stop == 0) {
 		crosshair_on.ShowBitmap();

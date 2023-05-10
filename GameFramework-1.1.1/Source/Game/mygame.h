@@ -93,37 +93,36 @@ namespace game_framework {
 	// 這個class為遊戲的遊戲執行物件，主要的遊戲程式都在這裡
 	// 每個Member function的Implementation都要弄懂
 	////////////////////////////////////////////////////////////////////////////////
-
-	/*
-	 * at 110, 111: UI is a package of UIsys
-	 * -> make dirive class
-	 */
+	
 	class CGameStateRun : public CGameState {
 	public:
 		CGameStateRun(CGame *g);
-		~CGameStateRun();
-		void OnInit();  								// 遊戲的初值及圖形設定
-		void OnKeyDown(UINT, UINT, UINT);
-		void OnKeyUp(UINT, UINT, UINT);
-		void OnLButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
-		void OnLButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
-		void OnMouseMove(UINT nFlags, CPoint point);	// 處理滑鼠的動作 
-		void OnRButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
-		void OnRButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
-		CMovingBitmap map;
+		~CGameStateRun() override;
+		void OnInit() override;  								// 遊戲的初值及圖形設定
+		void OnKeyDown(UINT, UINT, UINT) override;
+		void OnKeyUp(UINT, UINT, UINT) override;
+		void OnLButtonDown(UINT nFlags, CPoint point) override;  // 處理滑鼠的動作
+		void OnLButtonUp(UINT nFlags, CPoint point) override;	// 處理滑鼠的動作
+		void OnMouseMove(UINT nFlags, CPoint point) override;	// 處理滑鼠的動作 
+		void OnRButtonUp(UINT nFlags, CPoint point) override;	// 處理滑鼠的動作
+		void OnRButtonDown(UINT nFlags, CPoint point) override;  // 處理滑鼠的動作
+		HDYLM_sys HDYLM;
 	protected:
+		CMovingBitmap map;
 		void MainGirlMove();
-		void OnBeginState();							// 設定每次重玩所需的變數
+		void OnBeginState() override;							// 設定每次重玩所需的變數
+		void MainGirlMoveUpAndDown();
 		void SetupMan(int floor, bool left);
 		POINT p;
 		// Elevator up;	//
-		// Elevator down;	// UI is a package of UIsys
+		// Elevator down;	
 		CMovingBitmap up;
 		CMovingBitmap down;
 		CMovingBitmap crosshair_on;
 		CMovingBitmap focusing_front;
 		CMovingBitmap focusing_behind;
-		Score score_board;
+		CMovingBitmap score_board;
+		Score score_sys;
 		Clock clock_board;
 		HP hp_board;
 		int up_down = 0; // 1 = 上樓，2 = 下樓
@@ -131,13 +130,14 @@ namespace game_framework {
 		int floor = 1;
 		int maingirl_state = 1;
 		int man_stop = 0;
-		void OnMove();									// 移動遊戲元素
-		void OnShow();									// 顯示這個狀態的遊戲畫面
+		void OnMove() override;									// 移動遊戲元素
+		void OnShow() override;									// 顯示這個狀態的遊戲畫面
 		bool second_floor_arrive = false;
 		bool third_floor_arrive = false;
 		bool forth_floor_arrive = false;
 		bool maingirl_stop_left = false;
 		bool maingirl_stop_front = false;
+		bool bool_moving_up_and_down_state = false;
 		/*
 		0: stand
 		1: walk left 2: walk right
