@@ -2,7 +2,7 @@
 #include "UI.h"
 
 HP::HP() {
-	hp = 900;
+	hp = 500;
 	bool_invincible_state = false;
 }
 
@@ -59,7 +59,8 @@ void HP::load_ui_hp_num() {
     hp_heart_warning.LoadBitmapByString({		// <0%
     	"./RES/UI/heart/warning (1).bmp",
     	"./RES/UI/heart/warning (2).bmp",
-    	"./RES/UI/heart/warning (3).bmp"});
+    	"./RES/UI/heart/warning (3).bmp"},
+    	RGB(0, 0, 0));
 	hp_heart_warning.SetAnimation(200, false);
 	//invincible_board.LoadBitmapByString();
 }

@@ -58,20 +58,6 @@ void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 		}
 	}
 	else {
-		/*if (this->ManState[0].GetLeft() >= maingirl_left) {
-			left = true;
-		}
-		else if (this->ManState[0].GetLeft() < maingirl_left) {
-			left = false;
-		}
-		if (left == true) {
-			this->ManState[0].SetFrameIndexOfBitmap(0);
-			this->ManState[0].ShowBitmap();
-		}
-		else {
-			this->ManState[1].SetFrameIndexOfBitmap(0);
-			this->ManState[1].ShowBitmap();
-		}*/
 		being_attacking = true;
 		
 		flash.SetTopLeft(ManState[0].GetLeft() - 40, ManState[0].GetTop() - 30);
