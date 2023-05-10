@@ -1,25 +1,20 @@
 #pragma once
 #include "../Library/gameutil.h"
 
-class UI : public game_framework::CMovingBitmap{
+class HDYLM_sys : public game_framework::CMovingBitmap {
 public:
-	UI();
-};
-
-/**
-* derive class below
-*/
-
-class HDYLM_sys : public UI {
-public:
+	HDYLM_sys() = default;
+	~HDYLM_sys() = default;
 	int how_much_do_you_love_me = 0;
-	bool man_love_me_sys(bool is_being_attack_state, int how_do_you_love_me_max);
+	bool kill_man_earn_score(bool is_being_attack_state, int how_do_you_love_me_max);
+	bool flirting_earn_score(bool is_stop_state);
 private:
+	bool flirting = false;
 	bool killed = false;
 	int cd_time = 0;
 };
 
-class Score : public UI {
+class Score : public game_framework::CMovingBitmap {
 public:
 	Score();
 	~Score()=default;
@@ -37,9 +32,9 @@ private:
 };
 
 
-class Audio : public UI {
+class Audio : public game_framework::CMovingBitmap {
 public:
-	Audio();
+	Audio()=default;
 	void load_ui_audio();
 private:
 	/*
@@ -51,7 +46,7 @@ private:
 	CMovingBitmap audio_button[4];
 };
 
-class Clock : public UI {
+class Clock : public game_framework::CMovingBitmap {
 public:
 	Clock();
 	int get_max_time_second();
@@ -67,7 +62,7 @@ private:
 	CMovingBitmap clock_pointer;
 };
 
-class HP : public UI {
+class HP : public game_framework::CMovingBitmap {
 public:
 	HP();
 	int hp;									// with maximum HP 900
@@ -88,7 +83,7 @@ private:
 	CMovingBitmap invincible_board;
 };
 
-class Elevator : public UI {
+class Elevator : public game_framework::CMovingBitmap {
 public:
 	Elevator();
 	void load_ui_elevator();

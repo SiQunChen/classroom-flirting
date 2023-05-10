@@ -305,7 +305,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	hp_board.LoadBitmapByString({
 		"./RES/UI/heart/heartPointBoard.bmp"});
 	hp_board.SetTopLeft(0, 0);
-	hp_board.load_ui_hp_num();
+	hp_sys.load_ui_hp_num();
 	
 	clock_board.LoadBitmapByString({
 		"./RES/UI/clock/clock.bmp",
@@ -464,15 +464,24 @@ void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 //在地圖範圍內的話，女主做移動，否則就上下樓。
 void CGameStateRun::OnMove()							// 移動遊戲元素{
 {
+	//
+	// std::vector<Man> man_vector;
+	// man_vector.push_back(n1[0]);//{n1[0], n1[1], n2[0], n2[1], n3[0], n3[1], s1, s2, s3};
+	//
+	// for(auto which_man : man_vector) {
+	// 	if (!(bool_moving_up_and_down_state)) {
+	// 		hp_sys.hp -= 1;
+	// 		if(HDYLM.kill_man_earn_score(which_man.get_being_attacking_state(), 100)) {
+	// 			score_sys.score += 500;
+	// 		}
+	// 		else if (HDYLM.flirting_earn_score(which_man.get_stop_state())) {
+	// 			score_sys.score += 1;
+	// 		}
+	// 	}
+	// }
 	
-	if (!(bool_moving_up_and_down_state)) {
-		hp_board.hp -= 1;
-		if(HDYLM.man_love_me_sys(s1.get_being_attacking_state(), 100)) {
-			score_sys.score += 500;
-		}
-	}
 	
-	if (hp_board.hp < -100) {
+	if (hp_sys.hp < -100) {
 		GotoGameState(GAME_STATE_OVER);
 	}
 	
@@ -517,12 +526,11 @@ void CGameStateRun::OnShow() {
 	clock_board.ShowBitmap();
 
 	hp_board.ShowBitmap();
-	hp_board.show_hp();
+	hp_sys.show_hp();
 
 	score_board.ShowBitmap();
 	score_sys.show_score();
 	
-
 	if (man_stop != 1) {
 		n1[floor * 2 - 2].ShowMan(500, 800, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft());
 	}

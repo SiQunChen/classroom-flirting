@@ -20,7 +20,8 @@ void Man::Load_flash_and_weakening() {
 }
 
 void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left) {
-	being_attacking = true;
+	being_attacking = false;
+	not_stop_state = true;
 	
 	if (maingirl_state == 1) {
 		girl = -2;
@@ -38,6 +39,7 @@ void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 		girl = 0;
 	}
 	if (stop == 0) {
+		not_stop_state = false;
 		if (this->ManState[0].GetLeft() >= map + end + girl) {
 			left = true;
 		}
@@ -83,4 +85,9 @@ void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 bool const Man::get_being_attacking_state()
 {
 	return (being_attacking);
+}
+
+bool const Man::get_stop_state()
+{
+	return (not_stop_state);
 }
