@@ -37,11 +37,9 @@ public:
 	Audio()=default;
 	void load_ui_audio();
 private:
-	/*
-	 * min = 1;
-	 * max = 5;
-	 * to be fix
-	 */
+	// min = 1;
+	// max = 5;
+	// to be fix
 	int audio_levle;
 	CMovingBitmap audio_button[4];
 };
@@ -71,12 +69,15 @@ public:
 	void load_ui_hp_board();
 	void load_ui_hp_num();
 	void show_hp();
+	void shine_hp();
 private:
 	//! HP寫在女主角那邊，UI這裡用一個getter 拿值，再想怎麼load血量的圖片
 	CMovingBitmap hp_board;
 	CMovingBitmap hp_posision[9];			// 0 is the left
 	CMovingBitmap hp_heart[20];
 	CMovingBitmap hp_heart_warning;
+	int shine_cd = 0;
+	const int total_delay = 54;
 	
 	//! beauty time寫在女主角那邊，UI這裡用一個getter 拿布林，顯示無敵時間
 	bool bool_invincible_state;

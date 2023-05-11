@@ -464,14 +464,12 @@ void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 //在地圖範圍內的話，女主做移動，否則就上下樓。
 void CGameStateRun::OnMove()							// 移動遊戲元素{
 {
-
 	if (!(bool_moving_up_and_down_state)) {
 		if(HDYLM.flirting_earn_score(man_stop!=0)) {
 			score_sys.score += 1;
 			hp_sys.hp -= 1;
 		}
 	}
-	
 	
 	if (hp_sys.hp < -100) {
 		GotoGameState(GAME_STATE_OVER);
@@ -518,7 +516,19 @@ void CGameStateRun::OnShow() {
 	clock_board.ShowBitmap();
 
 	hp_board.ShowBitmap();
-	hp_sys.show_hp();
+	if (hp_sys.hp >= 900) {
+		// beauty time;
+	}
+	else if (hp_sys.hp > 200) {
+		hp_sys.show_hp();
+	}
+	else if(hp_sys.hp > 0){
+		hp_sys.shine_hp();
+	}
+	else {
+		GotoGameState(GAME_STATE_OVER);
+	}
+	
 
 	score_board.ShowBitmap();
 	score_sys.show_score();

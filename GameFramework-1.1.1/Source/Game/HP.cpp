@@ -2,7 +2,7 @@
 #include "UI.h"
 
 HP::HP() {
-	hp = 500;
+	hp = 230;
 	bool_invincible_state = false;
 }
 
@@ -61,27 +61,35 @@ void HP::load_ui_hp_num() {
     	"./RES/UI/heart/warning (2).bmp",
     	"./RES/UI/heart/warning (3).bmp"},
     	RGB(0, 0, 0));
-	hp_heart_warning.SetAnimation(200, false);
-	//invincible_board.LoadBitmapByString();
+	// hp_heart_warning.SetAnimation(200, false);
+	// invincible_board.LoadBitmapByString();
 }
 
 void HP::show_hp() {
-	if (hp > 0) {
-		for (int i = 0; i < (hp / 100); i++) {
-        		hp_heart[19].SetTopLeft(35*i+5, 45);
-        		hp_heart[19].ShowBitmap();
-        	}
-        	hp_heart[hp % 100/5].SetTopLeft(35*(hp / 100)+5, 45);
-        	hp_heart[hp % 100/5].ShowBitmap();
-        	for (int i = (hp / 100)+1; i < 9; i++) {
-        		hp_heart[0].SetTopLeft(35*i+5, 45);
-        		hp_heart[0].ShowBitmap();
-        	}
+	for (int i = 0; i < (hp / 100); i++) {
+		hp_heart[19].SetTopLeft(35*i+5, 45);
+		hp_heart[19].ShowBitmap();
 	}
-	else {
-		for (int i = 0; i < 9; i++) {
-			hp_heart_warning.SetTopLeft(35*i+5, 39);
-			hp_heart_warning.ShowBitmap();
+	hp_heart[hp % 100/5].SetTopLeft(35*(hp / 100)+5, 45);
+	hp_heart[hp % 100/5].ShowBitmap();
+	for (int i = (hp / 100)+1; i < 9; i++) {
+		hp_heart[0].SetTopLeft(35*i+5, 45);
+		hp_heart[0].ShowBitmap();
+	}
+}
+
+void HP::shine_hp()
+{
+	for (int j = 0; j<3; j++) {
+		if (shine_cd++ % total_delay >= total_delay/6*j) {			// 54 - 54/2/3*1
+			hp_heart_warning.SetFrameIndexOfBitmap(j);
+			for (int i = 0; i < 9; i++) {
+				hp_heart_warning.SetTopLeft(35*i+0, 39);
+				hp_heart_warning.ShowBitmap();
+			}
+		}
+		else {
+			show_hp();
 		}
 	}
 }
