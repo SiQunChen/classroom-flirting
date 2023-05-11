@@ -1,3 +1,10 @@
+### 5/11/23
+#### kuan
+> working on class HP & state run
+> 1. 2 heart shining
+> 2. hp = 0 & hp = 900
+
+
 ### 5/9/23
 #### kuan
 > working on class HDYLM & state run & man
