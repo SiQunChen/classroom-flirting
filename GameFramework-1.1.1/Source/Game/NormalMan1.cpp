@@ -32,7 +32,8 @@ void Normalman1::Load_dead_left() {
 		"./RES/Man/normalMan1/dead/left/slave (5).bmp",
 		"./RES/Man/normalMan1/dead/left/slave (6).bmp", },
 		RGB(255, 255, 255));
-	ManState[2].SetAnimation(150, false);
+	ManState[2].SetAnimation(150, true);
+	ManState[2].ToggleAnimation();
 }
 void Normalman1::Load_dead_right() {
 	ManState[3].LoadBitmapByString({ //right dead
@@ -43,7 +44,8 @@ void Normalman1::Load_dead_right() {
 		"./RES/Man/normalMan1/dead/right/slave (5).bmp",
 		"./RES/Man/normalMan1/dead/right/slave (6).bmp", },
 		RGB(255, 255, 255));
-	ManState[3].SetAnimation(150, false);
+	ManState[3].SetAnimation(150, true);
+	ManState[3].ToggleAnimation();
 }
 void Normalman1::Load_follow_left() {
 	ManState[4].LoadBitmapByString({ //left follow

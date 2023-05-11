@@ -35,7 +35,8 @@ void Specialman3::Load_dead_left() {
 		"./RES/Man/specialMan3/dead/left/slave (6).bmp",
 		"./RES/Man/specialMan3/dead/left/slave (7).bmp", },
 		RGB(255, 255, 255));
-	ManState[2].SetAnimation(150, false);
+	ManState[2].SetAnimation(150, true);
+	ManState[2].ToggleAnimation();
 }
 void Specialman3::Load_dead_right() {
 	ManState[3].LoadBitmapByString({
@@ -47,7 +48,8 @@ void Specialman3::Load_dead_right() {
 		"./RES/Man/specialMan3/dead/right/slave (6).bmp",
 		"./RES/Man/specialMan3/dead/right/slave (7).bmp", },
 		RGB(255, 255, 255));
-	ManState[3].SetAnimation(150, false);
+	ManState[3].SetAnimation(150, true);
+	ManState[3].ToggleAnimation();
 }
 void Specialman3::Load_follow_left() {
 	ManState[4].LoadBitmapByString({
