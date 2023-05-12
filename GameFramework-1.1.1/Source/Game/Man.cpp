@@ -108,6 +108,7 @@ void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 
 			if (blood.GetFrameIndexOfBitmap() == 13) {
 				dead = true;
+				man_stop = 0;
 				if (total_follower >= 0) {
 					total_follower++;
 				}

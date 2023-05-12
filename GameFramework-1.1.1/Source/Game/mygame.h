@@ -130,7 +130,6 @@ namespace game_framework {
 		int time = 0;
 		int floor = 1;
 		int maingirl_state = 1;
-		int man_stop = 0;
 		void OnMove() override;									// 移動遊戲元素
 		void OnShow() override;									// 顯示這個狀態的遊戲畫面
 		bool second_floor_arrive = false;

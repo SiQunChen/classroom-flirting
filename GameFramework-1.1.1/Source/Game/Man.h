@@ -22,6 +22,7 @@ public:
 	CMovingBitmap ManState[6];
 	bool dead = false;
 	static std::vector<Man*> dead_man;
+	static int man_stop;
 protected:
 	bool being_attacking = false;
 	bool not_stop_state = false;

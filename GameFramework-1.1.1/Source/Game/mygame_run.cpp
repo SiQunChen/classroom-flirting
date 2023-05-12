@@ -4,6 +4,7 @@
 using namespace game_framework;
 
 std::vector<Man*> Man::dead_man;
+int Man::man_stop = 0;
 
 /////////////////////////////////////////////////////////////////////////////
 // 這個class為遊戲的遊戲執行物件，主要的遊戲程式都在這裡
@@ -393,31 +394,31 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 {
 	if (maingirl_state == 6) {
 		if (p.x > n1[floor * 2 - 2].ManState[0].GetLeft() && p.x < n1[floor * 2 - 2].ManState[0].GetLeft() + 65 && p.y > 150 && p.y < 230 && n1[floor * 2 - 2].dead == false) {
-			man_stop = 1;
+			Man::man_stop = 1;
 		}
 		else if (p.x > n1[floor * 2 - 1].ManState[0].GetLeft() && p.x < n1[floor * 2 - 1].ManState[0].GetLeft() + 65 && p.y > 150 && p.y < 230 && n1[floor * 2 - 1].dead == false) {
-			man_stop = 2;
+			Man::man_stop = 2;
 		}
 		else if (p.x > n3[floor * 2 - 1].ManState[0].GetLeft() && p.x < n3[floor * 2 - 1].ManState[0].GetLeft() + 65 && p.y > 150 && p.y < 230 && n3[floor * 2 - 1].dead == false) {
-			man_stop = 3;
+			Man::man_stop = 3;
 		}
 		else if (p.x > s1.ManState[0].GetLeft() && p.x < s1.ManState[0].GetLeft() + 65 && p.y > 150 && p.y < 230 && s1.dead == false) {
-			man_stop = 4;
+			Man::man_stop = 4;
 		}
 		else if (p.x > s2.ManState[0].GetLeft() && p.x < s2.ManState[0].GetLeft() + 65 && p.y > 150 && p.y < 230 && s2.dead == false) {
-			man_stop = 5;
+			Man::man_stop = 5;
 		}
 		else if (p.x > s3.ManState[0].GetLeft() && p.x < s3.ManState[0].GetLeft() + 65 && p.y > 150 && p.y < 230 && s3.dead == false) {
-			man_stop = 6;
+			Man::man_stop = 6;
 		}
 		else if (p.x > n2[floor * 2 - 2].ManState[0].GetLeft() && p.x < n2[floor * 2 - 2].ManState[0].GetLeft() + 65 && p.y > 350 && p.y < 430 && n2[floor * 2 - 2].dead == false) {
-			man_stop = 7;
+			Man::man_stop = 7;
 		}
 		else if (p.x > n3[floor * 2 - 2].ManState[0].GetLeft() && p.x < n3[floor * 2 - 2].ManState[0].GetLeft() + 65 && p.y > 350 && p.y < 430 && n3[floor * 2 - 2].dead == false) {
-			man_stop = 8;
+			Man::man_stop = 8;
 		}
 		else if (p.x > n2[floor * 2 - 1].ManState[0].GetLeft() && p.x < n2[floor * 2 - 1].ManState[0].GetLeft() + 65 && p.y > 350 && p.y < 430 && n2[floor * 2 - 1].dead == false) {
-			man_stop = 9;
+			Man::man_stop = 9;
 		}
 	}
 }
@@ -446,7 +447,6 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 			up_down = 2;
 		}
 	}
-	man_stop = 0;
 }
 
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
@@ -465,7 +465,7 @@ void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 void CGameStateRun::OnMove()							// 移動遊戲元素{
 {
 	if (!(bool_moving_up_and_down_state)) {
-		if(HDYLM.flirting_earn_score(man_stop!=0)) {
+		if(HDYLM.flirting_earn_score(Man::man_stop!=0)) {
 			score_sys.score += 1;
 			hp_sys.hp -= 1;
 		}
@@ -532,37 +532,37 @@ void CGameStateRun::OnShow() {
 	score_board.ShowBitmap();
 	score_sys.show_score();
 	
-	if (man_stop != 1) {
+	if (Man::man_stop != 1) {
 		n1[floor * 2 - 2].ShowMan(500, 800, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left);
 	}
 	else {
 		n1[floor * 2 - 2].ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left);
 	}
-	if (man_stop != 2) {
+	if (Man::man_stop != 2) {
 		n1[floor * 2 - 1].ShowMan(1150, 1300, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left);
 	}
 	else {
 		n1[floor * 2 - 1].ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left);
 	}
-	if (man_stop != 3) {
+	if (Man::man_stop != 3) {
 		n3[floor * 2 - 1].ShowMan(1950, 2200, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left);
 	}
 	else {
 		n3[floor * 2 - 1].ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left);
 	}
-	if (man_stop != 4 && floor == 2) {
+	if (Man::man_stop != 4 && floor == 2) {
 		s1.ShowMan(1600, 1700, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left);
 	}
 	else if(floor == 2) {
 		s1.ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left);
 	}
-	if (man_stop != 5 && floor == 3) {
+	if (Man::man_stop != 5 && floor == 3) {
 		s2.ShowMan(1600, 1700, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left);
 	}
 	else if (floor == 3) {
 		s2.ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left);
 	}
-	if (man_stop != 6 && floor == 4) {
+	if (Man::man_stop != 6 && floor == 4) {
 		s3.ShowMan(1600, 1700, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left);
 	}
 	else if (floor == 4) {
@@ -649,25 +649,25 @@ void CGameStateRun::OnShow() {
 		}
 	}
 	//圖層問題，故把這三個人和準心show在maingirl_state下面
-	if (man_stop != 7) {
+	if (Man::man_stop != 7) {
 		n2[floor * 2 - 2].ShowMan(750, 1150, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left);
 	}
 	else {
 		n2[floor * 2 - 2].ShowMan(750, 1150, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left);
 	}
-	if (man_stop != 8) {
+	if (Man::man_stop != 8) {
 		n3[floor * 2 - 2].ShowMan(1350, 1650, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left);
 	}
 	else {
 		n3[floor * 2 - 2].ShowMan(750, 1150, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left);
 	}
-	if (man_stop != 9) {
+	if (Man::man_stop != 9) {
 		n2[floor * 2 - 1].ShowMan(1700, 1900, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left);
 	}
 	else {
 		n2[floor * 2 - 1].ShowMan(750, 1150, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left);
 	}
-	if (maingirl_state == 6 && man_stop == 0) {
+	if (maingirl_state == 6 && Man::man_stop == 0) {
 		crosshair_on.ShowBitmap();
 	}
 
