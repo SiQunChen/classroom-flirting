@@ -16,7 +16,8 @@ void Score::load_ui_score_num() {
     for (int i = 0; i<10; i++) {
         std::string I = std::to_string(i);
         score_num[i].LoadBitmapByString({
-            "./RES/UI/number/number ("+I+").bmp"});
+            "./RES/UI/number/number ("+I+").bmp"},
+			RGB(182, 185, 184));
     }
 }
 
@@ -31,7 +32,7 @@ void Score::show_score() {
         for (int j = 0; j<10; j++) {
             if (this_num == j) {
                 score_num[j].SetTopLeft(650 - 25 * i, 45);
-                score_num[j].ShowBitmap();
+                score_num[j].ShowBitmap(1.2);
             }
         }
     }
