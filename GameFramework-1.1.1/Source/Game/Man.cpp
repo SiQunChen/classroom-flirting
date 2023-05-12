@@ -124,22 +124,21 @@ void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 		if (delay < 25) {
 			delay++;
 			ManMove(start, end, map, maingirl_state);
-			if (delay == 25) {
-				if (left == true) {
-					this->ManState[4].SetTopLeft(this->ManState[2].GetLeft(), this->ManState[2].GetTop());
-				}
-				else {
-					this->ManState[4].SetTopLeft(this->ManState[3].GetLeft(), this->ManState[3].GetTop());
-				}
-			}
 		}
-		else {
-			follow(maingirl_state, maingirl_left, maingirl_stop_left);
+		else if (delay == 25) {
+			delay++;
+			dead_man.push_back(this);
+			if (left == true) {
+				this->ManState[4].SetTopLeft(this->ManState[2].GetLeft(), this->ManState[2].GetTop());
+			}
+			else {
+				this->ManState[4].SetTopLeft(this->ManState[3].GetLeft(), this->ManState[3].GetTop());
+			}
 		}
 	}
 }
 
-void Man::follow(int maingirl_state, int maingirl_left, bool maingirl_stop_left) {
+void Man::follow(int maingirl_state, int maingirl_left, int maingirl_top, bool maingirl_stop_left) {
 	this->ManState[5].SetTopLeft(this->ManState[4].GetLeft(), this->ManState[4].GetTop());
 
 	if (this->ManState[4].GetLeft() >= maingirl_left) {
@@ -166,10 +165,10 @@ void Man::follow(int maingirl_state, int maingirl_left, bool maingirl_stop_left)
 	else if (this->ManState[4].GetLeft() > maingirl_left + 80 * follower_rank + 10) {
 		this->ManState[4].SetTopLeft(this->ManState[4].GetLeft() - 10, this->ManState[4].GetTop());
 	}
-	if (this->ManState[4].GetTop() < 220) {
+	if (this->ManState[4].GetTop() < maingirl_top - 10) {
 		this->ManState[4].SetTopLeft(this->ManState[4].GetLeft(), this->ManState[4].GetTop() + 10);
 	}
-	else if (this->ManState[4].GetTop() > 220) {
+	else if (this->ManState[4].GetTop() > maingirl_top + 10) {
 		this->ManState[4].SetTopLeft(this->ManState[4].GetLeft(), this->ManState[4].GetTop() - 10);
 	}
 }

@@ -3,6 +3,8 @@
 #include<iostream>
 using namespace game_framework;
 
+std::vector<Man*> Man::dead_man;
+
 /////////////////////////////////////////////////////////////////////////////
 // 這個class為遊戲的遊戲執行物件，主要的遊戲程式都在這裡
 /////////////////////////////////////////////////////////////////////////////
@@ -444,9 +446,7 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 			up_down = 2;
 		}
 	}
-	if (maingirl_state == 6) {
-		man_stop = 0;
-	}
+	man_stop = 0;
 }
 
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
@@ -474,7 +474,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素{
 	if (hp_sys.hp < -100) {
 		GotoGameState(GAME_STATE_OVER);
 	}
-	
+
 	GetCursorPos(&p);
 	HWND hwnd = FindWindowA(NULL, "Game");
 	ScreenToClient(hwnd, &p);
@@ -528,7 +528,6 @@ void CGameStateRun::OnShow() {
 	else {
 		GotoGameState(GAME_STATE_OVER);
 	}
-	
 
 	score_board.ShowBitmap();
 	score_sys.show_score();
@@ -670,5 +669,9 @@ void CGameStateRun::OnShow() {
 	}
 	if (maingirl_state == 6 && man_stop == 0) {
 		crosshair_on.ShowBitmap();
+	}
+
+	for (auto &m : Man::dead_man) {
+		m->follow(maingirl_state, main_girl[2].GetLeft(), main_girl[2].GetTop(), maingirl_stop_left);
 	}
 }
