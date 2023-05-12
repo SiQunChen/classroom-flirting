@@ -149,12 +149,12 @@ void Man::follow(int maingirl_state, int maingirl_left, int maingirl_top, bool m
 		this->ManState[5].ShowBitmap();
 	}
 
-	if (maingirl_state == 1 || maingirl_state == 2 || maingirl_stop_left == false) {
+	if (maingirl_state == 1 || maingirl_state == 2 || (maingirl_stop_left == false && (maingirl_state == 6 || maingirl_state == 5))) {
 		if (follower_rank > 0) {
 			follower_rank = follower_rank * (-1);
 		}
 	}
-	if (maingirl_state == 3 || maingirl_state == 4 || maingirl_stop_left == true) {//I don't know why here use "else" will be broken = =
+	else{
 		if (follower_rank < 0) {
 			follower_rank = follower_rank * (-1);
 		}
