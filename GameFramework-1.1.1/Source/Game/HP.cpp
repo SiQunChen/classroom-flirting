@@ -2,7 +2,7 @@
 #include "UI.h"
 
 HP::HP() {
-	hp = 500;
+	hp = 230;
 	bool_invincible_state = false;
 }
 

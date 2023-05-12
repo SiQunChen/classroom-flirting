@@ -92,17 +92,17 @@ void CGameStateRun::MainGirlMove() {
 		maingirl_stop_front = false;
 		crosshair_on.SetTopLeft(n3[floor * 2 - 1].ManState[0].GetLeft() + 5, 150);
 	}
-	else if (p.x > s1.ManState[0].GetLeft() && p.x < s1.ManState[0].GetLeft() + 65 && p.y > 150 && p.y < 230 && s1.dead == false) {
+	else if (p.x > s1.ManState[0].GetLeft() && p.x < s1.ManState[0].GetLeft() + 65 && p.y > 150 && p.y < 230 && s1.dead == false && floor == 2) {
 		maingirl_state = 6;
 		maingirl_stop_front = false;
 		crosshair_on.SetTopLeft(s1.ManState[0].GetLeft() + 5, 150);
 	}
-	else if (p.x > s2.ManState[0].GetLeft() && p.x < s2.ManState[0].GetLeft() + 65 && p.y > 150 && p.y < 230 && s2.dead == false) {
+	else if (p.x > s2.ManState[0].GetLeft() && p.x < s2.ManState[0].GetLeft() + 65 && p.y > 150 && p.y < 230 && s2.dead == false && floor == 3) {
 		maingirl_state = 6;
 		maingirl_stop_front = false;
 		crosshair_on.SetTopLeft(s2.ManState[0].GetLeft() + 5, 150);
 	}
-	else if (p.x > s3.ManState[0].GetLeft() && p.x < s3.ManState[0].GetLeft() + 65 && p.y > 150 && p.y < 230 && s3.dead == false) {
+	else if (p.x > s3.ManState[0].GetLeft() && p.x < s3.ManState[0].GetLeft() + 65 && p.y > 150 && p.y < 230 && s3.dead == false && floor == 4) {
 		maingirl_state = 6;
 		maingirl_stop_front = false;
 		crosshair_on.SetTopLeft(s3.ManState[0].GetLeft() + 5, 150);
@@ -263,7 +263,7 @@ void CGameStateRun::MainGirlMoveUpAndDown() {
 				floor = 3;
 				map.SetFrameIndexOfBitmap(2);
 			}
-			maingirl_state = 6;
+			maingirl_state = 5;
 			main_girl[2].SetTopLeft(300, 300);
 		}
 		up_down = 0;
@@ -447,6 +447,7 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 			up_down = 2;
 		}
 	}
+	Man::man_stop = 0;
 }
 
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
@@ -648,6 +649,11 @@ void CGameStateRun::OnShow() {
 			focusing_behind.ShowBitmap(0.9);
 		}
 	}
+
+	for (auto &m : Man::dead_man) {
+		m->follow(maingirl_state, main_girl[2].GetLeft(), main_girl[2].GetTop(), maingirl_stop_left);
+	}
+
 	//圖層問題，故把這三個人和準心show在maingirl_state下面
 	if (Man::man_stop != 7) {
 		n2[floor * 2 - 2].ShowMan(750, 1150, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left);
@@ -671,7 +677,4 @@ void CGameStateRun::OnShow() {
 		crosshair_on.ShowBitmap();
 	}
 
-	for (auto &m : Man::dead_man) {
-		m->follow(maingirl_state, main_girl[2].GetLeft(), main_girl[2].GetTop(), maingirl_stop_left);
-	}
 }
