@@ -1,8 +1,27 @@
+### 5/17/23
+#### kuan
+> to be done
+> 1. clock sys
+> 2. audio sys
+> 3. beauty time
+
+### 5/11/23
+#### kuan
+> working on class HP & state run
+> 1. 2 heart shining
+> 2. hp = 0 & hp = 900
+
+
+### 5/9/23
+#### kuan
+> working on class HDYLM & state run & man
+>> **_to be fix_** 
+>> 1. link HDYLM_sys to man, so sys will add score automatically will man be killed
+>> 2. indicate which man is which
+
 ### 4/14/23
 #### kuan
 > working at class HP & state run
->> **_to be fix_**
->> 1. 
 
 ### 4/13/23 update
 #### kuan

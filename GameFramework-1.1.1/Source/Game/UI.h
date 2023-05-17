@@ -1,48 +1,50 @@
 #pragma once
 #include "../Library/gameutil.h"
-#include <math.h>
 
-class UI : public game_framework::CMovingBitmap{
+class HDYLM_sys : public game_framework::CMovingBitmap {
 public:
-	UI();
+	HDYLM_sys() = default;
+	~HDYLM_sys() = default;
+	int how_much_do_you_love_me = 0;
+	bool kill_man_earn_score(bool is_being_attack_state, int how_do_you_love_me_max);
+	bool flirting_earn_score(bool is_stop_state);
+private:
+	bool flirting = false;
+	bool killed = false;
+	int cd_time = 0;
 };
 
-/**
- * dirive class below
- */
-
-class Score : public UI {
+class Score : public game_framework::CMovingBitmap {
 public:
 	Score();
+	~Score()=default;
+	int score;					// 總成績
 	int get_score();
 	//! can't be used
-	void load_ui_score_board();
 	void load_ui_score_num();
 	void show_score();
 private:
 	//! 收服的男生數量寫在男生那邊，UI這裡用一個 getter拿值，計算總成績
-	int score;					// 總成績
+	int this_num;
 	CMovingBitmap score_posision[8];		// 0 is the right
 	CMovingBitmap score_board;
-	CMovingBitmap score_num[8];
+	CMovingBitmap score_num[10];
 };
 
 
-class Audio : public UI {
+class Audio : public game_framework::CMovingBitmap {
 public:
-	Audio();
+	Audio()=default;
 	void load_ui_audio();
 private:
-	/*
-	 * min = 1;
-	 * max = 5;
-	 * to be fix
-	 */
+	// min = 1;
+	// max = 5;
+	// to be fix
 	int audio_levle;
 	CMovingBitmap audio_button[4];
 };
 
-class Clock : public UI {
+class Clock : public game_framework::CMovingBitmap {
 public:
 	Clock();
 	int get_max_time_second();
@@ -58,7 +60,7 @@ private:
 	CMovingBitmap clock_pointer;
 };
 
-class HP : public UI {
+class HP : public game_framework::CMovingBitmap {
 public:
 	HP();
 	int hp;									// with maximum HP 900
@@ -67,19 +69,22 @@ public:
 	void load_ui_hp_board();
 	void load_ui_hp_num();
 	void show_hp();
+	void shine_hp();
 private:
 	//! HP寫在女主角那邊，UI這裡用一個getter 拿值，再想怎麼load血量的圖片
 	CMovingBitmap hp_board;
 	CMovingBitmap hp_posision[9];			// 0 is the left
 	CMovingBitmap hp_heart[20];
 	CMovingBitmap hp_heart_warning;
+	int shine_cd = 0;
+	const int total_delay = 54;
 	
 	//! beauty time寫在女主角那邊，UI這裡用一個getter 拿布林，顯示無敵時間
 	bool bool_invincible_state;
 	CMovingBitmap invincible_board;
 };
 
-class Elevator : public UI {
+class Elevator : public game_framework::CMovingBitmap {
 public:
 	Elevator();
 	void load_ui_elevator();
