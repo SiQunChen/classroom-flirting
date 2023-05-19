@@ -336,7 +336,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 		n1[i].Load_dead_right();
 		n1[i].Load_follow_left();
 		n1[i].Load_follow_right();
-		n1[i].Load_attack();
+		n1[i].Load();
 
 		n2[i].Load_alive_left();
 		n2[i].Load_alive_right();
@@ -344,7 +344,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 		n2[i].Load_dead_right();
 		n2[i].Load_follow_left();
 		n2[i].Load_follow_right();
-		n2[i].Load_attack();
+		n2[i].Load();
 
 		n3[i].Load_alive_left();
 		n3[i].Load_alive_right();
@@ -352,7 +352,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 		n3[i].Load_dead_right();
 		n3[i].Load_follow_left();
 		n3[i].Load_follow_right();
-		n3[i].Load_attack();
+		n3[i].Load();
 	}
 
 	s1.Load_alive_left();
@@ -361,7 +361,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	s1.Load_dead_right();
 	s1.Load_follow_left();
 	s1.Load_follow_right();
-	s1.Load_attack();
+	s1.Load();
 
 	s2.Load_alive_left();
 	s2.Load_alive_right();
@@ -369,7 +369,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	s2.Load_dead_right();
 	s2.Load_follow_left();
 	s2.Load_follow_right();
-	s2.Load_attack();
+	s2.Load();
 
 	s3.Load_alive_left();
 	s3.Load_alive_right();
@@ -377,7 +377,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	s3.Load_dead_right();
 	s3.Load_follow_left();
 	s3.Load_follow_right();
-	s3.Load_attack();
+	s3.Load();
 	SetupMan(1, true);
 }
 
@@ -517,8 +517,21 @@ void CGameStateRun::OnShow() {
 	clock_board.ShowBitmap();
 
 	hp_board.ShowBitmap();
+
 	if (hp_sys.hp >= 900) {
-		// beauty time;
+		evolution = true;
+		beauty_time = true;
+		if (maingirl_state == 1 || maingirl_state == 2) {
+			main_girl[6].Load_beauty_time_right();
+			main_girl[6].SetTopLeft(main_girl[2].GetLeft(), main_girl[2].GetTop() - 300);
+			main_girl[6].ShowBitmap();
+		}
+		else if (maingirl_state == 3 || maingirl_state == 4) {
+			main_girl[5].Load_beauty_time_left();
+			main_girl[5].SetTopLeft(main_girl[2].GetLeft(), main_girl[2].GetTop() - 300);
+			main_girl[5].ShowBitmap();
+		}
+		maingirl_state = 5;
 	}
 	else if (hp_sys.hp > 200) {
 		hp_sys.show_hp();
@@ -528,6 +541,12 @@ void CGameStateRun::OnShow() {
 	}
 	else {
 		GotoGameState(GAME_STATE_OVER);
+	}
+
+	if (evolution == true) {
+		if (main_girl[5].GetFrameIndexOfBitmap() == 31 || main_girl[6].GetFrameIndexOfBitmap() == 31) {
+			evolution = false;
+		}
 	}
 
 	score_board.ShowBitmap();
@@ -582,7 +601,7 @@ void CGameStateRun::OnShow() {
 	else if (maingirl_state == 4) {
 		main_girl[3].ShowBitmap(0.9);
 	}
-	else if (maingirl_state == 5) {
+	else if (maingirl_state == 5 && evolution == false) {
 		main_girl[0].ShowBitmap(0.9);
 		if (maingirl_stop_left == true) {
 			if ((p.x >= 100 && p.x <= 215) && (p.y >= 230 && p.y <= 340)) {

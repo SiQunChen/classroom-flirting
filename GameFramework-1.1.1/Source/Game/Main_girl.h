@@ -18,6 +18,8 @@ public:
 	void Load_walk_right();
 	void Load_run_left();
 	void Load_run_right();
+	void Load_beauty_time_left();
+	void Load_beauty_time_right();
 private:
 	/* 
 	POINT p;

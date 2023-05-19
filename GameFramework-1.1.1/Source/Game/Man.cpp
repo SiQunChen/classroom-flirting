@@ -5,7 +5,7 @@
 
 int Man::total_follower = 0;
 
-void Man::Load_attack() {
+void Man::Load() {
 	flash.LoadBitmapByString({
 		"./RES/Man/flash (1).bmp",
 		"./RES/Man/flash (2).bmp",
@@ -38,31 +38,126 @@ void Man::Load_attack() {
 		RGB(0, 0, 0));
 	blood.SetAnimation(150, true);
 	blood.ToggleAnimation();
+
+	man_on_bottom_small_heart.LoadBitmapByString({
+		"./RES/Heart/small/heart_small_bottom (1).bmp",
+		"./RES/Heart/small/heart_small_bottom (2).bmp",
+		"./RES/Heart/small/heart_small_bottom (3).bmp",
+		"./RES/Heart/small/heart_small_bottom (4).bmp",
+		"./RES/Heart/small/heart_small_bottom (5).bmp",
+		"./RES/Heart/small/heart_small_bottom (6).bmp",
+		"./RES/Heart/small/heart_small_bottom (7).bmp",
+		"./RES/Heart/small/heart_small_bottom (8).bmp",
+		"./RES/Heart/small/heart_small_bottom (9).bmp", },
+		RGB(255, 255, 255));
+	man_on_bottom_small_heart.SetAnimation(50, true);
+	man_on_bottom_small_heart.ToggleAnimation();
+
+	man_on_top_small_heart.LoadBitmapByString({
+		"./RES/Heart/small/heart_small_top (1).bmp",
+		"./RES/Heart/small/heart_small_top (2).bmp",
+		"./RES/Heart/small/heart_small_top (3).bmp",
+		"./RES/Heart/small/heart_small_top (4).bmp",
+		"./RES/Heart/small/heart_small_top (5).bmp",
+		"./RES/Heart/small/heart_small_top (6).bmp",
+		"./RES/Heart/small/heart_small_top (7).bmp",
+		"./RES/Heart/small/heart_small_top (8).bmp",
+		"./RES/Heart/small/heart_small_top (9).bmp",
+		"./RES/Heart/small/heart_small_top (10).bmp",
+		"./RES/Heart/small/heart_small_top (11).bmp",
+		"./RES/Heart/small/heart_small_top (12).bmp",
+		"./RES/Heart/small/heart_small_top (13).bmp",
+		"./RES/Heart/small/heart_small_top (14).bmp", 
+		"./RES/Heart/small/heart_small_top (15).bmp", },
+		RGB(255, 255, 255));
+	man_on_top_small_heart.SetAnimation(30, true);
+	man_on_top_small_heart.ToggleAnimation();
+
+	man_on_bottom_big_heart.LoadBitmapByString({
+		"./RES/Heart/big/heart_big_bottom (1).bmp",
+		"./RES/Heart/big/heart_big_bottom (2).bmp",
+		"./RES/Heart/big/heart_big_bottom (3).bmp",
+		"./RES/Heart/big/heart_big_bottom (4).bmp",
+		"./RES/Heart/big/heart_big_bottom (5).bmp",
+		"./RES/Heart/big/heart_big_bottom (6).bmp",
+		"./RES/Heart/big/heart_big_bottom (7).bmp",
+		"./RES/Heart/big/heart_big_bottom (8).bmp",
+		"./RES/Heart/big/heart_big_bottom (9).bmp", },
+		RGB(255, 255, 255));
+	man_on_bottom_big_heart.SetAnimation(50, true);
+	man_on_bottom_big_heart.ToggleAnimation();
+
+	man_on_top_big_heart.LoadBitmapByString({
+		"./RES/Heart/big/heart_big_top (1).bmp",
+		"./RES/Heart/big/heart_big_top (2).bmp",
+		"./RES/Heart/big/heart_big_top (3).bmp",
+		"./RES/Heart/big/heart_big_top (4).bmp",
+		"./RES/Heart/big/heart_big_top (5).bmp",
+		"./RES/Heart/big/heart_big_top (6).bmp",
+		"./RES/Heart/big/heart_big_top (7).bmp",
+		"./RES/Heart/big/heart_big_top (8).bmp",
+		"./RES/Heart/big/heart_big_top (9).bmp",
+		"./RES/Heart/big/heart_big_top (10).bmp",
+		"./RES/Heart/big/heart_big_top (11).bmp",
+		"./RES/Heart/big/heart_big_top (12).bmp",
+		"./RES/Heart/big/heart_big_top (13).bmp",
+		"./RES/Heart/big/heart_big_top (14).bmp",
+		"./RES/Heart/big/heart_big_top (15).bmp", },
+		RGB(255, 255, 255));
+	man_on_top_big_heart.SetAnimation(30, true);
+	man_on_top_big_heart.ToggleAnimation();
+}
+
+int Man::count_girl(int maingirl_state) {
+	if (maingirl_state == 1) {
+		return -2;
+	}
+	else if (maingirl_state == 2) {
+		return -5;
+	}
+	else if (maingirl_state == 3) {
+		return 2;
+	}
+	else if (maingirl_state == 4) {
+		return 5;
+	}
+	else {
+		return 0;
+	}
+}
+
+bool Man::touch(int main, int target) {
+	if (main <= target + 20 && main >= target - 150) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+void Man::heart(int maingirl_state, int maingirl_left) {
+	girl = count_girl(maingirl_state);
+	if (this->ManState[0].GetTop() > 300) {
+		man_on_bottom_small_heart.SetTopLeft(man_on_bottom_small_heart.GetLeft() + girl, man_on_bottom_small_heart.GetTop());
+		man_on_bottom_small_heart.ShowBitmap();
+		get_small_heart = touch(maingirl_left, man_on_bottom_small_heart.GetLeft());
+	}
+	else {
+		man_on_top_small_heart.SetTopLeft(man_on_top_small_heart.GetLeft() + girl, man_on_top_small_heart.GetTop());
+		man_on_top_small_heart.ShowBitmap();
+		get_small_heart = touch(maingirl_left, man_on_top_small_heart.GetLeft());
+	}
 }
 
 void Man::ManMove(int start, int end, int map, int maingirl_state) {
-	if (maingirl_state == 1) {
-		girl = -2;
-	}
-	else if (maingirl_state == 2) {
-		girl = -5;
-	}
-	else if (maingirl_state == 3) {
-		girl = 2;
-	}
-	else if (maingirl_state == 4) {
-		girl = 5;
-	}
-	else {
-		girl = 0;
-	}
-	if (this->ManState[0].GetLeft() >= map + end + girl) {
-		left = true;
-	}
-	else if (this->ManState[0].GetLeft() < map + start + girl) {
-		left = false;
-	}
+	girl = count_girl(maingirl_state);
 	if (dead == false) {
+		if (this->ManState[0].GetLeft() >= map + end + girl) {
+			left = true;
+		}
+		else if (this->ManState[0].GetLeft() < map + start + girl) {
+			left = false;
+		}
 		if (left == true) {
 			this->ManState[0].ShowBitmap();
 			this->ManState[0].SetTopLeft(ManState[0].GetLeft() - 1 + girl, ManState[0].GetTop());
@@ -75,6 +170,12 @@ void Man::ManMove(int start, int end, int map, int maingirl_state) {
 		}
 	}
 	else {
+		if (this->ManState[0].GetLeft() >= girl) {
+			left = true;
+		}
+		else if (this->ManState[0].GetLeft() < girl) {
+			left = false;
+		}
 		if (left == true) {
 			this->ManState[2].SetTopLeft(ManState[2].GetLeft() + girl, ManState[2].GetTop());
 			this->ManState[2].ShowBitmap();
@@ -118,6 +219,10 @@ void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 				follower_rank = total_follower;
 				this->ManState[2].SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop());
 				this->ManState[3].SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop());
+				man_on_bottom_small_heart.SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop() - 30);
+				man_on_top_small_heart.SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop() - 50);
+				man_on_bottom_big_heart.SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop() - 30);
+				man_on_top_big_heart.SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop() - 50);
 			}
 		}
 	}
@@ -135,6 +240,9 @@ void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 			else {
 				this->ManState[4].SetTopLeft(this->ManState[3].GetLeft(), this->ManState[3].GetTop());
 			}
+		}
+		if (get_small_heart == false) {
+			heart(maingirl_state, maingirl_left);
 		}
 	}
 }

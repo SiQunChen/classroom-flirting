@@ -14,7 +14,7 @@ public:
 	virtual void Load_dead_right() = 0;
 	virtual void Load_follow_left() = 0;
 	virtual void Load_follow_right() = 0;
-	void Load_attack();
+	void Load();
 	void ShowMan(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left, bool maingirl_stop_left);
 	void follow(int maingirl_state, int maingirl_left, int maingirl_top, bool maingirl_stop_left);
 	bool const get_being_attacking_state();
@@ -34,8 +34,17 @@ protected:
 	CMovingBitmap flash;
 	CMovingBitmap weakening;
 	CMovingBitmap blood;
+	CMovingBitmap man_on_bottom_small_heart;
+	CMovingBitmap man_on_top_small_heart;
+	CMovingBitmap man_on_bottom_big_heart;
+	CMovingBitmap man_on_top_big_heart;
 private:
+	bool get_small_heart = false;
+	bool get_big_heart = false;
+	int count_girl(int maingirl_state);
 	void ManMove(int start, int end, int map, int maingirl_state);
+	void heart(int maingirl_state, int maingirl_left);
+	bool touch(int main, int target);
 };
 
 #endif
