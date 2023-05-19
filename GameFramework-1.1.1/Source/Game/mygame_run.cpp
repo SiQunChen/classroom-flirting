@@ -468,7 +468,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素{
 	if (!(bool_moving_up_and_down_state)) {
 		if(HDYLM.flirting_earn_score(Man::man_stop!=0)) {
 			score_sys.score += 1;
-			hp_sys.hp -= 1;
+			hp_sys.hp += 1;
 		}
 	}
 	
@@ -519,6 +519,7 @@ void CGameStateRun::OnShow() {
 	hp_board.ShowBitmap();
 
 	if (hp_sys.hp >= 900) {
+<<<<<<< HEAD
 		evolution = true;
 		beauty_time = true;
 		if (maingirl_state == 1 || maingirl_state == 2) {
@@ -532,6 +533,10 @@ void CGameStateRun::OnShow() {
 			main_girl[5].ShowBitmap();
 		}
 		maingirl_state = 5;
+=======
+		hp_sys.bool_invincible_state = true;
+		hp_sys.show_invincible();
+>>>>>>> 00f3bf393ca7779d12e399298c36d8e5f59856f1
 	}
 	else if (hp_sys.hp > 200) {
 		hp_sys.show_hp();

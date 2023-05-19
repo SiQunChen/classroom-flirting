@@ -1,3 +1,10 @@
+### 5/17/23
+#### kuan
+> to be done
+> 1. clock sys
+> 2. audio sys
+> 3. beauty time
+
 ### 5/11/23
 #### kuan
 > working on class HP & state run

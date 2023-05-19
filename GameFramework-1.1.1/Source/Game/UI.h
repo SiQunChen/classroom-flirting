@@ -70,6 +70,13 @@ public:
 	void load_ui_hp_num();
 	void show_hp();
 	void shine_hp();
+	void show_invincible();
+	void show_invincible_start();
+	void show_invincible_end();
+	void show_invincible_bar();
+	
+	//! beauty time寫在女主角那邊，UI這裡用一個getter 拿布林，顯示無敵時間
+	bool bool_invincible_state;
 private:
 	//! HP寫在女主角那邊，UI這裡用一個getter 拿值，再想怎麼load血量的圖片
 	CMovingBitmap hp_board;
@@ -77,11 +84,13 @@ private:
 	CMovingBitmap hp_heart[20];
 	CMovingBitmap hp_heart_warning;
 	int shine_cd = 0;
-	const int total_delay = 54;
+	const int total_delay = 54;				// cycle
+	int invincible_time = 0;
 	
-	//! beauty time寫在女主角那邊，UI這裡用一個getter 拿布林，顯示無敵時間
-	bool bool_invincible_state;
+
 	CMovingBitmap invincible_board;
+	CMovingBitmap invincible_inner;
+	CMovingBitmap invincible_animate[6];
 };
 
 class Elevator : public game_framework::CMovingBitmap {
