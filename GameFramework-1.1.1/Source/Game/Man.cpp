@@ -67,7 +67,7 @@ void Man::Load() {
 		"./RES/Heart/small/heart_small_top (11).bmp",
 		"./RES/Heart/small/heart_small_top (12).bmp",
 		"./RES/Heart/small/heart_small_top (13).bmp",
-		"./RES/Heart/small/heart_small_top (14).bmp", 
+		"./RES/Heart/small/heart_small_top (14).bmp",
 		"./RES/Heart/small/heart_small_top (15).bmp", },
 		RGB(255, 255, 255));
 	man_on_top_small_heart.SetAnimation(30, true);
@@ -187,7 +187,7 @@ void Man::ManMove(int start, int end, int map, int maingirl_state) {
 	}
 }
 
-void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left, bool maingirl_stop_left) {
+void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left, bool maingirl_stop_left, bool beauty_time) {
 	if (dead == false) {
 		being_attacking = false;
 		not_stop_state = true;
@@ -205,7 +205,14 @@ void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 			weakening.ShowBitmap();
 
 			blood.SetTopLeft(ManState[0].GetLeft(), ManState[0].GetTop() - 50);
-			blood.ShowBitmap();
+			if (beauty_time == false) {
+				blood.ShowBitmap();
+			}
+			else {
+				blood_in_beauty_time = blood_in_beauty_time + 2;
+				blood.SetFrameIndexOfBitmap(blood_in_beauty_time);
+				blood.ShowBitmap();
+			}
 
 			if (blood.GetFrameIndexOfBitmap() == 13) {
 				dead = true;
@@ -262,7 +269,7 @@ void Man::follow(int maingirl_state, int maingirl_left, int maingirl_top, bool m
 			follower_rank = follower_rank * (-1);
 		}
 	}
-	else{
+	else {
 		if (follower_rank < 0) {
 			follower_rank = follower_rank * (-1);
 		}

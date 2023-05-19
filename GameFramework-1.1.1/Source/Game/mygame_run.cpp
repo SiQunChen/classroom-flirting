@@ -282,37 +282,39 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 		"./RES/map1.bmp",
 		"./RES/map2.bmp",
 		"./RES/map3.bmp",
-		"./RES/map4.bmp",});
+		"./RES/map4.bmp", });
 	map.SetTopLeft(0, 0);
-	
+
 	main_girl[0].Load_main();
 	main_girl[1].Load_walk_left();
 	main_girl[2].Load_walk_right();
 	main_girl[3].Load_run_left();
 	main_girl[4].Load_run_right();
+	main_girl[5].Load_beauty_time_left();
+	main_girl[6].Load_beauty_time_right();
 
 	up.LoadBitmapByString({
-		"./RES/UI/elevator/up.bmp", 
-		"./RES/UI/elevator/up_hover.bmp",},
+		"./RES/UI/elevator/up.bmp",
+		"./RES/UI/elevator/up_hover.bmp", },
 		RGB(255, 255, 255));
 	down.LoadBitmapByString({
-		"./RES/UI/elevator/down.bmp", 
-		"./RES/UI/elevator/down_hover.bmp",},
+		"./RES/UI/elevator/down.bmp",
+		"./RES/UI/elevator/down_hover.bmp", },
 		RGB(255, 255, 255));
-	
+
 	score_board.LoadBitmapByString({
-		"./RES/UI/number/scoreBoard.bmp"});
+		"./RES/UI/number/scoreBoard.bmp" });
 	score_board.SetTopLeft(430, -1);
 	score_sys.load_ui_score_num();
 
 	hp_board.LoadBitmapByString({
-		"./RES/UI/heart/heartPointBoard.bmp"});
+		"./RES/UI/heart/heartPointBoard.bmp" });
 	hp_board.SetTopLeft(0, 0);
 	hp_sys.load_ui_hp_num();
-	
+
 	clock_board.LoadBitmapByString({
 		"./RES/UI/clock/clock.bmp",
-		"./RES/UI/clock/clock_background.bmp"});
+		"./RES/UI/clock/clock_background.bmp" });
 	clock_board.SetTopLeft(350, 0);
 
 	crosshair_on.LoadBitmapByString({
@@ -428,7 +430,7 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 	GetCursorPos(&p);
 	HWND hwnd = FindWindowA(NULL, "Game");
 	ScreenToClient(hwnd, &p);
-	
+
 	if (maingirl_state == 5) {
 		if ((p.x >= 100 && p.x <= 215) && (p.y >= 230 && p.y <= 340)) { //左邊上樓
 			maingirl_state = 3;
@@ -466,12 +468,12 @@ void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 void CGameStateRun::OnMove()							// 移動遊戲元素{
 {
 	if (!(bool_moving_up_and_down_state)) {
-		if(HDYLM.flirting_earn_score(Man::man_stop!=0)) {
+		if (HDYLM.flirting_earn_score(Man::man_stop != 0)) {
 			score_sys.score += 1;
 			hp_sys.hp += 1;
 		}
 	}
-	
+
 	if (hp_sys.hp < -100) {
 		GotoGameState(GAME_STATE_OVER);
 	}
@@ -479,69 +481,64 @@ void CGameStateRun::OnMove()							// 移動遊戲元素{
 	GetCursorPos(&p);
 	HWND hwnd = FindWindowA(NULL, "Game");
 	ScreenToClient(hwnd, &p);
-	if (map.GetLeft() >= -2094 && map.GetLeft() <= 0) {
-		MainGirlMove();
-	}
-	else {
-		if (up_down == 0) {
-			maingirl_state = 5;
-			if (map.GetLeft() >= -50 && p.x < main_girl[2].GetLeft()) {
-				maingirl_stop_left = true;
-				main_girl[0].SetFrameIndexOfBitmap(0);
-				main_girl[0].SetTopLeft(450, 250);
-				main_girl[2].SetTopLeft(450, 250); //不設定的話，上下樓會造成短暫瞬間移動
-				up.SetTopLeft(75, 170);
-				down.SetTopLeft(90, 380);
-			}
-			else if (map.GetLeft() <= -2044 && p.x > main_girl[2].GetLeft()) {
-				maingirl_stop_left = false;
-				main_girl[0].SetFrameIndexOfBitmap(1);
-				main_girl[0].SetTopLeft(250, 250);
-				main_girl[2].SetTopLeft(250, 250);
-				up.SetTopLeft(535, 170);
-				down.SetTopLeft(550, 380);
-			}
-			else {
-				MainGirlMove();
-			}
+	if (evolution == false) {
+		if (map.GetLeft() >= -2094 && map.GetLeft() <= 0) {
+			MainGirlMove();
 		}
 		else {
-			MainGirlMoveUpAndDown();
+			if (up_down == 0) {
+				maingirl_state = 5;
+				if (map.GetLeft() >= -50 && p.x < main_girl[2].GetLeft()) {
+					maingirl_stop_left = true;
+					main_girl[0].SetFrameIndexOfBitmap(0);
+					main_girl[0].SetTopLeft(450, 250);
+					main_girl[2].SetTopLeft(450, 250); //不設定的話，上下樓會造成短暫瞬間移動
+					up.SetTopLeft(75, 170);
+					down.SetTopLeft(90, 380);
+				}
+				else if (map.GetLeft() <= -2044 && p.x > main_girl[2].GetLeft()) {
+					maingirl_stop_left = false;
+					main_girl[0].SetFrameIndexOfBitmap(1);
+					main_girl[0].SetTopLeft(250, 250);
+					main_girl[2].SetTopLeft(250, 250);
+					up.SetTopLeft(535, 170);
+					down.SetTopLeft(550, 380);
+				}
+				else {
+					MainGirlMove();
+				}
+			}
+			else {
+				MainGirlMoveUpAndDown();
+			}
 		}
 	}
 }
 
 void CGameStateRun::OnShow() {
 	map.ShowBitmap();
-	
+
 	clock_board.ShowBitmap();
 
 	hp_board.ShowBitmap();
 
 	if (hp_sys.hp >= 900) {
-<<<<<<< HEAD
 		evolution = true;
 		beauty_time = true;
-		if (maingirl_state == 1 || maingirl_state == 2) {
-			main_girl[6].Load_beauty_time_right();
-			main_girl[6].SetTopLeft(main_girl[2].GetLeft(), main_girl[2].GetTop() - 300);
-			main_girl[6].ShowBitmap();
+		if (maingirl_state == 1 || maingirl_state == 2 || (maingirl_stop_left == false && (maingirl_state == 6 || maingirl_state == 5))) {
+			evo_left = false;
+			main_girl[6].SetTopLeft(main_girl[2].GetLeft() - 150, main_girl[2].GetTop() - 300);
 		}
-		else if (maingirl_state == 3 || maingirl_state == 4) {
-			main_girl[5].Load_beauty_time_left();
-			main_girl[5].SetTopLeft(main_girl[2].GetLeft(), main_girl[2].GetTop() - 300);
-			main_girl[5].ShowBitmap();
+		else{
+			main_girl[5].SetTopLeft(main_girl[2].GetLeft() - 150, main_girl[2].GetTop() - 300);
 		}
-		maingirl_state = 5;
-=======
 		hp_sys.bool_invincible_state = true;
 		hp_sys.show_invincible();
->>>>>>> 00f3bf393ca7779d12e399298c36d8e5f59856f1
 	}
 	else if (hp_sys.hp > 200) {
 		hp_sys.show_hp();
 	}
-	else if(hp_sys.hp > 0){
+	else if (hp_sys.hp > 0) {
 		hp_sys.shine_hp();
 	}
 	else {
@@ -556,122 +553,132 @@ void CGameStateRun::OnShow() {
 
 	score_board.ShowBitmap();
 	score_sys.show_score();
-	
+
 	if (Man::man_stop != 1) {
-		n1[floor * 2 - 2].ShowMan(500, 800, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left);
+		n1[floor * 2 - 2].ShowMan(500, 800, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time);
 	}
 	else {
-		n1[floor * 2 - 2].ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left);
+		n1[floor * 2 - 2].ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time);
 	}
 	if (Man::man_stop != 2) {
-		n1[floor * 2 - 1].ShowMan(1150, 1300, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left);
+		n1[floor * 2 - 1].ShowMan(1150, 1300, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time);
 	}
 	else {
-		n1[floor * 2 - 1].ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left);
+		n1[floor * 2 - 1].ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time);
 	}
 	if (Man::man_stop != 3) {
-		n3[floor * 2 - 1].ShowMan(1950, 2200, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left);
+		n3[floor * 2 - 1].ShowMan(1950, 2200, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time);
 	}
 	else {
-		n3[floor * 2 - 1].ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left);
+		n3[floor * 2 - 1].ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time);
 	}
 	if (Man::man_stop != 4 && floor == 2) {
-		s1.ShowMan(1600, 1700, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left);
+		s1.ShowMan(1600, 1700, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time);
 	}
-	else if(floor == 2) {
-		s1.ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left);
+	else if (floor == 2) {
+		s1.ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time);
 	}
 	if (Man::man_stop != 5 && floor == 3) {
-		s2.ShowMan(1600, 1700, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left);
+		s2.ShowMan(1600, 1700, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time);
 	}
 	else if (floor == 3) {
-		s2.ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left);
+		s2.ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time);
 	}
 	if (Man::man_stop != 6 && floor == 4) {
-		s3.ShowMan(1600, 1700, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left);
+		s3.ShowMan(1600, 1700, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time);
 	}
 	else if (floor == 4) {
-		s3.ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left);
+		s3.ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time);
 	}
-
-	if (maingirl_state == 1) {
-		main_girl[2].ShowBitmap(0.9);
-	}
-	else if (maingirl_state == 2) {
-		main_girl[4].ShowBitmap(0.9);
-	}
-	else if (maingirl_state == 3) {
-		main_girl[1].ShowBitmap(0.9);
-	}
-	else if (maingirl_state == 4) {
-		main_girl[3].ShowBitmap(0.9);
-	}
-	else if (maingirl_state == 5 && evolution == false) {
-		main_girl[0].ShowBitmap(0.9);
-		if (maingirl_stop_left == true) {
-			if ((p.x >= 100 && p.x <= 215) && (p.y >= 230 && p.y <= 340)) {
-				up.SetFrameIndexOfBitmap(1);
-			}
-			else if ((p.x >= 95 && p.x <= 215) && (p.y >= 385 && p.y <= 505)) {
-				down.SetFrameIndexOfBitmap(1);
+	if (evolution == false) {
+		if (maingirl_state == 1) {
+			main_girl[2].ShowBitmap(0.9);
+		}
+		else if (maingirl_state == 2) {
+			main_girl[4].ShowBitmap(0.9);
+		}
+		else if (maingirl_state == 3) {
+			main_girl[1].ShowBitmap(0.9);
+		}
+		else if (maingirl_state == 4) {
+			main_girl[3].ShowBitmap(0.9);
+		}
+		else if (maingirl_state == 5 && evolution == false) {
+			main_girl[0].ShowBitmap(0.9);
+			if (maingirl_stop_left == true) {
+				if ((p.x >= 100 && p.x <= 215) && (p.y >= 230 && p.y <= 340)) {
+					up.SetFrameIndexOfBitmap(1);
+				}
+				else if ((p.x >= 95 && p.x <= 215) && (p.y >= 385 && p.y <= 505)) {
+					down.SetFrameIndexOfBitmap(1);
+				}
+				else {
+					up.SetFrameIndexOfBitmap(0);
+					down.SetFrameIndexOfBitmap(0);
+				}
+				if (floor != 4) {
+					up.ShowBitmap(1.8);
+				}
+				if (floor != 1) {
+					down.ShowBitmap(1.9);
+				}
 			}
 			else {
-				up.SetFrameIndexOfBitmap(0);
-				down.SetFrameIndexOfBitmap(0);
-			}
-			if (floor != 4) {
-				up.ShowBitmap(1.8);
-			}
-			if (floor != 1) {
-				down.ShowBitmap(1.9);
+				if ((p.x >= 560 && p.x <= 675) && (p.y >= 230 && p.y <= 340)) {
+					up.SetFrameIndexOfBitmap(1);
+				}
+				else if ((p.x >= 555 && p.x <= 675) && (p.y >= 385 && p.y <= 505)) {
+					down.SetFrameIndexOfBitmap(1);
+				}
+				else {
+					up.SetFrameIndexOfBitmap(0);
+					down.SetFrameIndexOfBitmap(0);
+				}
+				if (floor != 4) {
+					up.ShowBitmap(1.8);
+				}
+				if (floor != 1) {
+					down.ShowBitmap(1.9);
+				}
 			}
 		}
-		else {
-			if ((p.x >= 560 && p.x <= 675) && (p.y >= 230 && p.y <= 340)) {
-				up.SetFrameIndexOfBitmap(1);
-			}
-			else if ((p.x >= 555 && p.x <= 675) && (p.y >= 385 && p.y <= 505)) {
-				down.SetFrameIndexOfBitmap(1);
+		else if (maingirl_state == 6) {
+			if (p.x > main_girl[2].GetLeft()) {
+				maingirl_stop_left = false;
 			}
 			else {
-				up.SetFrameIndexOfBitmap(0);
-				down.SetFrameIndexOfBitmap(0);
+				maingirl_stop_left = true;
 			}
-			if (floor != 4) {
-				up.ShowBitmap(1.8);
+			if (maingirl_stop_left == true && maingirl_stop_front == true) {
+				focusing_front.SetFrameIndexOfBitmap(0);
+				focusing_front.SetTopLeft(main_girl[2].GetLeft(), 250);
+				focusing_front.ShowBitmap(0.9);
 			}
-			if (floor != 1) {
-				down.ShowBitmap(1.9);
+			else if (maingirl_stop_left == true && maingirl_stop_front == false) {
+				focusing_behind.SetFrameIndexOfBitmap(0);
+				focusing_behind.SetTopLeft(main_girl[2].GetLeft(), 250);
+				focusing_behind.ShowBitmap(0.9);
+			}
+			else if (maingirl_stop_left == false && maingirl_stop_front == true) {
+				focusing_front.SetFrameIndexOfBitmap(1);
+				focusing_front.SetTopLeft(main_girl[2].GetLeft(), 250);
+				focusing_front.ShowBitmap(0.9);
+			}
+			else {
+				focusing_behind.SetFrameIndexOfBitmap(1);
+				focusing_behind.SetTopLeft(main_girl[2].GetLeft(), 250);
+				focusing_behind.ShowBitmap(0.9);
 			}
 		}
 	}
-	else if (maingirl_state == 6) {
-		if (p.x > main_girl[2].GetLeft()) {
-			maingirl_stop_left = false;
+	else {
+		if (evo_left = false) {
+			main_girl[5].ShowBitmap();
 		}
 		else {
-			maingirl_stop_left = true;
+			main_girl[6].ShowBitmap();
 		}
-		if (maingirl_stop_left == true && maingirl_stop_front == true) {
-			focusing_front.SetFrameIndexOfBitmap(0);
-			focusing_front.SetTopLeft(main_girl[2].GetLeft(), 250);
-			focusing_front.ShowBitmap(0.9);
-		}
-		else if (maingirl_stop_left == true && maingirl_stop_front == false) {
-			focusing_behind.SetFrameIndexOfBitmap(0);
-			focusing_behind.SetTopLeft(main_girl[2].GetLeft(), 250);
-			focusing_behind.ShowBitmap(0.9);
-		}
-		else if (maingirl_stop_left == false && maingirl_stop_front == true) {
-			focusing_front.SetFrameIndexOfBitmap(1);
-			focusing_front.SetTopLeft(main_girl[2].GetLeft(), 250);
-			focusing_front.ShowBitmap(0.9);
-		}
-		else {
-			focusing_behind.SetFrameIndexOfBitmap(1);
-			focusing_behind.SetTopLeft(main_girl[2].GetLeft(), 250);
-			focusing_behind.ShowBitmap(0.9);
-		}
+		evolution = true;
 	}
 
 	for (auto &m : Man::dead_man) {
@@ -680,22 +687,22 @@ void CGameStateRun::OnShow() {
 
 	//圖層問題，故把這三個人和準心show在maingirl_state下面
 	if (Man::man_stop != 7) {
-		n2[floor * 2 - 2].ShowMan(750, 1150, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left);
+		n2[floor * 2 - 2].ShowMan(750, 1150, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time);
 	}
 	else {
-		n2[floor * 2 - 2].ShowMan(750, 1150, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left);
+		n2[floor * 2 - 2].ShowMan(750, 1150, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time);
 	}
 	if (Man::man_stop != 8) {
-		n3[floor * 2 - 2].ShowMan(1350, 1650, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left);
+		n3[floor * 2 - 2].ShowMan(1350, 1650, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time);
 	}
 	else {
-		n3[floor * 2 - 2].ShowMan(750, 1150, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left);
+		n3[floor * 2 - 2].ShowMan(750, 1150, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time);
 	}
 	if (Man::man_stop != 9) {
-		n2[floor * 2 - 1].ShowMan(1700, 1900, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left);
+		n2[floor * 2 - 1].ShowMan(1700, 1900, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time);
 	}
 	else {
-		n2[floor * 2 - 1].ShowMan(750, 1150, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left);
+		n2[floor * 2 - 1].ShowMan(750, 1150, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time);
 	}
 	if (maingirl_state == 6 && Man::man_stop == 0) {
 		crosshair_on.ShowBitmap();

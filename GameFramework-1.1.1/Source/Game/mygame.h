@@ -93,7 +93,7 @@ namespace game_framework {
 	// 這個class為遊戲的遊戲執行物件，主要的遊戲程式都在這裡
 	// 每個Member function的Implementation都要弄懂
 	////////////////////////////////////////////////////////////////////////////////
-	
+
 	class CGameStateRun : public CGameState {
 	public:
 		CGameStateRun(CGame *g);
@@ -134,6 +134,7 @@ namespace game_framework {
 		void OnShow() override;									// 顯示這個狀態的遊戲畫面
 		bool beauty_time = false;
 		bool evolution = false;
+		bool evo_left = false;
 		bool second_floor_arrive = false;
 		bool third_floor_arrive = false;
 		bool forth_floor_arrive = false;

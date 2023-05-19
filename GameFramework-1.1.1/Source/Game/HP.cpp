@@ -4,16 +4,12 @@
 
 #include "UI.h"
 
-#define DEFAULT_HP 500
+#define DEFAULT_HP 800
 #define INNER_OVERLAP 160
 #define CYCLE 4
 
 HP::HP() {
-<<<<<<< HEAD
-	hp = 900;
-=======
 	hp = DEFAULT_HP;
->>>>>>> 00f3bf393ca7779d12e399298c36d8e5f59856f1
 	bool_invincible_state = false;
 }
 
@@ -44,11 +40,11 @@ void HP::load_ui_hp_num()
 		auto I = std::to_string(i+1);
 		invincible_animate[i].LoadBitmapByString({
 			"./RES/UI/reinforced/reinforced_bar (" + I + ").bmp"
-			});
+			}, RGB(255, 255, 255));
 	}
 	
-	invincible_board.LoadBitmapByString({"./RES/UI/reinforced/reinforced_bar.bmp"});
-	invincible_inner.LoadBitmapByString({"./RES/UI/reinforced/reinforced_bar_inner.bmp"});
+	invincible_board.LoadBitmapByString({"./RES/UI/reinforced/reinforced_bar.bmp"}, RGB(255, 255, 255));
+	invincible_inner.LoadBitmapByString({"./RES/UI/reinforced/reinforced_bar_inner.bmp"},RGB(255, 255, 255));
 }
 
 void HP::show_hp() {
