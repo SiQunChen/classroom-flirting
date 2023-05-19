@@ -116,3 +116,83 @@ void Main_girl::Load_run_right() {
     SetTopLeft(250, 250);
     SetAnimation(150, false);  
 }
+
+void Main_girl::Load_beauty_time_left() {
+	LoadBitmapByString({
+		"./RES/mainGirl/left/reinforcing (1).bmp",
+		"./RES/mainGirl/left/reinforcing (2).bmp",
+		"./RES/mainGirl/left/reinforcing (3).bmp",
+		"./RES/mainGirl/left/reinforcing (4).bmp",
+		"./RES/mainGirl/left/reinforcing (5).bmp",
+		"./RES/mainGirl/left/reinforcing (6).bmp",
+		"./RES/mainGirl/left/reinforcing (7).bmp", 
+		"./RES/mainGirl/left/reinforcing (8).bmp",
+		"./RES/mainGirl/left/reinforcing (9).bmp",
+		"./RES/mainGirl/left/reinforcing (10).bmp",
+		"./RES/mainGirl/left/reinforcing (11).bmp",
+		"./RES/mainGirl/left/reinforcing (12).bmp",
+		"./RES/mainGirl/left/reinforcing (13).bmp",
+		"./RES/mainGirl/left/reinforcing (14).bmp", 
+		"./RES/mainGirl/left/reinforcing (15).bmp",
+		"./RES/mainGirl/left/reinforcing (16).bmp",
+		"./RES/mainGirl/left/reinforcing (17).bmp",
+		"./RES/mainGirl/left/reinforcing (18).bmp",
+		"./RES/mainGirl/left/reinforcing (19).bmp",
+		"./RES/mainGirl/left/reinforcing (20).bmp",
+		"./RES/mainGirl/left/reinforcing (21).bmp", 
+		"./RES/mainGirl/left/reinforcing (22).bmp",
+		"./RES/mainGirl/left/reinforcing (23).bmp",
+		"./RES/mainGirl/left/reinforcing (24).bmp",
+		"./RES/mainGirl/left/reinforcing (25).bmp",
+		"./RES/mainGirl/left/reinforcing (26).bmp",
+		"./RES/mainGirl/left/reinforcing (27).bmp",
+		"./RES/mainGirl/left/reinforcing (28).bmp", 
+		"./RES/mainGirl/left/reinforcing (29).bmp",
+		"./RES/mainGirl/left/reinforcing (30).bmp",
+		"./RES/mainGirl/left/reinforcing (31).bmp",
+		"./RES/mainGirl/left/reinforcing (32).bmp",},
+		RGB(0, 0, 0));
+	SetTopLeft(250, 250);
+	SetAnimation(100, true);
+	ToggleAnimation();
+}
+
+void Main_girl::Load_beauty_time_right() {
+	LoadBitmapByString({
+		"./RES/mainGirl/right/reinforcing (1).bmp",
+		"./RES/mainGirl/right/reinforcing (2).bmp",
+		"./RES/mainGirl/right/reinforcing (3).bmp",
+		"./RES/mainGirl/right/reinforcing (4).bmp",
+		"./RES/mainGirl/right/reinforcing (5).bmp",
+		"./RES/mainGirl/right/reinforcing (6).bmp",
+		"./RES/mainGirl/right/reinforcing (7).bmp",
+		"./RES/mainGirl/right/reinforcing (8).bmp",
+		"./RES/mainGirl/right/reinforcing (9).bmp",
+		"./RES/mainGirl/right/reinforcing (10).bmp",
+		"./RES/mainGirl/right/reinforcing (11).bmp",
+		"./RES/mainGirl/right/reinforcing (12).bmp",
+		"./RES/mainGirl/right/reinforcing (13).bmp",
+		"./RES/mainGirl/right/reinforcing (14).bmp",
+		"./RES/mainGirl/right/reinforcing (15).bmp",
+		"./RES/mainGirl/right/reinforcing (16).bmp",
+		"./RES/mainGirl/right/reinforcing (17).bmp",
+		"./RES/mainGirl/right/reinforcing (18).bmp",
+		"./RES/mainGirl/right/reinforcing (19).bmp",
+		"./RES/mainGirl/right/reinforcing (20).bmp",
+		"./RES/mainGirl/right/reinforcing (21).bmp",
+		"./RES/mainGirl/right/reinforcing (22).bmp",
+		"./RES/mainGirl/right/reinforcing (23).bmp",
+		"./RES/mainGirl/right/reinforcing (24).bmp",
+		"./RES/mainGirl/right/reinforcing (25).bmp",
+		"./RES/mainGirl/right/reinforcing (26).bmp",
+		"./RES/mainGirl/right/reinforcing (27).bmp",
+		"./RES/mainGirl/right/reinforcing (28).bmp",
+		"./RES/mainGirl/right/reinforcing (29).bmp",
+		"./RES/mainGirl/right/reinforcing (30).bmp",
+		"./RES/mainGirl/right/reinforcing (31).bmp",
+		"./RES/mainGirl/right/reinforcing (32).bmp", },
+		RGB(0, 0, 0));
+	SetTopLeft(250, 250);
+	SetAnimation(100, true);
+	ToggleAnimation();
+}

@@ -132,6 +132,8 @@ namespace game_framework {
 		int maingirl_state = 1;
 		void OnMove() override;									// 移動遊戲元素
 		void OnShow() override;									// 顯示這個狀態的遊戲畫面
+		bool beauty_time = false;
+		bool evolution = false;
 		bool second_floor_arrive = false;
 		bool third_floor_arrive = false;
 		bool forth_floor_arrive = false;
@@ -142,8 +144,9 @@ namespace game_framework {
 		0: stand
 		1: walk left 2: walk right
 		3: run left 4: run right
+		5: beauty left 6: beauty right
 		*/
-		Main_girl main_girl[5];
+		Main_girl main_girl[7];
 		Normalman1 n1[8];
 		Normalman2 n2[8];
 		Normalman3 n3[8];

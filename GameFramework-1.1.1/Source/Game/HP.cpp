@@ -9,7 +9,11 @@
 #define CYCLE 4
 
 HP::HP() {
+<<<<<<< HEAD
+	hp = 900;
+=======
 	hp = DEFAULT_HP;
+>>>>>>> 00f3bf393ca7779d12e399298c36d8e5f59856f1
 	bool_invincible_state = false;
 }
 
