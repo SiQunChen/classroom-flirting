@@ -114,4 +114,3 @@ void HP::show_invincible_end()
 		hp = DEFAULT_HP;
 	}
 }
-
