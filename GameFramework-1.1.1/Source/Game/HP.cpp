@@ -1,8 +1,15 @@
 #include "stdafx.h"
+
+#include <string>
+
 #include "UI.h"
 
+#define DEFAULT_HP 500
+#define INNER_OVERLAP 160
+#define CYCLE 4
+
 HP::HP() {
-	hp = 230;
+	hp = DEFAULT_HP;
 	bool_invincible_state = false;
 }
 
@@ -15,54 +22,29 @@ void HP::load_ui_hp_board() {
 		"./RES/UI/heart/heartPointBoard.bmp"});
 }
 
-void HP::load_ui_hp_num() {
-    hp_heart[19].LoadBitmapByString({			// <100%
-    	"./RES/UI/heart/heart (20).bmp"});
-    hp_heart[18].LoadBitmapByString({
-    	"./RES/UI/heart/heart (19).bmp"});
-    hp_heart[17].LoadBitmapByString({			// <90%
-    	"./RES/UI/heart/heart (18).bmp"});
-    hp_heart[16].LoadBitmapByString({
-    	"./RES/UI/heart/heart (17).bmp"});
-    hp_heart[15].LoadBitmapByString({			// 80%
-    	"./RES/UI/heart/heart (16).bmp"});
-    hp_heart[14].LoadBitmapByString({
-    	"./RES/UI/heart/heart (15).bmp"});
-    hp_heart[13].LoadBitmapByString({			// 70%
-    	"./RES/UI/heart/heart (14).bmp"});
-    hp_heart[12].LoadBitmapByString({
-    	"./RES/UI/heart/heart (13).bmp"});
-    hp_heart[11].LoadBitmapByString({			// 60%
-    	"./RES/UI/heart/heart (12).bmp"});
-    hp_heart[10].LoadBitmapByString({
-    	"./RES/UI/heart/heart (11).bmp"});
-    hp_heart[9].LoadBitmapByString({			// 50%
-    	"./RES/UI/heart/heart (10).bmp"});
-    hp_heart[8].LoadBitmapByString({
-    	"./RES/UI/heart/heart (9).bmp"});
-    hp_heart[7].LoadBitmapByString({			// 40%
-    	"./RES/UI/heart/heart (8).bmp"});
-    hp_heart[6].LoadBitmapByString({
-    	"./RES/UI/heart/heart (7).bmp"});
-    hp_heart[5].LoadBitmapByString({			// 30%
-    	"./RES/UI/heart/heart (6).bmp"});
-    hp_heart[4].LoadBitmapByString({
-    	"./RES/UI/heart/heart (5).bmp"});
-    hp_heart[3].LoadBitmapByString({			// 20%
-    	"./RES/UI/heart/heart (4).bmp"});
-    hp_heart[2].LoadBitmapByString({
-    	"./RES/UI/heart/heart (3).bmp"});
-    hp_heart[1].LoadBitmapByString({			// 10%
-    	"./RES/UI/heart/heart (2).bmp"});
-    hp_heart[0].LoadBitmapByString({
-    	"./RES/UI/heart/heart (1).bmp"});
-    hp_heart_warning.LoadBitmapByString({		// <0%
-    	"./RES/UI/heart/warning (1).bmp",
-    	"./RES/UI/heart/warning (2).bmp",
-    	"./RES/UI/heart/warning (3).bmp"},
-    	RGB(0, 0, 0));
-	// hp_heart_warning.SetAnimation(200, false);
-	// invincible_board.LoadBitmapByString();
+void HP::load_ui_hp_num()
+{
+	for (int i = 20; i > 0; i--) {
+		auto I = std::to_string(i);
+		hp_heart[i-1].LoadBitmapByString({
+			"./RES/UI/heart/heart ("+I+").bmp"});
+	}
+	
+	hp_heart_warning.LoadBitmapByString({		// <0%
+		"./RES/UI/heart/warning (1).bmp",
+		"./RES/UI/heart/warning (2).bmp",
+		"./RES/UI/heart/warning (3).bmp"},
+		RGB(0, 0, 0));
+
+	for (int i = 0; i < 6; i++) {
+		auto I = std::to_string(i+1);
+		invincible_animate[i].LoadBitmapByString({
+			"./RES/UI/reinforced/reinforced_bar (" + I + ").bmp"
+			});
+	}
+	
+	invincible_board.LoadBitmapByString({"./RES/UI/reinforced/reinforced_bar.bmp"});
+	invincible_inner.LoadBitmapByString({"./RES/UI/reinforced/reinforced_bar_inner.bmp"});
 }
 
 void HP::show_hp() {
@@ -91,5 +73,44 @@ void HP::shine_hp()
 		else {
 			show_hp();
 		}
+	}
+}
+
+void HP::show_invincible()
+{
+	if(bool_invincible_state && ++invincible_time < 6 * CYCLE) {
+		show_invincible_start();
+	}
+	else if (invincible_time < (6 + INNER_OVERLAP) * CYCLE) {
+		bool_invincible_state = false;
+		show_invincible_bar();
+	}
+	else {
+		show_invincible_end();
+	}
+}
+
+void HP::show_invincible_start()
+{
+	invincible_animate[invincible_time / CYCLE].SetTopLeft(20, 35);
+	invincible_animate[invincible_time / CYCLE].ShowBitmap();
+}
+
+void HP::show_invincible_bar()
+{
+	invincible_inner.SetTopLeft(20 - (invincible_time - 6 * CYCLE)/CYCLE, 35);
+	invincible_inner.ShowBitmap();
+	invincible_board.SetTopLeft(20, 35);
+	invincible_board.ShowBitmap();
+}
+
+void HP::show_invincible_end()
+{
+	invincible_animate[5 - (invincible_time - (6 + INNER_OVERLAP) * CYCLE)/ CYCLE].SetTopLeft(20, 35);
+	invincible_animate[5 - (invincible_time - (6 + INNER_OVERLAP) * CYCLE)/ CYCLE].ShowBitmap();
+
+	if(invincible_time >= (12 + INNER_OVERLAP) * CYCLE) {
+		invincible_time = 0;
+		hp = DEFAULT_HP;
 	}
 }

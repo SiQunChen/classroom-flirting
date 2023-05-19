@@ -468,7 +468,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素{
 	if (!(bool_moving_up_and_down_state)) {
 		if(HDYLM.flirting_earn_score(Man::man_stop!=0)) {
 			score_sys.score += 1;
-			hp_sys.hp -= 1;
+			hp_sys.hp += 1;
 		}
 	}
 	
@@ -518,7 +518,8 @@ void CGameStateRun::OnShow() {
 
 	hp_board.ShowBitmap();
 	if (hp_sys.hp >= 900) {
-		// beauty time;
+		hp_sys.bool_invincible_state = true;
+		hp_sys.show_invincible();
 	}
 	else if (hp_sys.hp > 200) {
 		hp_sys.show_hp();
