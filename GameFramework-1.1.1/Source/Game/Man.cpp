@@ -3,6 +3,8 @@
 #include "UI.h"
 #include "mygame.h"
 
+std::vector<Man*> Man::dead_man;
+int Man::man_stop = 0;
 int Man::total_follower = 0;
 
 void Man::Load() {
@@ -108,18 +110,23 @@ void Man::Load() {
 	man_on_top_big_heart.ToggleAnimation();
 }
 
-int Man::count_girl(int maingirl_state) {
-	if (maingirl_state == 1) {
-		return -2;
-	}
-	else if (maingirl_state == 2) {
-		return -5;
-	}
-	else if (maingirl_state == 3) {
-		return 2;
-	}
-	else if (maingirl_state == 4) {
-		return 5;
+int Man::count_girl(int maingirl_state, bool evolution) {
+	if (evolution == false && Teacher::bump == false) {
+		if (maingirl_state == 1) {
+			return -2;
+		}
+		else if (maingirl_state == 2) {
+			return -5;
+		}
+		else if (maingirl_state == 3) {
+			return 2;
+		}
+		else if (maingirl_state == 4) {
+			return 5;
+		}
+		else {
+			return 0;
+		}
 	}
 	else {
 		return 0;
@@ -135,8 +142,8 @@ bool Man::touch(int main, int target) {
 	}
 }
 
-void Man::heart(int maingirl_state, int maingirl_left) {
-	girl = count_girl(maingirl_state);
+void Man::heart(int maingirl_state, int maingirl_left, bool evolution) {
+	girl = count_girl(maingirl_state, evolution);
 	if (this->ManState[0].GetTop() > 300) {
 		man_on_bottom_small_heart.SetTopLeft(man_on_bottom_small_heart.GetLeft() + girl, man_on_bottom_small_heart.GetTop());
 		man_on_bottom_small_heart.ShowBitmap();
@@ -149,8 +156,8 @@ void Man::heart(int maingirl_state, int maingirl_left) {
 	}
 }
 
-void Man::ManMove(int start, int end, int map, int maingirl_state) {
-	girl = count_girl(maingirl_state);
+void Man::ManMove(int start, int end, int map, int maingirl_state, bool evolution) {
+	girl = count_girl(maingirl_state, evolution);
 	if (dead == false) {
 		if (this->ManState[0].GetLeft() >= map + end + girl) {
 			left = true;
@@ -187,13 +194,13 @@ void Man::ManMove(int start, int end, int map, int maingirl_state) {
 	}
 }
 
-void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left, bool maingirl_stop_left, bool beauty_time) {
+void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left, bool maingirl_stop_left, bool beauty_time, bool evolution) {
 	if (dead == false) {
 		being_attacking = false;
 		not_stop_state = true;
 		if (stop == 0) {
 			not_stop_state = false;
-			ManMove(start, end, map, maingirl_state);
+			ManMove(start, end, map, maingirl_state, evolution);
 		}
 		else {
 			being_attacking = true;
@@ -236,7 +243,7 @@ void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 	else {
 		if (delay < 25) {
 			delay++;
-			ManMove(start, end, map, maingirl_state);
+			ManMove(start, end, map, maingirl_state, evolution);
 		}
 		else if (delay == 25) {
 			delay++;
@@ -249,7 +256,7 @@ void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 			}
 		}
 		if (get_small_heart == false) {
-			heart(maingirl_state, maingirl_left);
+			heart(maingirl_state, maingirl_left, evolution);
 		}
 	}
 }

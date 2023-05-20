@@ -15,7 +15,7 @@ public:
 	virtual void Load_follow_left() = 0;
 	virtual void Load_follow_right() = 0;
 	void Load();
-	void ShowMan(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left, bool maingirl_stop_left, bool beauty_time);
+	void ShowMan(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left, bool maingirl_stop_left, bool beauty_time, bool evolution);
 	void follow(int maingirl_state, int maingirl_left, int maingirl_top, bool maingirl_stop_left);
 	bool const get_being_attacking_state();
 	bool const get_stop_state();
@@ -41,9 +41,9 @@ protected:
 private:
 	bool get_small_heart = false;
 	bool get_big_heart = false;
-	int count_girl(int maingirl_state);
-	void ManMove(int start, int end, int map, int maingirl_state);
-	void heart(int maingirl_state, int maingirl_left);
+	int count_girl(int maingirl_state, bool evolution);
+	void ManMove(int start, int end, int map, int maingirl_state, bool evolution);
+	void heart(int maingirl_state, int maingirl_left, bool evolution);
 	bool touch(int main, int target);
 	int blood_in_beauty_time = 1;
 };

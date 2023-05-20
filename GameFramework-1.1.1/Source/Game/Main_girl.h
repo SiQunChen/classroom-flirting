@@ -20,6 +20,8 @@ public:
 	void Load_run_right();
 	void Load_beauty_time_left();
 	void Load_beauty_time_right();
+	void Load_bump_left();
+	void Load_bump_right();
 private:
 	/* 
 	POINT p;
