@@ -59,6 +59,7 @@
     <ClCompile Include="Source\Game\Main_girl.cpp" />
     <ClCompile Include="Source\Game\Score.cpp" />
     <ClCompile Include="Source\Game\Clock.cpp" />
+    <ClCompile Include="Source\Game\UI.cpp" />
     <ClCompile Include="Source\Game\Man.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
@@ -78,10 +79,6 @@
       <Filter>MyGame</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\SpecialMan3.cpp">
-      <Filter>MyGame</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\HDYLM_sys.cpp" />
-    <ClCompile Include="Source\Game\Teacher.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
   </ItemGroup>
@@ -140,9 +137,6 @@
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\SpecialMan3.h">
-      <Filter>MyGame</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Teacher.h">
       <Filter>MyGame</Filter>
     </ClInclude>
   </ItemGroup>

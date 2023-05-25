@@ -112,5 +112,6 @@ void HP::show_invincible_end()
 	if(invincible_time >= (12 + INNER_OVERLAP) * CYCLE) {
 		invincible_time = 0;
 		hp = DEFAULT_HP;
+		
 	}
 }

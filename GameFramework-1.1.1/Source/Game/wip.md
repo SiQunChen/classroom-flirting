@@ -3,7 +3,8 @@
 > to be done
 > 1. clock sys
 > 2. audio sys
-> 3. beauty time
+> 3. beauty time should re initialize after being triggered
+> 4. additional heart sys
 
 ### 5/11/23
 #### kuan

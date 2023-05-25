@@ -52,7 +52,6 @@
 #include "SpecialMan2.h"
 #include "SpecialMan3.h"
 #include "UI.h"
-#include "Teacher.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
@@ -136,25 +135,25 @@ namespace game_framework {
 		bool beauty_time = false;
 		bool evolution = false;
 		bool evo_left = false;
-		bool bump_left = false;
+		bool second_floor_arrive = false;
+		bool third_floor_arrive = false;
+		bool forth_floor_arrive = false;
 		bool maingirl_stop_left = false;
 		bool maingirl_stop_front = false;
 		bool bool_moving_up_and_down_state = false;
-		bool maingirl_start_on_left = false;
 		/*
 		0: stand
 		1: walk left 2: walk right
 		3: run left 4: run right
 		5: beauty left 6: beauty right
 		*/
-		Main_girl main_girl[9];
+		Main_girl main_girl[7];
 		Normalman1 n1[8];
 		Normalman2 n2[8];
 		Normalman3 n3[8];
 		Specialman1 s1;
 		Specialman2 s2;
 		Specialman3 s3;
-		Teacher teacher;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
