@@ -1,3 +1,15 @@
+### 5/25/23
+#### kuan
+> to be done
+> 1. clock sys
+> 2. audio sys
+> 
+> to be fix
+> 1. beauty time while moving up and sown
+> 2. special key in game run as the tutorial says
+> 3. ~ teacher not available when going up through right stair
+> 4. ~ drop big heart
+
 ### 5/17/23
 #### kuan
 > to be done

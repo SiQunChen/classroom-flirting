@@ -115,31 +115,24 @@ int Man::count_girl(int maingirl_state, bool evolution) {
 		if (maingirl_state == 1) {
 			return -2;
 		}
-		else if (maingirl_state == 2) {
+		if (maingirl_state == 2) {
 			return -5;
 		}
-		else if (maingirl_state == 3) {
+		if (maingirl_state == 3) {
 			return 2;
 		}
-		else if (maingirl_state == 4) {
+		if (maingirl_state == 4) {
 			return 5;
 		}
-		else {
-			return 0;
-		}
 	}
-	else {
-		return 0;
-	}
+	return 0;
 }
 
 bool Man::touch(int main, int target) {
-	if (main <= target + 20 && main >= target - 150) {
+	if (main <= target + 70 && main >= target - 70) {		//20, 150
 		return true;
 	}
-	else {
-		return false;
-	}
+	return false;
 }
 
 void Man::heart(int maingirl_state, int maingirl_left, bool evolution) {
@@ -154,6 +147,7 @@ void Man::heart(int maingirl_state, int maingirl_left, bool evolution) {
 		man_on_top_small_heart.ShowBitmap();
 		get_small_heart = touch(maingirl_left, man_on_top_small_heart.GetLeft());
 	}
+	modify_hp();
 }
 
 void Man::ManMove(int start, int end, int map, int maingirl_state, bool evolution) {
@@ -304,4 +298,14 @@ bool const Man::get_being_attacking_state()
 bool const Man::get_stop_state()
 {
 	return (not_stop_state);
+}
+
+void Man::modify_hp()
+{
+	if(get_big_heart) {
+		HP::hp += 150;
+	}
+	else if(get_small_heart) {
+		HP::hp += 100;
+	}
 }
