@@ -244,17 +244,21 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Source\Game\Elevator.cpp" />
+    <ClCompile Include="Source\Game\Girl.cpp" />
     <ClCompile Include="Source\Game\HP.cpp" />
     <ClCompile Include="Source\Game\Main_girl.cpp" />
     <ClCompile Include="Source\Game\Man.cpp" />
     <ClCompile Include="Source\Game\mygame_initialize.cpp" />
     <ClCompile Include="Source\Game\mygame_over.cpp" />
     <ClCompile Include="Source\Game\mygame_run.cpp" />
+    <ClCompile Include="Source\Game\NormalGirl1.cpp" />
+    <ClCompile Include="Source\Game\NormalGirl2.cpp" />
     <ClCompile Include="Source\Game\NormalMan1.cpp" />
     <ClCompile Include="Source\Game\NormalMan2.cpp" />
     <ClCompile Include="Source\Game\NormalMan3.cpp" />
     <ClCompile Include="Source\Game\Score.cpp" />
     <ClCompile Include="Source\Game\Clock.cpp" />
+    <ClCompile Include="Source\Game\SpecialGirl.cpp" />
     <ClCompile Include="Source\Game\SpecialMan1.cpp" />
     <ClCompile Include="Source\Game\SpecialMan2.cpp" />
     <ClCompile Include="Source\Game\SpecialMan3.cpp" />
@@ -274,12 +278,16 @@
     <ClInclude Include="Source\Core\Resource.h" />
     <ClInclude Include="Source\Core\StdAfx.h" />
     <ClInclude Include="Source\Game\config.h" />
+    <ClInclude Include="Source\Game\Girl.h" />
     <ClInclude Include="Source\Game\Main_girl.h" />
     <ClInclude Include="Source\Game\Man.h" />
     <ClInclude Include="Source\Game\mygame.h" />
+    <ClInclude Include="Source\Game\NormalGirl1.h" />
+    <ClInclude Include="Source\Game\NormalGirl2.h" />
     <ClInclude Include="Source\Game\NormalMan1.h" />
     <ClInclude Include="Source\Game\NormalMan2.h" />
     <ClInclude Include="Source\Game\NormalMan3.h" />
+    <ClInclude Include="Source\Game\SpecialGirl.h" />
     <ClInclude Include="Source\Game\SpecialMan1.h" />
     <ClInclude Include="Source\Game\SpecialMan2.h" />
     <ClInclude Include="Source\Game\SpecialMan3.h" />
