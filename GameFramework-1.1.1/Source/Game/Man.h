@@ -1,5 +1,4 @@
-#ifndef MAN
-#define MAN
+#pragma once
 
 #include "../Library/gameutil.h"
 
@@ -39,6 +38,7 @@ protected:
 	CMovingBitmap man_on_bottom_big_heart;
 	CMovingBitmap man_on_top_big_heart;
 private:
+	void modify_hp();
 	bool get_small_heart = false;
 	bool get_big_heart = false;
 	int count_girl(int maingirl_state, bool evolution);
@@ -47,5 +47,3 @@ private:
 	bool touch(int main, int target);
 	int blood_in_beauty_time = 1;
 };
-
-#endif

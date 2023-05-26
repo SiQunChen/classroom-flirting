@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Teacher.h"
+#include "UI.h"
 
 bool Teacher::bump = false;
 
@@ -46,10 +47,11 @@ int Teacher::count_girl(int maingirl_state, bool evolution) {
 	}
 }
 
-void Teacher::touch(int main, int target) {
+bool Teacher::touch(int main, int target) {
 	if (main <= target + 70 && main >= target - 70) {
-		bump = true;
+		return true;
 	}
+	return false;
 }
 
 void Teacher::ShowTeacher(bool left, int maingirl_state, int maingirl_left, bool evolution) {
@@ -57,13 +59,14 @@ void Teacher::ShowTeacher(bool left, int maingirl_state, int maingirl_left, bool
 	if (left == true) {
 		teacher_left.SetTopLeft(teacher_left.GetLeft() - 3 + girl, 220);
 		teacher_left.ShowBitmap();
-		touch(maingirl_left, teacher_left.GetLeft());
+		bump = touch(maingirl_left, teacher_left.GetLeft());
 	}
 	else {
 		teacher_right.SetTopLeft(teacher_left.GetLeft() + 3 + girl, 220);
 		teacher_right.ShowBitmap();
-		touch(maingirl_left, teacher_right.GetLeft());
+		bump = touch(maingirl_left, teacher_right.GetLeft());
 	}
+	modify_hp();
 }
 
 void Teacher::Setup(bool left) {
@@ -72,5 +75,12 @@ void Teacher::Setup(bool left) {
 	}
 	else {
 		teacher_right.SetTopLeft(-2000, 250);
+	}
+}
+
+void Teacher::modify_hp()
+{
+	if (bump) {
+		HP::hp -= 5;
 	}
 }

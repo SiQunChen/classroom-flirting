@@ -1,5 +1,4 @@
-#ifndef TEACHER
-#define TEACHER
+#pragma once
 
 #include "../Library/gameutil.h"
 
@@ -15,11 +14,10 @@ public:
 protected:
 	
 private:
+	void modify_hp();
 	int girl;
 	int count_girl(int maingirl_state, bool evolution);
-	void touch(int main, int target);
+	bool touch(int main, int target);
 	CMovingBitmap teacher_left;
 	CMovingBitmap teacher_right;
 };
-
-#endif

@@ -8,8 +8,10 @@
 #define INNER_OVERLAP 160
 #define CYCLE 4
 
+int HP::hp = DEFAULT_HP;
+
 HP::HP() {
-	hp = DEFAULT_HP;
+	// hp = DEFAULT_HP;
 	bool_invincible_state = false;
 }
 

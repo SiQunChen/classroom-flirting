@@ -63,7 +63,7 @@ private:
 class HP : public game_framework::CMovingBitmap {
 public:
 	HP();
-	int hp;									// with maximum HP 900
+	static int hp;									// with maximum HP 900
 	bool is_invincible();
 	//! can't be used
 	void load_ui_hp_board();
@@ -77,6 +77,7 @@ public:
 	
 	//! beauty time寫在女主角那邊，UI這裡用一個getter 拿布林，顯示無敵時間
 	bool bool_invincible_state;
+
 private:
 	//! HP寫在女主角那邊，UI這裡用一個getter 拿值，再想怎麼load血量的圖片
 	CMovingBitmap hp_board;
@@ -86,8 +87,6 @@ private:
 	int shine_cd = 0;
 	const int total_delay = 54;				// cycle
 	int invincible_time = 0;
-	
-
 	CMovingBitmap invincible_board;
 	CMovingBitmap invincible_inner;
 	CMovingBitmap invincible_animate[6];
