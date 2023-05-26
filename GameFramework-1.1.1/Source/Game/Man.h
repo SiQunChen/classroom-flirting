@@ -8,12 +8,7 @@ class Man : public game_framework::CMovingBitmap
 public:
 	Man() = default;
 	virtual ~Man() {}
-	virtual void Load_alive_left() = 0;
-	virtual void Load_alive_right() = 0;
-	virtual void Load_dead_left() = 0;
-	virtual void Load_dead_right() = 0;
-	virtual void Load_follow_left() = 0;
-	virtual void Load_follow_right() = 0;
+	virtual void Load_state() = 0;
 	void Load();
 	void ShowMan(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left, bool maingirl_stop_left, bool beauty_time, bool evolution);
 	void follow(int maingirl_state, int maingirl_left, int maingirl_top, bool maingirl_stop_left);

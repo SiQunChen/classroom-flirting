@@ -53,6 +53,10 @@
 #include "SpecialMan3.h"
 #include "UI.h"
 #include "Teacher.h"
+#include "Girl.h"
+#include "NormalGirl1.h"
+#include "NormalGirl2.h"
+#include "SpecialGirl.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
@@ -113,7 +117,7 @@ namespace game_framework {
 		void MainGirlMove();
 		void OnBeginState() override;							// 設定每次重玩所需的變數
 		void MainGirlMoveUpAndDown();
-		void SetupMan(int floor, bool left);
+		void Setup(int floor, bool left);
 		POINT p;
 		// Elevator up;	//
 		// Elevator down;	
@@ -131,6 +135,7 @@ namespace game_framework {
 		int time = 0;
 		int floor = 1;
 		int maingirl_state = 1;
+		int stop_man_left = 0;
 		void OnMove() override;									// 移動遊戲元素
 		void OnShow() override;									// 顯示這個狀態的遊戲畫面
 		bool beauty_time = false;
@@ -155,6 +160,9 @@ namespace game_framework {
 		Specialman2 s2;
 		Specialman3 s3;
 		Teacher teacher;
+		Normalgirl1 n1_girl[5];
+		Normalgirl2 n2_girl[5];
+		Specialgirl Sgirl;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

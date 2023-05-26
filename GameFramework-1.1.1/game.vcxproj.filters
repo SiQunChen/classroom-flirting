@@ -54,11 +54,6 @@
     <ClCompile Include="Source\Game\mygame_run.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\Elevator.cpp" />
-    <ClCompile Include="Source\Game\HP.cpp" />
-    <ClCompile Include="Source\Game\Main_girl.cpp" />
-    <ClCompile Include="Source\Game\Score.cpp" />
-    <ClCompile Include="Source\Game\Clock.cpp" />
     <ClCompile Include="Source\Game\Man.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
@@ -80,8 +75,37 @@
     <ClCompile Include="Source\Game\SpecialMan3.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\HDYLM_sys.cpp" />
     <ClCompile Include="Source\Game\Teacher.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Clock.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Elevator.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Girl.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\HDYLM_sys.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Main_girl.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\HP.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Score.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\SpecialGirl.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\NormalGirl2.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\NormalGirl1.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
   </ItemGroup>
@@ -119,8 +143,6 @@
     <ClInclude Include="Source\Game\config.h">
       <Filter>MyGame</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\Main_girl.h" />
-    <ClInclude Include="Source\Game\UI.h" />
     <ClInclude Include="Source\Game\Man.h">
       <Filter>MyGame</Filter>
     </ClInclude>
@@ -143,6 +165,24 @@
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Teacher.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Girl.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Main_girl.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\UI.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\SpecialGirl.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\NormalGirl1.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\NormalGirl2.h">
       <Filter>MyGame</Filter>
     </ClInclude>
   </ItemGroup>
