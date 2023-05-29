@@ -18,6 +18,7 @@ private:
 	int girl;
 	int count_girl(int maingirl_state, bool evolution);
 	bool touch(int main, int target);
+	int delay = 0;
 	CMovingBitmap teacher_left;
 	CMovingBitmap teacher_right;
 };
