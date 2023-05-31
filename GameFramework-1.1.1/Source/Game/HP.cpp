@@ -11,7 +11,6 @@
 int HP::hp = DEFAULT_HP;
 
 HP::HP() {
-	// hp = DEFAULT_HP;
 	bool_invincible_state = false;
 }
 

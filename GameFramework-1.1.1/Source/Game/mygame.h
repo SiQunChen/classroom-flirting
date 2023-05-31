@@ -128,7 +128,7 @@ namespace game_framework {
 		CMovingBitmap focusing_behind;
 		CMovingBitmap score_board;
 		Score score_sys;
-		Clock clock_board;
+		Clock clock_sys;
 		CMovingBitmap hp_board;
 		HP hp_sys;
 		int up_down = 0; // 1 = 上樓，2 = 下樓
