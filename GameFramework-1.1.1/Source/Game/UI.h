@@ -47,17 +47,19 @@ private:
 class Clock : public game_framework::CMovingBitmap {
 public:
 	Clock();
-	int get_max_time_second();
-	int get_time_left_second();
 	void load_ui_clock_board();
-	void load_ui_clock_tick();
+	void load_ui_clock_pointer();
+	void show_clock_sys();
+	void time_sys();
 private:
-	int time;					// current time
-	int time_left;				// max_time - time
-	const int max_time = 60;			// maximum time of the game
+	double time;							// current time
+	double get_time_left();				// max_time - time
+	double frame_count;
+	int frame;
+	const double max_time = 90;			// maximum time of the game
 	CMovingBitmap clock;
 	CMovingBitmap clock_back;
-	CMovingBitmap clock_pointer;
+	CMovingBitmap clock_pointer[360];
 };
 
 class HP : public game_framework::CMovingBitmap {
