@@ -328,10 +328,11 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	hp_board.SetTopLeft(0, 0);
 	hp_sys.load_ui_hp_num();
 
-	clock_board.LoadBitmapByString({
-		"./RES/UI/clock/clock.bmp",
-		"./RES/UI/clock/clock_background.bmp" });
-	clock_board.SetTopLeft(350, 0);
+	// clock_sys.LoadBitmapByString({
+	// 	"./RES/UI/clock/clock.bmp",
+	// 	"./RES/UI/clock/clock_background.bmp" });
+	clock_sys.load_ui_clock_pointer();
+	clock_sys.load_ui_clock_board();
 
 	crosshair_on.LoadBitmapByString({
 		"./RES/maingirl/focus_point_on (3).bmp", },
@@ -471,13 +472,14 @@ void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 void CGameStateRun::OnMove()							// 移動遊戲元素{
 {
 	if (!(bool_moving_up_and_down_state)) {
+		clock_sys.time_sys();
 		if (HDYLM.flirting_earn_score(Man::man_stop != 0)) {
 			score_sys.score += 1;
 			hp_sys.hp -= 1;
 		}
 	}
 
-	if (hp_sys.hp < -100) {
+	if (hp_sys.hp < 0) {
 		GotoGameState(GAME_STATE_OVER);
 	}
 
@@ -521,11 +523,12 @@ void CGameStateRun::OnMove()							// 移動遊戲元素{
 void CGameStateRun::OnShow() {
 	map.ShowBitmap();
 
-	clock_board.ShowBitmap();
+	clock_sys.show_clock_sys();
 
 	hp_board.ShowBitmap();
 
 	if (hp_sys.hp >= 900 && !bool_moving_up_and_down_state) {
+		hp_sys.hp = 900;
 		evolution = true;
 		beauty_time = true;
 		if (maingirl_state == 1 || maingirl_state == 2 || (maingirl_stop_left == false && (maingirl_state == 6 || maingirl_state == 5))) {
