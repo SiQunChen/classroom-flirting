@@ -527,7 +527,7 @@ void CGameStateRun::OnShow() {
 
 	hp_board.ShowBitmap();
 
-	if (hp_sys.hp >= 900 && !bool_moving_up_and_down_state) {
+	if ((hp_sys.hp >= 900 && !bool_moving_up_and_down_state) || beauty_time == true) {
 		hp_sys.hp = 900;
 		evolution = true;
 		beauty_time = true;
@@ -540,7 +540,9 @@ void CGameStateRun::OnShow() {
 			main_girl[5].SetTopLeft(main_girl[2].GetLeft() - 150, main_girl[2].GetTop() - 300);
 		}
 		hp_sys.bool_invincible_state = true;
-		hp_sys.show_invincible();
+		if (hp_sys.show_invincible() == 1) {
+			beauty_time = false;
+		}
 	}
 	else if (hp_sys.hp > 300) {
 		hp_sys.show_hp();
