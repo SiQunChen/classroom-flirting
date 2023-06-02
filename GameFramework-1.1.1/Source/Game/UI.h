@@ -23,12 +23,14 @@ public:
 	//! can't be used
 	void load_ui_score_num();
 	void show_score();
+	void over();
 private:
 	//! 收服的男生數量寫在男生那邊，UI這裡用一個 getter拿值，計算總成績
 	int this_num;
 	CMovingBitmap score_posision[8];		// 0 is the right
 	CMovingBitmap score_board;
 	CMovingBitmap score_num[10];
+	CMovingBitmap score_end[10];
 };
 
 

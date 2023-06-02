@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Man.h"
-#include "UI.h"
 #include "mygame.h"
 
 std::vector<Man*> Man::dead_man;
@@ -110,8 +109,8 @@ void Man::Load() {
 	man_on_top_big_heart.ToggleAnimation();
 }
 
-int Man::count_girl(int maingirl_state, bool evolution) {
-	if (evolution == false && Teacher::bump == false) {
+int Man::count_girl(int maingirl_state, bool evolution, int bump_delay) {
+	if (evolution == false && Teacher::bump == false && bump_delay == 0) {
 		if (maingirl_state == 1) {
 			return -2;
 		}
@@ -135,8 +134,8 @@ bool Man::touch(int main, int target) {
 	return false;
 }
 
-void Man::heart(int maingirl_state, int maingirl_left, bool evolution) {
-	girl = count_girl(maingirl_state, evolution);
+void Man::heart(int maingirl_state, int maingirl_left, bool evolution, int bump_delay, Score* score_sys) {
+	girl = count_girl(maingirl_state, evolution, bump_delay);
 	if (this->ManState[0].GetTop() > 300) {
 		man_on_bottom_small_heart.SetTopLeft(man_on_bottom_small_heart.GetLeft() + girl, man_on_bottom_small_heart.GetTop());
 		man_on_bottom_small_heart.ShowBitmap();
@@ -147,11 +146,11 @@ void Man::heart(int maingirl_state, int maingirl_left, bool evolution) {
 		man_on_top_small_heart.ShowBitmap();
 		get_small_heart = touch(maingirl_left, man_on_top_small_heart.GetLeft());
 	}
-	modify_hp();
+	modify_hp(score_sys);
 }
 
-void Man::ManMove(int start, int end, int map, int maingirl_state, bool evolution) {
-	girl = count_girl(maingirl_state, evolution);
+void Man::ManMove(int start, int end, int map, int maingirl_state, bool evolution, int bump_delay) {
+	girl = count_girl(maingirl_state, evolution, bump_delay);
 	if (dead == false) {
 		if (this->ManState[0].GetLeft() >= map + end + girl) {
 			left = true;
@@ -188,13 +187,13 @@ void Man::ManMove(int start, int end, int map, int maingirl_state, bool evolutio
 	}
 }
 
-void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left, bool maingirl_stop_left, bool beauty_time, bool evolution) {
+void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left, bool maingirl_stop_left, bool beauty_time, bool evolution, int bump_delay, Score* score_sys) {
 	if (dead == false) {
 		being_attacking = false;
 		not_stop_state = true;
 		if (stop == 0) {
 			not_stop_state = false;
-			ManMove(start, end, map, maingirl_state, evolution);
+			ManMove(start, end, map, maingirl_state, evolution, bump_delay);
 		}
 		else {
 			being_attacking = true;
@@ -205,39 +204,44 @@ void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 			weakening.SetTopLeft(ManState[0].GetLeft() - 20, ManState[0].GetTop() - 20);
 			weakening.ShowBitmap();
 
-			blood.SetTopLeft(ManState[0].GetLeft(), ManState[0].GetTop() - 50);
-			if (beauty_time == false) {
-				blood.ShowBitmap();
-			}
-			else {
-				blood_in_beauty_time = blood_in_beauty_time + 2;
-				blood.SetFrameIndexOfBitmap(blood_in_beauty_time);
-				blood.ShowBitmap();
-			}
-
-			if (blood.GetFrameIndexOfBitmap() == 13) {
-				dead = true;
-				man_stop = 0;
-				if (total_follower >= 0) {
-					total_follower++;
+			if (Girl::how_many_girl == 0) {
+				blood.SetTopLeft(ManState[0].GetLeft(), ManState[0].GetTop() - 50);
+				if (beauty_time == false) {
+					blood.ShowBitmap();
 				}
 				else {
-					total_follower--;
+					blood_in_beauty_time = blood_in_beauty_time + 2;
+					blood.SetFrameIndexOfBitmap(blood_in_beauty_time);
+					blood.ShowBitmap();
 				}
-				follower_rank = total_follower;
-				this->ManState[2].SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop());
-				this->ManState[3].SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop());
-				man_on_bottom_small_heart.SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop() - 30);
-				man_on_top_small_heart.SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop() - 50);
-				man_on_bottom_big_heart.SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop() - 30);
-				man_on_top_big_heart.SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop() - 50);
+
+				if (blood.GetFrameIndexOfBitmap() == 13) {
+					dead = true;
+					man_stop = 0;
+					if (total_follower >= 0) {
+						total_follower++;
+					}
+					else {
+						total_follower--;
+					}
+					follower_rank = total_follower;
+					this->ManState[2].SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop());
+					this->ManState[3].SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop());
+					man_on_bottom_small_heart.SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop() - 30);
+					man_on_top_small_heart.SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop() - 50);
+					man_on_bottom_big_heart.SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop() - 30);
+					man_on_top_big_heart.SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop() - 50);
+				}
+			}
+			else {
+
 			}
 		}
 	}
 	else {
 		if (delay < 25) {
 			delay++;
-			ManMove(start, end, map, maingirl_state, evolution);
+			ManMove(start, end, map, maingirl_state, evolution, bump_delay);
 		}
 		else if (delay == 25) {
 			delay++;
@@ -250,7 +254,7 @@ void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 			}
 		}
 		if (get_small_heart == false) {
-			heart(maingirl_state, maingirl_left, evolution);
+			heart(maingirl_state, maingirl_left, evolution, bump_delay,score_sys);
 		}
 	}
 }
@@ -300,12 +304,14 @@ bool const Man::get_stop_state()
 	return (not_stop_state);
 }
 
-void Man::modify_hp()
+void Man::modify_hp(Score* score_sys)
 {
 	if(get_big_heart) {
 		HP::hp += 150;
+		(*score_sys).score += 10000;
 	}
 	else if(get_small_heart) {
 		HP::hp += 100;
+		(*score_sys).score += 500;
 	}
 }

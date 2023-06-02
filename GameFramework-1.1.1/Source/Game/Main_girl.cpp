@@ -250,3 +250,25 @@ void Main_girl::Load_bump_right() {
 	SetAnimation(150, true);
 	ToggleAnimation();
 }
+
+void Main_girl::Load_lose_left() {
+	LoadBitmapByString({
+		"./RES/mainGirl/left/lose (10).bmp",
+		"./RES/mainGirl/left/lose (11).bmp",
+		"./RES/mainGirl/left/lose (12).bmp",
+		"./RES/mainGirl/left/lose (13).bmp",},
+		RGB(255, 255, 255));
+	SetTopLeft(250, 250);
+	SetAnimation(150, false);
+}
+
+void Main_girl::Load_lose_right() {
+	LoadBitmapByString({
+		"./RES/mainGirl/right/lose (10).bmp",
+		"./RES/mainGirl/right/lose (11).bmp",
+		"./RES/mainGirl/right/lose (12).bmp",
+		"./RES/mainGirl/right/lose (13).bmp", },
+		RGB(255, 255, 255));
+	SetTopLeft(250, 250);
+	SetAnimation(150, false);
+}

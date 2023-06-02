@@ -24,8 +24,8 @@ void Teacher::Load() {
 	teacher_right.SetAnimation(150, false);
 }
 
-int Teacher::count_girl(int maingirl_state, bool evolution) {
-	if (evolution == false && bump == false) {
+int Teacher::count_girl(int maingirl_state, bool evolution, int bump_delay) {
+	if (evolution == false && bump == false && bump_delay == 0) {
 		if (maingirl_state == 1) {
 			return -2;
 		}
@@ -49,24 +49,37 @@ int Teacher::count_girl(int maingirl_state, bool evolution) {
 
 bool Teacher::touch(int main, int target) {
 	if (main <= target + 70 && main >= target - 70) {
+		modify_hp();
+		delay++;
 		return true;
 	}
 	return false;
 }
 
-void Teacher::ShowTeacher(bool left, int maingirl_state, int maingirl_left, bool evolution) {
-	girl = count_girl(maingirl_state, evolution);
+void Teacher::ShowTeacher(bool left, int maingirl_state, int maingirl_left, bool evolution, int bump_delay) {
+	girl = count_girl(maingirl_state, evolution, bump_delay);
 	if (left == true) {
 		teacher_left.SetTopLeft(teacher_left.GetLeft() - 3 + girl, 220);
 		teacher_left.ShowBitmap();
-		bump = touch(maingirl_left, teacher_left.GetLeft());
 	}
 	else {
-		teacher_right.SetTopLeft(teacher_left.GetLeft() + 3 + girl, 220);
+		teacher_right.SetTopLeft(teacher_right.GetLeft() + 3 + girl, 220);
 		teacher_right.ShowBitmap();
-		bump = touch(maingirl_left, teacher_right.GetLeft());
 	}
-	modify_hp();
+	if (delay == 0) {
+		if (left == true) {
+			bump = touch(maingirl_left, teacher_left.GetLeft());
+		}
+		else {
+			bump = touch(maingirl_left, teacher_right.GetLeft());
+		}
+	}
+	else if(delay == 50){
+		delay = 0;
+	}
+	else {
+		delay++;
+	}
 }
 
 void Teacher::Setup(bool left) {
@@ -80,7 +93,5 @@ void Teacher::Setup(bool left) {
 
 void Teacher::modify_hp()
 {
-	if (bump) {
-		HP::hp -= 5;
-	}
+		HP::hp -= 150;
 }

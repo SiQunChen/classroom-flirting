@@ -4,7 +4,7 @@
 
 #include "UI.h"
 
-#define DEFAULT_HP 880
+#define DEFAULT_HP 850
 #define INNER_OVERLAP 160
 #define CYCLE 4
 
