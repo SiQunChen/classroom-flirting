@@ -74,7 +74,7 @@ public:
 	void load_ui_hp_num();
 	void show_hp();
 	void shine_hp();
-	void show_invincible();
+	int show_invincible();
 	void show_invincible_start();
 	void show_invincible_end();
 	void show_invincible_bar();

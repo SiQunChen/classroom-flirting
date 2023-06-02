@@ -77,7 +77,7 @@ void HP::shine_hp()
 	}
 }
 
-void HP::show_invincible()
+int HP::show_invincible()
 {
 	if(bool_invincible_state && ++invincible_time < 6 * CYCLE) {
 		show_invincible_start();
@@ -88,26 +88,28 @@ void HP::show_invincible()
 	}
 	else {
 		show_invincible_end();
+		return 1;
 	}
+	return 0;
 }
 
 void HP::show_invincible_start()
 {
-	invincible_animate[invincible_time / CYCLE].SetTopLeft(20, 35);
+	invincible_animate[invincible_time / CYCLE].SetTopLeft(20, 34);
 	invincible_animate[invincible_time / CYCLE].ShowBitmap();
 }
 
 void HP::show_invincible_bar()
 {
-	invincible_inner.SetTopLeft(20 - (invincible_time - 6 * CYCLE)/CYCLE, 35);
+	invincible_inner.SetTopLeft(20 - (invincible_time - 6 * CYCLE)/CYCLE, 34);
 	invincible_inner.ShowBitmap();
-	invincible_board.SetTopLeft(20, 35);
+	invincible_board.SetTopLeft(0, 34);
 	invincible_board.ShowBitmap();
 }
 
 void HP::show_invincible_end()
 {
-	invincible_animate[5 - (invincible_time - (6 + INNER_OVERLAP) * CYCLE)/ CYCLE].SetTopLeft(20, 35);
+	invincible_animate[5 - (invincible_time - (6 + INNER_OVERLAP) * CYCLE)/ CYCLE].SetTopLeft(20, 34);
 	invincible_animate[5 - (invincible_time - (6 + INNER_OVERLAP) * CYCLE)/ CYCLE].ShowBitmap();
 
 	if(invincible_time >= (12 + INNER_OVERLAP) * CYCLE) {
