@@ -9,8 +9,8 @@ void Girl::Load() {
 	
 }
 
-int Girl::count_girl(int maingirl_state, bool evolution) {
-	if (evolution == false && Teacher::bump == false) {
+int Girl::count_girl(int maingirl_state, bool evolution, int bump_delay) {
+	if (evolution == false && Teacher::bump == false && bump_delay == 0) {
 		if (maingirl_state == 1) {
 			return -2;
 		}
@@ -32,8 +32,8 @@ int Girl::count_girl(int maingirl_state, bool evolution) {
 	}
 }
 
-void Girl::GirlMove(int start, int end, int map, int maingirl_state, bool evolution) {
-	girl = count_girl(maingirl_state, evolution);
+void Girl::GirlMove(int start, int end, int map, int maingirl_state, bool evolution, int bump_delay) {
+	girl = count_girl(maingirl_state, evolution, bump_delay);
 	if (this->walk_right.GetLeft() >= map + end + girl) {
 		left = true;
 	}
@@ -52,13 +52,12 @@ void Girl::GirlMove(int start, int end, int map, int maingirl_state, bool evolut
 	}
 }
 
-void Girl::ShowGirl(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left, bool beauty_time, bool evolution, int stop_man_left) {
-	if (Man::man_stop == 0 || (this->walk_left.GetLeft() < 10 && this->walk_left.GetLeft() > 790)) {
-		delay = 0;
-		GirlMove(start, end, map, maingirl_state, evolution);
-	}
-	else {
-		how_many_girl++;
+void Girl::ShowGirl(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left, bool beauty_time, bool evolution, int stop_man_left, int bump_delay) {
+	if (Man::man_stop != 0 && this->walk_left.GetLeft() >10 && this->walk_left.GetLeft() < 790) {
+		if (girl_stop == false) {
+			how_many_girl++;
+			girl_stop = true;
+		}
 		if (this->walk_left.GetLeft() > stop_man_left) {
 			left = true;
 		}
@@ -87,5 +86,10 @@ void Girl::ShowGirl(int start, int end, int map, int maingirl_state, bool stop, 
 				this->shoot_right.ShowBitmap();
 			}
 		}
+	}
+	else {
+		delay = 0;
+		GirlMove(start, end, map, maingirl_state, evolution, bump_delay);
+		girl_stop = false;
 	}
 }

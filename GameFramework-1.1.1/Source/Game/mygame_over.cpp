@@ -3,6 +3,8 @@
 
 using namespace game_framework;
 
+Score CGameStateRun::score_sys;
+
 ////////////////////////////////////
 // 這個class為遊戲的結束狀態(Game Over)
 ////////////////////////////////////
@@ -60,7 +62,6 @@ void CGameStateOver::OnInit()
 	end1_loop.SetTopLeft(0, 0);
 	end1_loop.SetAnimation(200, false);
 
-	/*
 	end2_start.LoadBitmapByString({
 		"./RES/end/end2/start (1).bmp" ,
 		"./RES/end/end2/start (2).bmp" ,
@@ -167,7 +168,6 @@ void CGameStateOver::OnInit()
 		});
 	end6_loop.SetTopLeft(0, 0);
 	end6_loop.SetAnimation(200, false);
-	*/
 
 	ShowInitProgress(100, "OK!");
 
@@ -176,9 +176,50 @@ void CGameStateOver::OnInit()
 
 void CGameStateOver::OnShow()
 {
-	end1_start.ShowBitmap();
-
-	if (end1_start.GetFrameIndexOfBitmap() == 9) {
-		end1_loop.ShowBitmap();
+	if (CGameStateRun::score_sys.score < 2000) {
+		if (end1_start.GetFrameIndexOfBitmap() == 9) {
+			end1_loop.ShowBitmap();
+		}
+		else {
+			end1_start.ShowBitmap();
+		}
 	}
+	else if (CGameStateRun::score_sys.score < 5000) {
+		if (end2_start.GetFrameIndexOfBitmap() == 5) {
+			end2_loop.ShowBitmap();
+		}
+		else {
+			end2_start.ShowBitmap();
+		}
+	}
+	else if (CGameStateRun::score_sys.score < 10000) {
+		if (end3_start.GetFrameIndexOfBitmap() == 4) {
+			end3_loop.ShowBitmap();
+		}
+		else {
+			end3_start.ShowBitmap();
+		}
+	}
+	else if (CGameStateRun::score_sys.score < 20000) {
+		if (end4_start.GetFrameIndexOfBitmap() == 4) {
+			end4_loop.ShowBitmap();
+		}
+		else {
+			end4_start.ShowBitmap();
+		}
+	}
+	else if (CGameStateRun::score_sys.score < 30000) {
+		if (end5_start.GetFrameIndexOfBitmap() == 6) {
+			end5_loop.ShowBitmap();
+		}
+		else {
+			end5_start.ShowBitmap();
+		}
+	}
+	else {
+		end6_start.ShowBitmap();
+		end6_loop.ShowBitmap();
+	}
+	
+	CGameStateRun::score_sys.over();
 }

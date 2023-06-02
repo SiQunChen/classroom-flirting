@@ -112,6 +112,7 @@ namespace game_framework {
 		void OnRButtonUp(UINT nFlags, CPoint point) override;	// 處理滑鼠的動作
 		void OnRButtonDown(UINT nFlags, CPoint point) override;  // 處理滑鼠的動作
 		HDYLM_sys HDYLM;
+		static Score score_sys;
 	protected:
 		CMovingBitmap map;
 		void MainGirlMove();
@@ -127,12 +128,12 @@ namespace game_framework {
 		CMovingBitmap focusing_front;
 		CMovingBitmap focusing_behind;
 		CMovingBitmap score_board;
-		Score score_sys;
 		Clock clock_sys;
 		CMovingBitmap hp_board;
 		HP hp_sys;
 		int up_down = 0; // 1 = 上樓，2 = 下樓
 		int time = 0;
+		int bump_delay = 0;
 		int floor = 1;
 		int maingirl_state = 1;
 		int stop_man_left = 0;
@@ -152,7 +153,7 @@ namespace game_framework {
 		3: run left 4: run right
 		5: beauty left 6: beauty right
 		*/
-		Main_girl main_girl[9];
+		Main_girl main_girl[11];
 		Normalman1 n1[8];
 		Normalman2 n2[8];
 		Normalman3 n3[8];
