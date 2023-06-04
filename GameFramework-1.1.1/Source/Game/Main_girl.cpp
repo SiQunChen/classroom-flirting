@@ -71,7 +71,6 @@ void Main_girl::Load_walk_left() {
         "./RES/mainGirl/left/girl_walk (6).bmp",
         "./RES/mainGirl/left/girl_walk (7).bmp", },
         RGB(230, 230, 196));
-    SetTopLeft(250, 250);
     SetAnimation(150, false);
 }
 
@@ -99,7 +98,6 @@ void Main_girl::Load_run_left() {
         "./RES/mainGirl/left/girl_run (6).bmp",
         "./RES/mainGirl/left/girl_run (7).bmp", },
         RGB(0, 0, 0));
-    SetTopLeft(250, 250);
     SetAnimation(150, false);
 }
 
@@ -113,7 +111,6 @@ void Main_girl::Load_run_right() {
         "./RES/mainGirl/right/girl_run (6).bmp",
         "./RES/mainGirl/right/girl_run (7).bmp", },
         RGB(0, 0, 0));
-    SetTopLeft(250, 250);
     SetAnimation(150, false);  
 }
 
@@ -152,7 +149,6 @@ void Main_girl::Load_beauty_time_left() {
 		"./RES/mainGirl/left/reinforcing (31).bmp",
 		"./RES/mainGirl/left/reinforcing (32).bmp",},
 		RGB(0, 0, 0));
-	SetTopLeft(250, 250);
 	SetAnimation(100, true);
 	ToggleAnimation();
 }
@@ -192,7 +188,6 @@ void Main_girl::Load_beauty_time_right() {
 		"./RES/mainGirl/right/reinforcing (31).bmp",
 		"./RES/mainGirl/right/reinforcing (32).bmp", },
 		RGB(0, 0, 0));
-	SetTopLeft(250, 250);
 	SetAnimation(100, true);
 	ToggleAnimation();
 }
@@ -219,7 +214,6 @@ void Main_girl::Load_bump_left() {
 		"./RES/mainGirl/left/bump (18).bmp",
 		"./RES/mainGirl/left/bump (19).bmp",},
 		RGB(255, 255, 255));
-	SetTopLeft(250, 250);
 	SetAnimation(150, true);
 	ToggleAnimation();
 }
@@ -246,7 +240,6 @@ void Main_girl::Load_bump_right() {
 		"./RES/mainGirl/right/bump (18).bmp",
 		"./RES/mainGirl/right/bump (19).bmp", },
 		RGB(255, 255, 255));
-	SetTopLeft(250, 250);
 	SetAnimation(150, true);
 	ToggleAnimation();
 }
@@ -258,7 +251,6 @@ void Main_girl::Load_lose_left() {
 		"./RES/mainGirl/left/lose (12).bmp",
 		"./RES/mainGirl/left/lose (13).bmp",},
 		RGB(255, 255, 255));
-	SetTopLeft(250, 250);
 	SetAnimation(150, false);
 }
 
@@ -269,6 +261,39 @@ void Main_girl::Load_lose_right() {
 		"./RES/mainGirl/right/lose (12).bmp",
 		"./RES/mainGirl/right/lose (13).bmp", },
 		RGB(255, 255, 255));
-	SetTopLeft(250, 250);
+	SetAnimation(150, false);
+}
+
+void Main_girl::Load_over_notice_left(){LoadBitmapByString({"./RES/mainGirl/left/over_notice.bmp"},RGB(0, 0, 0));}
+
+void Main_girl::Load_over_left() {
+	LoadBitmapByString({
+		"./RES/mainGirl/left/over_walking (1).bmp",
+		"./RES/mainGirl/left/over_walking (2).bmp", 
+		"./RES/mainGirl/left/over_walking (3).bmp", 
+		"./RES/mainGirl/left/over_walking (4).bmp", 
+		"./RES/mainGirl/left/over_walking (5).bmp", 
+		"./RES/mainGirl/left/over_walking (6).bmp", 
+		"./RES/mainGirl/left/over_walking (7).bmp", 
+		"./RES/mainGirl/left/over_walking (8).bmp", 
+		"./RES/mainGirl/left/over_walking (9).bmp", },
+		RGB(0, 0, 0));
+	SetAnimation(150, false);
+}
+
+void Main_girl::Load_over_notice_right() { LoadBitmapByString({ "./RES/mainGirl/right/over_notice.bmp" }, RGB(0, 0, 0)); }
+
+void Main_girl::Load_over_right() {
+	LoadBitmapByString({
+		"./RES/mainGirl/right/over_walking (1).bmp",
+		"./RES/mainGirl/right/over_walking (2).bmp",
+		"./RES/mainGirl/right/over_walking (3).bmp",
+		"./RES/mainGirl/right/over_walking (4).bmp",
+		"./RES/mainGirl/right/over_walking (5).bmp",
+		"./RES/mainGirl/right/over_walking (6).bmp",
+		"./RES/mainGirl/right/over_walking (7).bmp",
+		"./RES/mainGirl/right/over_walking (8).bmp",
+		"./RES/mainGirl/right/over_walking (9).bmp", },
+		RGB(0, 0, 0));
 	SetAnimation(150, false);
 }

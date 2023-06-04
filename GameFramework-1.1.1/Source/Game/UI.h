@@ -53,12 +53,14 @@ public:
 	void load_ui_clock_pointer();
 	void show_clock_sys();
 	void time_sys();
+	bool get_time_over();
 private:
 	double time;							// current time
 	double get_time_left();				// max_time - time
 	double frame_count;
 	int frame;
 	const double max_time = 90;			// maximum time of the game
+	bool time_over = false;
 	CMovingBitmap clock;
 	CMovingBitmap clock_back;
 	CMovingBitmap clock_pointer[360];

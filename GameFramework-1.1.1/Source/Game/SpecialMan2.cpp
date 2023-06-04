@@ -66,3 +66,26 @@ void Specialman2::Load_state() {
 		RGB(255, 255, 255));
 	ManState[5].SetAnimation(150, false);
 }
+
+void Specialman2::heart(int maingirl_state, int maingirl_left, bool evolution, int bump_delay, Score* score_sys) {
+	girl = count_girl(maingirl_state, evolution, bump_delay);
+	if (this->ManState[0].GetTop() > 300) {
+		man_on_bottom_big_heart.SetTopLeft(man_on_bottom_big_heart.GetLeft() + girl, man_on_bottom_big_heart.GetTop());
+		man_on_bottom_big_heart.ShowBitmap();
+		get_heart = touch(maingirl_left, man_on_bottom_big_heart.GetLeft());
+	}
+	else {
+		man_on_top_big_heart.SetTopLeft(man_on_top_big_heart.GetLeft() + girl, man_on_top_big_heart.GetTop());
+		man_on_top_big_heart.ShowBitmap();
+		get_heart = touch(maingirl_left, man_on_top_big_heart.GetLeft());
+	}
+	modify_hp(score_sys);
+}
+
+void Specialman2::modify_hp(Score* score_sys)
+{
+	if (get_heart) {
+		HP::hp += 150;
+		(*score_sys).score += 10000;
+	}
+}
