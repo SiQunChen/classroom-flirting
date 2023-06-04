@@ -1,5 +1,7 @@
 #pragma once
 #include "../Library/gameutil.h"
+#include "../Library/audio.h"
+
 
 class HDYLM_sys : public game_framework::CMovingBitmap {
 public:
