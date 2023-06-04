@@ -34,11 +34,14 @@ private:
 };
 
 
-class Audio : public game_framework::CMovingBitmap {
+class Audio_sys : public game_framework::CMovingBitmap {
 public:
-	Audio()=default;
-	void load_ui_audio();
+	Audio_sys()=default;
+	void load_ui_audio_run();
+	void play_ui_audio(int audio_tag);
 private:
+	game_framework::CAudio* audio;
+	
 	// min = 1;
 	// max = 5;
 	// to be fix

@@ -314,6 +314,9 @@ void CGameStateRun::OnBeginState()
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
+	audio_sys.load_ui_audio_run();
+	// audio_sys.play_ui_audio(0);
+	
 	map.LoadBitmapByString({
 		"./RES/map1.bmp",
 		"./RES/map2.bmp",
