@@ -24,6 +24,10 @@ public:
 	void Load_bump_right();
 	void Load_lose_left();
 	void Load_lose_right();
+	void Load_over_notice_left();
+	void Load_over_left();
+	void Load_over_notice_right();
+	void Load_over_right();
 private:
 	/* 
 	POINT p;

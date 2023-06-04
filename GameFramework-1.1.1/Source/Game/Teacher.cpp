@@ -12,6 +12,7 @@ void Teacher::Load() {
 		"./RES/teacher/left/left (4).bmp",
 		"./RES/teacher/left/left (5).bmp",},
 		RGB(230, 230, 196));
+	teacher_left.SetTopLeft(2000, 250);
 	teacher_left.SetAnimation(150, false);
 
 	teacher_right.LoadBitmapByString({
@@ -21,6 +22,7 @@ void Teacher::Load() {
 		"./RES/teacher/right/right (4).bmp",
 		"./RES/teacher/right/right (5).bmp", },
 		RGB(230, 230, 196));
+	teacher_right.SetTopLeft(-2000, 250);
 	teacher_right.SetAnimation(150, false);
 }
 

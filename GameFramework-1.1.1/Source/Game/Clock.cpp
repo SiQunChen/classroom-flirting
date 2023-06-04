@@ -30,6 +30,9 @@ void Clock::show_clock_sys()
 	frame = int(time/0.25);
 	clock_pointer[frame].SetTopLeft(375, 15);
 	clock_pointer[frame].ShowBitmap();
+	if (frame == 359) {
+		time_over = true;
+	}
 }
 
 void Clock::time_sys()
@@ -46,5 +49,9 @@ void Clock::time_sys()
 double Clock::get_time_left()
 {
 	return (max_time - time);
+}
+
+bool Clock::get_time_over() {
+	return time_over;
 }
 

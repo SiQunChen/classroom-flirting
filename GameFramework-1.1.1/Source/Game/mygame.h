@@ -153,7 +153,7 @@ namespace game_framework {
 		3: run left 4: run right
 		5: beauty left 6: beauty right
 		*/
-		Main_girl main_girl[11];
+		Main_girl main_girl[15];
 		Normalman1 n1[8];
 		Normalman2 n2[8];
 		Normalman3 n3[8];

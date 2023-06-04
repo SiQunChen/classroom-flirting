@@ -19,6 +19,11 @@ public:
 	static std::vector<Man*> dead_man;
 	static int man_stop;
 protected:
+	bool get_heart = false;
+	int count_girl(int maingirl_state, bool evolution, int bump_delay);
+	bool touch(int main, int target);
+	virtual void modify_hp(Score* score_sys) = 0;
+	virtual void heart(int maingirl_state, int maingirl_left, bool evolution, int bump_delay, Score* score_sys) = 0;
 	bool being_attacking = false;
 	bool not_stop_state = false;
 	int girl = 0;
@@ -34,12 +39,6 @@ protected:
 	CMovingBitmap man_on_bottom_big_heart;
 	CMovingBitmap man_on_top_big_heart;
 private:
-	void modify_hp(Score* score_sys);
-	bool get_small_heart = false;
-	bool get_big_heart = false;
-	int count_girl(int maingirl_state, bool evolution, int bump_delay);
 	void ManMove(int start, int end, int map, int maingirl_state, bool evolution, int bump_delay);
-	void heart(int maingirl_state, int maingirl_left, bool evolution, int bump_delay, Score* score_sys);
-	bool touch(int main, int target);
 	int blood_in_beauty_time = 1;
 };
