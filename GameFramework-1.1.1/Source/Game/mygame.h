@@ -131,6 +131,7 @@ namespace game_framework {
 		Clock clock_sys;
 		CMovingBitmap hp_board;
 		HP hp_sys;
+		Audio_sys audio_sys;
 		int up_down = 0; // 1 = 上樓，2 = 下樓
 		int time = 0;
 		int bump_delay = 0;
