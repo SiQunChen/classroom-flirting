@@ -18,7 +18,9 @@ public:
 	bool dead = false;
 	static std::vector<Man*> dead_man;
 	static int man_stop;
+	void load_clicking_bar();
 protected:
+	CMovingBitmap clicking_bar[68];
 	bool get_heart = false;
 	int count_girl(int maingirl_state, bool evolution, int bump_delay);
 	bool touch(int main, int target);

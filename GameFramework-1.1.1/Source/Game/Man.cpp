@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Man.h"
+#include <string>
 #include "mygame.h"
 
 std::vector<Man*> Man::dead_man;
@@ -287,4 +288,14 @@ bool const Man::get_being_attacking_state()
 bool const Man::get_stop_state()
 {
 	return (not_stop_state);
+}
+
+void Man::load_clicking_bar()
+{
+	for (int i = 0; i < 68; i++) {
+		auto I = std::to_string(i);
+		clicking_bar[i].LoadBitmapByString({
+			"./RES/Man/clicking_bar/clicking_bar (" + I + ").bmp"
+		});
+	}
 }

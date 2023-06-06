@@ -352,16 +352,13 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	score_board.LoadBitmapByString({
 		"./RES/UI/number/scoreBoard.bmp" });
 	score_board.SetTopLeft(430, -1);
-	CGameStateRun::score_sys.load_ui_score_num();
+	score_sys.load_ui_score_num();
 
 	hp_board.LoadBitmapByString({
 		"./RES/UI/heart/heartPointBoard.bmp" });
 	hp_board.SetTopLeft(0, 0);
 	hp_sys.load_ui_hp_num();
-
-	// clock_sys.LoadBitmapByString({
-	// 	"./RES/UI/clock/clock.bmp",
-	// 	"./RES/UI/clock/clock_background.bmp" });
+	
 	clock_sys.load_ui_clock_pointer();
 	clock_sys.load_ui_clock_board();
 
@@ -540,12 +537,20 @@ void CGameStateRun::OnMove()							// 移動遊戲元素{
 			
 		}
 	}*/
-
+	
 	if (!(bool_moving_up_and_down_state) && hp_sys.hp > 0) {
 		clock_sys.time_sys();
-		if (HDYLM.flirting_earn_score(Man::man_stop != 0)) {
-			CGameStateRun::score_sys.score += 1;
-			hp_sys.hp -= 1;
+		
+		HDYLM.kill_man_earn_score(Man::man_stop, 680);
+
+		if (Girl::how_many_girl > 0) {		// 連打
+			score_sys.score += 3 * Girl::how_many_girl;
+		}
+		else {								// 普通
+			if (HDYLM.flirting_earn_score(Man::man_stop != 0)) {
+				hp_sys.hp -= 1;
+				score_sys.score += 1;
+			}
 		}
 	}
 
@@ -586,7 +591,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素{
 	}
 }
 
-void CGameStateRun::OnShow() {
+void CGameStateRun::OnShow()
+{
 	map.ShowBitmap();
 
 	clock_sys.show_clock_sys();
@@ -598,7 +604,7 @@ void CGameStateRun::OnShow() {
 	}
 
 	score_board.ShowBitmap();
-	CGameStateRun::score_sys.show_score();
+	score_sys.show_score();
 
 	if (Man::man_stop != 1) {
 		n1[floor * 2 - 2].ShowMan(500, 800, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys);
