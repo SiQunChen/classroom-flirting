@@ -1,17 +1,21 @@
 #pragma once
 #include "../Library/gameutil.h"
+#include "../Library/audio.h"
+
 
 class HDYLM_sys : public game_framework::CMovingBitmap {
 public:
 	HDYLM_sys() = default;
 	~HDYLM_sys() = default;
-	int how_much_do_you_love_me = 0;
-	bool kill_man_earn_score(bool is_being_attack_state, int how_do_you_love_me_max);
+	bool kill_man_earn_score(int is_being_attack_state, int how_do_you_love_me_max);
 	bool flirting_earn_score(bool is_stop_state);
+	int get_HDYLM_value();
 private:
+	int how_much_do_you_love_me = 0;
 	bool flirting = false;
 	bool killed = false;
 	int cd_time = 0;
+	int decrease_per_sec;
 };
 
 class Score : public game_framework::CMovingBitmap {
@@ -34,11 +38,14 @@ private:
 };
 
 
-class Audio : public game_framework::CMovingBitmap {
+class Audio_sys : public game_framework::CMovingBitmap {
 public:
-	Audio()=default;
-	void load_ui_audio();
+	Audio_sys()=default;
+	void load_ui_audio_run();
+	void play_ui_audio(int audio_tag);
 private:
+	game_framework::CAudio* audio;
+	
 	// min = 1;
 	// max = 5;
 	// to be fix

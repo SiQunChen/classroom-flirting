@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Man.h"
+#include <string>
 #include "mygame.h"
 
 std::vector<Man*> Man::dead_man;
@@ -93,6 +94,11 @@ void Man::Load() {
 		RGB(255, 255, 255));
 	man_on_top_big_heart.SetAnimation(30, true);
 	man_on_top_big_heart.ToggleAnimation();
+
+	for (int i = 0; i < 68; i++) {
+		auto I = std::to_string(i);
+		clicking_bar[i].LoadBitmapByString({"./RES/Man/clicking_bar/clicking_bar (" + I + ").bmp"});
+	}
 }
 
 int Man::count_girl(int maingirl_state, bool evolution, int bump_delay, int over_delay) {

@@ -93,3 +93,8 @@ void Girl::ShowGirl(int start, int end, int map, int maingirl_state, bool stop, 
 		girl_stop = false;
 	}
 }
+
+int Girl::get_how_many_girl_in_view()
+{
+	return (how_many_girl);
+}

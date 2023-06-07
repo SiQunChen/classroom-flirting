@@ -10,6 +10,7 @@ public:
 	virtual ~Girl() {}
 	virtual void Load() = 0;
 	void ShowGirl(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left, bool beauty_time, bool evolution, int stop_man_left, int bump_delay, int over_delay);
+	int get_how_many_girl_in_view();
 	CMovingBitmap walk_left;
 	CMovingBitmap walk_right;
 	CMovingBitmap fly_left;

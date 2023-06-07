@@ -21,6 +21,7 @@ public:
 	static std::vector<Man*> dead_man;
 	static int man_stop;
 protected:
+	CMovingBitmap clicking_bar[68];
 	bool get_heart = false;
 	int count_girl(int maingirl_state, bool evolution, int bump_delay, int over_delay);
 	bool touch(int main, int target);
