@@ -63,10 +63,19 @@ void Normalman1::Load_state() {
 		"./RES/Man/normalMan1/follow/right/slave_girl (3).bmp", },
 		RGB(255, 255, 255));
 	ManState[5].SetAnimation(150, false);
+
+	over_score.LoadBitmapByString({
+		"./RES/Man/1000 (1).bmp",
+		"./RES/Man/1000 (2).bmp",
+		"./RES/Man/1000 (3).bmp",
+		"./RES/Man/1000 (4).bmp",
+		"./RES/Man/1000 (5).bmp",},
+		RGB(255, 255, 255));
+	over_score.SetAnimation(150, true);
+	over_score.ToggleAnimation();
 }
 
-void Normalman1::heart(int maingirl_state, int maingirl_left, bool evolution, int bump_delay, Score* score_sys) {
-	girl = count_girl(maingirl_state, evolution, bump_delay);
+void Normalman1::heart(int maingirl_left, Score* score_sys) {
 	if (this->ManState[0].GetTop() > 300) {
 		man_on_bottom_small_heart.SetTopLeft(man_on_bottom_small_heart.GetLeft() + girl, man_on_bottom_small_heart.GetTop());
 		man_on_bottom_small_heart.ShowBitmap();
@@ -86,4 +95,9 @@ void Normalman1::modify_hp(Score* score_sys)
 		HP::hp += 100;
 		(*score_sys).score += 500;
 	}
+}
+
+int Normalman1::get_score()
+{
+	return 1000;
 }

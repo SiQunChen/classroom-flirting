@@ -54,6 +54,7 @@ public:
 	void show_clock_sys();
 	void time_sys();
 	bool get_time_over();
+	void over_cheat();
 private:
 	double time;							// current time
 	double get_time_left();				// max_time - time
@@ -64,6 +65,7 @@ private:
 	CMovingBitmap clock;
 	CMovingBitmap clock_back;
 	CMovingBitmap clock_pointer[360];
+	CMovingBitmap color[360];
 };
 
 class HP : public game_framework::CMovingBitmap {

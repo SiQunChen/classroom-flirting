@@ -74,20 +74,6 @@ void Man::Load() {
 	man_on_top_small_heart.SetAnimation(30, true);
 	man_on_top_small_heart.ToggleAnimation();
 
-	man_on_bottom_big_heart.LoadBitmapByString({
-		"./RES/Heart/big/heart_big_bottom (1).bmp",
-		"./RES/Heart/big/heart_big_bottom (2).bmp",
-		"./RES/Heart/big/heart_big_bottom (3).bmp",
-		"./RES/Heart/big/heart_big_bottom (4).bmp",
-		"./RES/Heart/big/heart_big_bottom (5).bmp",
-		"./RES/Heart/big/heart_big_bottom (6).bmp",
-		"./RES/Heart/big/heart_big_bottom (7).bmp",
-		"./RES/Heart/big/heart_big_bottom (8).bmp",
-		"./RES/Heart/big/heart_big_bottom (9).bmp", },
-		RGB(255, 255, 255));
-	man_on_bottom_big_heart.SetAnimation(50, true);
-	man_on_bottom_big_heart.ToggleAnimation();
-
 	man_on_top_big_heart.LoadBitmapByString({
 		"./RES/Heart/big/heart_big_top (1).bmp",
 		"./RES/Heart/big/heart_big_top (2).bmp",
@@ -109,8 +95,8 @@ void Man::Load() {
 	man_on_top_big_heart.ToggleAnimation();
 }
 
-int Man::count_girl(int maingirl_state, bool evolution, int bump_delay) {
-	if (evolution == false && Teacher::bump == false && bump_delay == 0) {
+int Man::count_girl(int maingirl_state, bool evolution, int bump_delay, int over_delay) {
+	if (evolution == false && Teacher::bump == false && bump_delay == 0 && over_delay == 0) {
 		if (maingirl_state == 1) {
 			return -2;
 		}
@@ -134,8 +120,7 @@ bool Man::touch(int main, int target) {
 	return false;
 }
 
-void Man::ManMove(int start, int end, int map, int maingirl_state, bool evolution, int bump_delay) {
-	girl = count_girl(maingirl_state, evolution, bump_delay);
+void Man::ManMove(int start, int end, int map) {
 	if (dead == false) {
 		if (this->ManState[0].GetLeft() >= map + end + girl) {
 			left = true;
@@ -172,13 +157,14 @@ void Man::ManMove(int start, int end, int map, int maingirl_state, bool evolutio
 	}
 }
 
-void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left, bool maingirl_stop_left, bool beauty_time, bool evolution, int bump_delay, Score* score_sys) {
+void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left, bool maingirl_stop_left, bool beauty_time, bool evolution, int bump_delay, Score* score_sys, int over_delay) {
+	girl = count_girl(maingirl_state, evolution, bump_delay, over_delay);
 	if (dead == false) {
 		being_attacking = false;
 		not_stop_state = true;
 		if (stop == 0) {
 			not_stop_state = false;
-			ManMove(start, end, map, maingirl_state, evolution, bump_delay);
+			ManMove(start, end, map);
 		}
 		else {
 			being_attacking = true;
@@ -214,7 +200,6 @@ void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 					this->ManState[3].SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop());
 					man_on_bottom_small_heart.SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop() - 30);
 					man_on_top_small_heart.SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop() - 50);
-					man_on_bottom_big_heart.SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop() - 30);
 					man_on_top_big_heart.SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop() - 50);
 				}
 			}
@@ -226,7 +211,7 @@ void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 	else {
 		if (delay < 25) {
 			delay++;
-			ManMove(start, end, map, maingirl_state, evolution, bump_delay);
+			ManMove(start, end, map);
 		}
 		else if (delay == 25) {
 			delay++;
@@ -239,7 +224,7 @@ void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 			}
 		}
 		if (get_heart == false) {
-			heart(maingirl_state, maingirl_left, evolution, bump_delay,score_sys);
+			heart(maingirl_left,score_sys);
 		}
 	}
 }
@@ -287,4 +272,23 @@ bool const Man::get_being_attacking_state()
 bool const Man::get_stop_state()
 {
 	return (not_stop_state);
+}
+
+int const Man::get_vector_size() {
+	return dead_man.size();
+}
+
+void Man::over(Score* score_sys, bool over_left) {
+	if (add == false) {
+		score = get_score();
+		(*score_sys).score += score;
+		add = true;
+	}
+	if (over_left == true) {
+		over_score.SetTopLeft(this->ManState[4].GetLeft(), this->ManState[4].GetTop() - 80);
+	}
+	else {
+		over_score.SetTopLeft(this->ManState[4].GetLeft() + 50, this->ManState[4].GetTop() - 80);
+	}
+	over_score.ShowBitmap();
 }
