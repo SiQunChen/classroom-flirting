@@ -135,6 +135,7 @@ namespace game_framework {
 		int up_down = 0; // 1 = 上樓，2 = 下樓
 		int time = 0;
 		int bump_delay = 0;
+		int over_delay = 0;
 		int floor = 1;
 		int maingirl_state = 1;
 		int stop_man_left = 0;
@@ -144,6 +145,7 @@ namespace game_framework {
 		bool evolution = false;
 		bool evo_left = false;
 		bool bump_left = false;
+		bool over_left = false;
 		bool maingirl_stop_left = false;
 		bool maingirl_stop_front = false;
 		bool bool_moving_up_and_down_state = false;

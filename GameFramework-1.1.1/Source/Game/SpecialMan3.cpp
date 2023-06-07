@@ -67,12 +67,21 @@ void Specialman3::Load_state() {
 		"./RES/Man/specialMan3/follow/right/slave_girl (3).bmp", },
 		RGB(255, 255, 255));
 	ManState[5].SetAnimation(150, false);
+
+	over_score.LoadBitmapByString({
+		"./RES/Man/40000 (1).bmp",
+		"./RES/Man/40000 (2).bmp",
+		"./RES/Man/40000 (3).bmp",
+		"./RES/Man/40000 (4).bmp",
+		"./RES/Man/40000 (5).bmp", },
+		RGB(255, 255, 255));
+	over_score.SetAnimation(150, true);
+	over_score.ToggleAnimation();
 }
 
-void Specialman3::heart(int maingirl_state, int maingirl_left, bool evolution, int bump_delay, Score* score_sys) {
-	girl = count_girl(maingirl_state, evolution, bump_delay);
-	man_on_top_big_heart.SetTopLeft(man_on_top_big_heart.GetLeft() + girl, man_on_top_big_heart.GetTop());
-	man_on_top_big_heart.ShowBitmap();
+void Specialman3::heart(int maingirl_left, Score* score_sys) {
+	man_on_top_big_heart.SetTopLeft(man_on_top_big_heart.GetLeft() + girl, -50);
+	man_on_top_big_heart.ShowBitmap(1.5);
 	get_heart = touch(maingirl_left, man_on_top_big_heart.GetLeft());
 	modify_hp(score_sys);
 }
@@ -83,4 +92,9 @@ void Specialman3::modify_hp(Score* score_sys)
 		HP::hp += 150;
 		(*score_sys).score += 10000;
 	}
+}
+
+int Specialman3::get_score()
+{
+	return 40000;
 }

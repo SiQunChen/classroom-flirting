@@ -8,8 +8,9 @@ public:
 	Normalman3() = default;
 	~Normalman3() {}
 	void Load_state() override;
+	int get_score() override;
 private:
-	void heart(int maingirl_state, int maingirl_left, bool evolution, int bump_delay, Score* score_sys) override;
+	void heart(int maingirl_left, Score* score_sys) override;
 	void modify_hp(Score* score_sys) override;
 };
 

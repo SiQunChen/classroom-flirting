@@ -176,7 +176,7 @@ void CGameStateOver::OnInit()
 
 void CGameStateOver::OnShow()
 {
-	if (CGameStateRun::score_sys.score < 2000) {
+	if (CGameStateRun::score_sys.score < 5000) {
 		if (end1_start.GetFrameIndexOfBitmap() == 9) {
 			end1_loop.ShowBitmap();
 		}
@@ -184,7 +184,7 @@ void CGameStateOver::OnShow()
 			end1_start.ShowBitmap();
 		}
 	}
-	else if (CGameStateRun::score_sys.score < 5000) {
+	else if (CGameStateRun::score_sys.score < 10000) {
 		if (end2_start.GetFrameIndexOfBitmap() == 5) {
 			end2_loop.ShowBitmap();
 		}
@@ -192,7 +192,7 @@ void CGameStateOver::OnShow()
 			end2_start.ShowBitmap();
 		}
 	}
-	else if (CGameStateRun::score_sys.score < 10000) {
+	else if (CGameStateRun::score_sys.score < 50000) {
 		if (end3_start.GetFrameIndexOfBitmap() == 4) {
 			end3_loop.ShowBitmap();
 		}
@@ -200,7 +200,7 @@ void CGameStateOver::OnShow()
 			end3_start.ShowBitmap();
 		}
 	}
-	else if (CGameStateRun::score_sys.score < 20000) {
+	else if (CGameStateRun::score_sys.score < 80000) {
 		if (end4_start.GetFrameIndexOfBitmap() == 4) {
 			end4_loop.ShowBitmap();
 		}
@@ -208,7 +208,7 @@ void CGameStateOver::OnShow()
 			end4_start.ShowBitmap();
 		}
 	}
-	else if (CGameStateRun::score_sys.score < 30000) {
+	else if (CGameStateRun::score_sys.score < 100000) {
 		if (end5_start.GetFrameIndexOfBitmap() == 6) {
 			end5_loop.ShowBitmap();
 		}
