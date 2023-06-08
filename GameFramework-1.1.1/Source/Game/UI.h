@@ -42,7 +42,12 @@ class Audio_sys : public game_framework::CMovingBitmap {
 public:
 	Audio_sys()=default;
 	void load_ui_audio_run();
+	void load_ui_audio_init();
+	void load_ui_audio_end();
+	void load_ui_audio_man();
+	void pause();
 	void play_ui_audio(int audio_tag);
+	void stop_ui_audio(int audio_tag);
 private:
 	game_framework::CAudio* audio;
 	
@@ -63,7 +68,7 @@ public:
 	bool get_time_over();
 	void over_cheat();
 private:
-	double time;							// current time
+	double time;						// current time
 	double get_time_left();				// max_time - time
 	double frame_count;
 	int frame;
