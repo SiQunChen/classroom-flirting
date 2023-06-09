@@ -10,7 +10,9 @@ public:
 	virtual ~Girl() {}
 	virtual void Load() = 0;
 	void ShowGirl(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left, bool beauty_time, bool evolution, int stop_man_left, int bump_delay, int over_delay);
+	void fly();
 	int get_how_many_girl_in_view();
+	static int fly_out;
 	CMovingBitmap walk_left;
 	CMovingBitmap walk_right;
 	CMovingBitmap fly_left;
@@ -21,8 +23,7 @@ public:
 	CMovingBitmap notice_right;
 	CMovingBitmap shoot_left;
 	CMovingBitmap shoot_right;
-	static std::vector<Girl*> dead_girl;
-	static int how_many_girl;
+	static std::vector<Girl*> shooting_girl;
 protected:
 	
 private:
@@ -32,6 +33,8 @@ private:
 	bool left = false;
 	int delay = 0;
 	bool girl_stop = false;
+	bool dead = false;
+	bool init_delay = false;
 };
 
 #endif

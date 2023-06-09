@@ -112,7 +112,6 @@ namespace game_framework {
 		void OnMouseMove(UINT nFlags, CPoint point) override;	// 處理滑鼠的動作 
 		void OnRButtonUp(UINT nFlags, CPoint point) override;	// 處理滑鼠的動作
 		void OnRButtonDown(UINT nFlags, CPoint point) override;  // 處理滑鼠的動作
-		HDYLM_sys HDYLM;
 		static Score score_sys;
 	protected:
 		CMovingBitmap map;
@@ -152,6 +151,7 @@ namespace game_framework {
 		bool maingirl_stop_front = false;
 		bool bool_moving_up_and_down_state = false;
 		bool maingirl_start_on_left = false;
+		bool sub_blood_flag = false;
 		/*
 		0: stand
 		1: walk left 2: walk right

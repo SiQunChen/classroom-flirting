@@ -2,22 +2,6 @@
 #include "../Library/gameutil.h"
 #include "../Library/audio.h"
 
-
-class HDYLM_sys : public game_framework::CMovingBitmap {
-public:
-	HDYLM_sys() = default;
-	~HDYLM_sys() = default;
-	bool kill_man_earn_score(int is_being_attack_state, int how_do_you_love_me_max);
-	bool flirting_earn_score(bool is_stop_state);
-	int get_HDYLM_value();
-private:
-	int how_much_do_you_love_me = 0;
-	bool flirting = false;
-	bool killed = false;
-	int cd_time = 0;
-	int decrease_per_sec;
-};
-
 class Score : public game_framework::CMovingBitmap {
 public:
 	Score();
@@ -60,24 +44,17 @@ private:
 
 class Clock : public game_framework::CMovingBitmap {
 public:
-	Clock();
 	void load_ui_clock_board();
 	void load_ui_clock_pointer();
 	void show_clock_sys();
-	void time_sys();
 	bool get_time_over();
 	void over_cheat();
 private:
-	double time;						// current time
-	double get_time_left();				// max_time - time
-	double frame_count;
-	int frame;
-	const double max_time = 90;			// maximum time of the game
 	bool time_over = false;
 	CMovingBitmap clock;
 	CMovingBitmap clock_back;
-	CMovingBitmap clock_pointer[360];
-	CMovingBitmap color[360];
+	CMovingBitmap clock_pointer;
+	CMovingBitmap color;
 };
 
 class HP : public game_framework::CMovingBitmap {

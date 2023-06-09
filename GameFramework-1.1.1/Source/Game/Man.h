@@ -17,11 +17,16 @@ public:
 	int const get_vector_size();
 	void over(Score* score_sys, bool over_left);
 	CMovingBitmap ManState[6];
+	CMovingBitmap clicking_bar;
 	bool dead = false;
 	static std::vector<Man*> dead_man;
 	static int man_stop;
+	static bool click;
+	static bool click_win;
+	static bool click_lose;
+	bool lose = false;
+	static bool clicking;
 protected:
-	CMovingBitmap clicking_bar[68];
 	bool get_heart = false;
 	int count_girl(int maingirl_state, bool evolution, int bump_delay, int over_delay);
 	bool touch(int main, int target);
@@ -36,15 +41,19 @@ protected:
 	static int total_follower;
 	int follower_rank = 0;
 	bool left = false;
-	CMovingBitmap flash;
-	CMovingBitmap weakening;
-	CMovingBitmap blood;
 	CMovingBitmap man_on_bottom_small_heart;
 	CMovingBitmap man_on_top_small_heart;
 	CMovingBitmap man_on_top_big_heart;
 	CMovingBitmap over_score;
 private:
+	CMovingBitmap flash;
+	CMovingBitmap flash_multiple;
+	CMovingBitmap weakening;
+	CMovingBitmap blood;
 	void ManMove(int start, int end, int map);
 	int blood_in_beauty_time = 1;
 	bool add = false;
+	bool this_man_is_be_clicked = false;
+	int attack = 5;
+	bool set_click_bar = false;
 };

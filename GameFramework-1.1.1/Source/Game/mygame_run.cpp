@@ -426,7 +426,12 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
-	if (maingirl_state == 6 && hp_sys.hp > 0) {
+	if (Man::click == true) {
+		Man::clicking = true;
+		score_sys.score += 3 * Girl::shooting_girl.size();
+		hp_sys.hp -= 5;
+	}
+	else if (maingirl_state == 6 && hp_sys.hp > 0) {
 		if (p.x > n1[floor * 2 - 2].ManState[0].GetLeft() && p.x < n1[floor * 2 - 2].ManState[0].GetLeft() + 65 && p.y > 150 && p.y < 230 && n1[floor * 2 - 2].dead == false) {
 			Man::man_stop = 1;
 			stop_man_left = n1[floor * 2 - 2].ManState[0].GetLeft();
@@ -494,7 +499,9 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 		}
 	}
 	Man::man_stop = 0;
-	Girl::how_many_girl = 0;
+	if (Man::click == false && Man::click_win == false) {
+		Girl::shooting_girl.clear();
+	}
 }
 
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
@@ -567,6 +574,16 @@ void CGameStateRun::OnMove()							// 移動遊戲元素{
 {
 	PlayAudio();
 
+	if (Man::click_lose == true) {
+		if (sub_blood_flag == false) {
+			hp_sys.hp -= 150;
+			sub_blood_flag = true;
+			if (hp_sys.hp >= 0) {
+				Teacher::bump = true;
+			}
+		}
+	}
+
 	if (Man::man_stop != 0) {
 		af_laser = true;
 	}
@@ -591,26 +608,20 @@ void CGameStateRun::OnMove()							// 移動遊戲元素{
 		}
 	}
 
-	if (!(bool_moving_up_and_down_state) && hp_sys.hp > 0 && !(clock_sys.get_time_over())) {
-		clock_sys.time_sys();
-		
-		HDYLM.kill_man_earn_score(Man::man_stop, 680);
-
-		if (Girl::how_many_girl > 0) {		// 連打
-			score_sys.score += 3 * Girl::how_many_girl;
+	if (!(bool_moving_up_and_down_state) && hp_sys.hp > 0 && Man::man_stop != 0) {
+		if (Girl::shooting_girl.size() > 0) {		// 連打
+			score_sys.score += 3 * Girl::shooting_girl.size();
 		}
 		else {								// 普通
-			if (HDYLM.flirting_earn_score(Man::man_stop != 0)) {
-				hp_sys.hp -= 1;
-				score_sys.score += 1;
-			}
+			hp_sys.hp -= 1;
+			score_sys.score += 1;
 		}
 	}
 
 	GetCursorPos(&p);
 	HWND hwnd = FindWindowA(NULL, "Game");
 	ScreenToClient(hwnd, &p);
-	if (evolution == false && Teacher::bump == false && bump_delay == 0 && over_delay == 0) {
+	if (evolution == false && Teacher::bump == false && bump_delay == 0 && over_delay == 0 && Man::click == false) {
 		if (map.GetLeft() >= -2094 && map.GetLeft() <= 0) {
 			MainGirlMove();
 		}
@@ -723,6 +734,32 @@ void CGameStateRun::OnShow()
 		n1_girl[0].ShowGirl(550, 750, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), beauty_time, evolution, stop_man_left, bump_delay, over_delay);
 		n2_girl[0].ShowGirl(1350, 1650, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), beauty_time, evolution, stop_man_left, bump_delay, over_delay);
 	}
+
+	if ((Teacher::bump == true && evolution == false && over_delay == 0 && Man::click == false) || (bump_delay != 0 && hp_sys.hp > 0)) {
+		if (bump_delay < 80) {
+			bump_delay++;
+		}
+		else {
+			if (Man::click_lose == true) {
+				Man::click_lose = false;
+				sub_blood_flag = false;
+			}
+			bump_delay = 0;
+			Teacher::bump = false;
+			main_girl[7].SetFrameIndexOfBitmap(0);
+			main_girl[8].SetFrameIndexOfBitmap(0);
+		}
+
+		if (maingirl_state == 1 || maingirl_state == 2 || (maingirl_stop_left == false && (maingirl_state == 6 || maingirl_state == 5))) {
+			bump_left = false;
+			main_girl[8].SetTopLeft(main_girl[2].GetLeft(), 270);
+		}
+		else {
+			bump_left = true;
+			main_girl[7].SetTopLeft(main_girl[2].GetLeft(), 270);
+		}
+	}
+
 	if (evolution == false && Teacher::bump == false && bump_delay == 0 && over_delay == 0) {
 		if (maingirl_state == 1) {
 			main_girl[2].ShowBitmap(0.9);
@@ -870,37 +907,17 @@ void CGameStateRun::OnShow()
 	}
 
 	if (floor == 2 || floor == 4) {
-		teacher.ShowTeacher(maingirl_start_on_left, maingirl_state, main_girl[2].GetLeft(), evolution, bump_delay);
+		teacher.ShowTeacher(maingirl_start_on_left, maingirl_state, main_girl[2].GetLeft(), evolution, bump_delay, over_delay);
 	}
 	else if ((floor == 1 && up_down == 1) || (floor == 3 && up_down == 2)) {
 		teacher.Setup(maingirl_start_on_left);
-	}
-
-	if ((Teacher::bump == true && evolution == false) || (bump_delay != 0 && hp_sys.hp > 0 && over_delay == 0)) {
-		if (bump_delay < 80) {
-			bump_delay++;
-		}
-		else {
-			bump_delay = 0;
-			Teacher::bump = false;
-			main_girl[7].SetFrameIndexOfBitmap(0);
-			main_girl[8].SetFrameIndexOfBitmap(0);
-		}
-
-		if (maingirl_state == 1 || maingirl_state == 2 || (maingirl_stop_left == false && (maingirl_state == 6 || maingirl_state == 5))) {
-			bump_left = false;
-			main_girl[8].SetTopLeft(main_girl[2].GetLeft(), 270);
-		}
-		else {
-			bump_left = true;
-			main_girl[7].SetTopLeft(main_girl[2].GetLeft(), 270);
-		}
 	}
 
 	if ((hp_sys.hp >= 900 && !bool_moving_up_and_down_state) || beauty_time) {
 		if (!beauty_time) {
 			af_reinforcing = true;
 		}
+
 		beauty_time = true;
 		hp_sys.bool_invincible_state = true;
 		
@@ -1006,7 +1023,17 @@ void CGameStateRun::OnShow()
 			audio_sys.play_ui_audio(7);
 		}
 	}
-	if (maingirl_state == 6 && Man::man_stop == 0 && hp_sys.hp > 0 && !evolution) {
+	if (maingirl_state == 6 && Man::man_stop == 0 && hp_sys.hp > 0 && !evolution && !Man::click_lose) {
 		crosshair_on.ShowBitmap();
+	}
+
+	if (Man::click_win == true) {
+		for (auto &m : Girl::shooting_girl) {
+			m->fly();
+		}
+		if (Girl::fly_out == Girl::shooting_girl.size()) {
+			Man::click_win = false;
+			Girl::fly_out = 0;
+		}
 	}
 }

@@ -87,9 +87,6 @@
     <ClCompile Include="Source\Game\Girl.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\HDYLM_sys.cpp">
-      <Filter>MyGame</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Game\Main_girl.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
@@ -106,6 +103,9 @@
       <Filter>MyGame</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\NormalGirl1.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Audio_sys.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
   </ItemGroup>

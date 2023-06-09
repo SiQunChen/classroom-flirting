@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Teacher.h"
 #include "UI.h"
+#include "mygame.h"
 
 bool Teacher::bump = false;
 
@@ -26,8 +27,8 @@ void Teacher::Load() {
 	teacher_right.SetAnimation(150, false);
 }
 
-int Teacher::count_girl(int maingirl_state, bool evolution, int bump_delay) {
-	if (evolution == false && bump == false && bump_delay == 0) {
+int Teacher::count_girl(int maingirl_state, bool evolution, int bump_delay, int over_delay) {
+	if (evolution == false && bump == false && bump_delay == 0 && over_delay == 0 && Man::click == false) {
 		if (maingirl_state == 1) {
 			return -2;
 		}
@@ -58,8 +59,8 @@ bool Teacher::touch(int main, int target) {
 	return false;
 }
 
-void Teacher::ShowTeacher(bool left, int maingirl_state, int maingirl_left, bool evolution, int bump_delay) {
-	girl = count_girl(maingirl_state, evolution, bump_delay);
+void Teacher::ShowTeacher(bool left, int maingirl_state, int maingirl_left, bool evolution, int bump_delay, int over_delay) {
+	girl = count_girl(maingirl_state, evolution, bump_delay, over_delay);
 	if (left == true) {
 		teacher_left.SetTopLeft(teacher_left.GetLeft() - 3 + girl, 220);
 		teacher_left.ShowBitmap();
