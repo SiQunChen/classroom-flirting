@@ -847,6 +847,11 @@ void CGameStateRun::OnShow()
 				}
 			}
 			else {
+				if (beauty_time) {
+					beauty_time = false;
+					hp_sys.hp = hp_sys.get_default_hp();
+				}
+				
 				if (af_bump == 0) {
 					af_bump = 1;
 				}
@@ -897,6 +902,7 @@ void CGameStateRun::OnShow()
 			af_reinforcing = true;
 		}
 		beauty_time = true;
+		hp_sys.bool_invincible_state = true;
 		
 		if (main_girl[5].GetFrameIndexOfBitmap() == 31 || main_girl[6].GetFrameIndexOfBitmap() == 31) {
 			evolution = false;
@@ -912,8 +918,11 @@ void CGameStateRun::OnShow()
 			evo_left = true;
 			main_girl[5].SetTopLeft(main_girl[2].GetLeft() - 150, main_girl[2].GetTop() - 300);
 		}
-		hp_sys.bool_invincible_state = true;
-		hp_sys.show_invincible();
+		if (hp_sys.show_invincible()) {
+			beauty_time = false;
+			hp_sys.bool_invincible_state = false;
+			hp_sys.hp = hp_sys.get_default_hp();
+		}
 	}
 	else if (hp_sys.hp > 300) {
 		beauty_time = false;
