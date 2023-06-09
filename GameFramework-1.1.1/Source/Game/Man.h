@@ -10,7 +10,7 @@ public:
 	virtual ~Man() {}
 	virtual void Load_state() = 0;
 	void Load();
-	void ShowMan(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left, bool maingirl_stop_left, bool beauty_time, bool evolution, int bump_delay, Score* score_sys, int over_delay);
+	bool ShowMan(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left, bool maingirl_stop_left, bool beauty_time, bool evolution, int bump_delay, Score* score_sys, int over_delay);
 	void follow(int maingirl_state, int maingirl_left, int maingirl_top, bool maingirl_stop_left);
 	bool const get_being_attacking_state();
 	bool const get_stop_state();
@@ -25,8 +25,8 @@ protected:
 	bool get_heart = false;
 	int count_girl(int maingirl_state, bool evolution, int bump_delay, int over_delay);
 	bool touch(int main, int target);
-	virtual void modify_hp(Score* score_sys) = 0;
-	virtual void heart(int maingirl_left, Score* score_sys) = 0;
+	virtual int modify_hp(Score* score_sys) = 0;
+	virtual int heart(int maingirl_left, Score* score_sys) = 0;
 	virtual int get_score() = 0;
 	bool being_attacking = false;
 	bool not_stop_state = false;

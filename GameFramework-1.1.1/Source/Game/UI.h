@@ -42,7 +42,12 @@ class Audio_sys : public game_framework::CMovingBitmap {
 public:
 	Audio_sys()=default;
 	void load_ui_audio_run();
+	void load_ui_audio_init();
+	void load_ui_audio_end();
+	void load_ui_audio_man();
+	void pause();
 	void play_ui_audio(int audio_tag);
+	void stop_ui_audio(int audio_tag);
 private:
 	game_framework::CAudio* audio;
 	
@@ -63,7 +68,7 @@ public:
 	bool get_time_over();
 	void over_cheat();
 private:
-	double time;							// current time
+	double time;						// current time
 	double get_time_left();				// max_time - time
 	double frame_count;
 	int frame;
@@ -85,10 +90,11 @@ public:
 	void load_ui_hp_num();
 	void show_hp();
 	void shine_hp();
-	int show_invincible();
+	bool show_invincible();
 	void show_invincible_start();
-	void show_invincible_end();
+	bool show_invincible_end();
 	void show_invincible_bar();
+	int get_default_hp();
 	
 	//! beauty time寫在女主角那邊，UI這裡用一個getter 拿布林，顯示無敵時間
 	bool bool_invincible_state;

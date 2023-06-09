@@ -163,7 +163,7 @@ void Man::ManMove(int start, int end, int map) {
 	}
 }
 
-void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left, bool maingirl_stop_left, bool beauty_time, bool evolution, int bump_delay, Score* score_sys, int over_delay) {
+bool Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left, bool maingirl_stop_left, bool beauty_time, bool evolution, int bump_delay, Score* score_sys, int over_delay) {
 	girl = count_girl(maingirl_state, evolution, bump_delay, over_delay);
 	if (dead == false) {
 		being_attacking = false;
@@ -230,9 +230,12 @@ void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 			}
 		}
 		if (get_heart == false) {
-			heart(maingirl_left,score_sys);
+			if (heart(maingirl_left,score_sys)) {
+				return true;
+			}
 		}
 	}
+	return false;
 }
 
 void Man::follow(int maingirl_state, int maingirl_left, int maingirl_top, bool maingirl_stop_left) {

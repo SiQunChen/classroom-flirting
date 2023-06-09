@@ -1,3 +1,8 @@
+### 6/9/23
+#### kaun
+> to be done
+>1. if (af_bump == 1)	// tbfix: reset to 0 when normal sate
+
 ### 5/25/23
 #### kuan
 > to be done

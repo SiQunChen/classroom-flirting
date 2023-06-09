@@ -315,7 +315,7 @@ void CGameStateRun::OnBeginState()
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
 	audio_sys.load_ui_audio_run();
-	// audio_sys.play_ui_audio(0);
+	audio_sys.load_ui_audio_man();
 	
 	map.LoadBitmapByString({
 		"./RES/map1.bmp",
@@ -522,10 +522,57 @@ void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 {
 }
 
+void CGameStateRun::PlayAudio()
+{
+	if (!af_run) {
+		audio_sys.play_ui_audio(2);
+		af_run = !af_run;
+	}
+
+	if (af_bell) {
+		audio_sys.play_ui_audio(1);
+		af_bell = !af_bell;
+	}
+
+	if (af_bump == 1) {							// tbfix: reset to 0 when normal sate
+		audio_sys.play_ui_audio(5);
+		af_bump = 2;
+	}
+
+	if(af_laser) {
+		audio_sys.play_ui_audio(11);
+		af_laser = !af_laser;
+	}
+	else {
+		audio_sys.stop_ui_audio(11);
+	}
+
+	if(af_reinforcing) {
+		audio_sys.play_ui_audio(15);
+		af_reinforcing = !af_reinforcing;
+	}
+
+	if(af_warning == 1) {
+		audio_sys.play_ui_audio(16);
+		af_warning = 2;
+	}
+	else if (af_warning == 0) {
+		audio_sys.stop_ui_audio(16);
+	}
+}
+
+
 //在地圖範圍內的話，女主做移動，否則就上下樓。
 void CGameStateRun::OnMove()							// 移動遊戲元素{
 {
+	PlayAudio();
+
+	if (Man::man_stop != 0) {
+		af_laser = true;
+	}
+	
 	if (clock_sys.get_time_over()) {
+		af_bell = true;
 		over_delay++;
 		if (maingirl_state == 3 || maingirl_state == 4 || (maingirl_stop_left == true && (maingirl_state == 6 || maingirl_state == 5))) {
 			over_left = true;
@@ -613,40 +660,64 @@ void CGameStateRun::OnShow()
 	score_sys.show_score();
 
 	if (Man::man_stop != 1) {
-		n1[floor * 2 - 2].ShowMan(500, 800, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay);
+		if (n1[floor * 2 - 2].ShowMan(500, 800, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay)) {
+			audio_sys.play_ui_audio(7);
+		}
 	}
 	else {
-		n1[floor * 2 - 2].ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay);
+		if (n1[floor * 2 - 2].ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay)) {
+			audio_sys.play_ui_audio(7);
+		}
 	}
 	if (Man::man_stop != 2) {
-		n1[floor * 2 - 1].ShowMan(1150, 1300, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay);
+		if (n1[floor * 2 - 1].ShowMan(1150, 1300, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay)) {
+			audio_sys.play_ui_audio(7);
+		}
 	}
 	else {
-		n1[floor * 2 - 1].ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay);
+		if (n1[floor * 2 - 1].ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay)) {
+			audio_sys.play_ui_audio(7);
+		}
 	}
 	if (Man::man_stop != 3) {
-		n3[floor * 2 - 1].ShowMan(1950, 2200, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay);
+		if (n3[floor * 2 - 1].ShowMan(1950, 2200, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay)) {
+			audio_sys.play_ui_audio(7);
+		}
 	}
 	else {
-		n3[floor * 2 - 1].ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay);
+		if (n3[floor * 2 - 1].ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay)) {
+			audio_sys.play_ui_audio(7);
+		}
 	}
 	if (Man::man_stop != 4 && floor == 2) {
-		s1.ShowMan(1600, 1700, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay);
+		if (s1.ShowMan(1600, 1700, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay)) {
+			audio_sys.play_ui_audio(7);
+		}
 	}
 	else if (floor == 2) {
-		s1.ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay);
+		if( s1.ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay)) {
+			audio_sys.play_ui_audio(7);
+		}
 	}
 	if (Man::man_stop != 5 && floor == 3) {
-		s2.ShowMan(1600, 1700, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay);
+		if (s2.ShowMan(1600, 1700, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay)) {
+			audio_sys.play_ui_audio(7);
+		}
 	}
 	else if (floor == 3) {
-		s2.ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay);
+		if (s2.ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay)) {
+			audio_sys.play_ui_audio(7);
+		}
 	}
 	if (Man::man_stop != 6 && floor == 4) {
-		s3.ShowMan(1600, 1700, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay);
+		if (s3.ShowMan(1600, 1700, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay)) {
+			audio_sys.play_ui_audio(7);
+		}
 	}
 	else if (floor == 4) {
-		s3.ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay);
+		if (s3.ShowMan(500, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay)) {
+			audio_sys.play_ui_audio(7);
+		}
 	}
 	if (floor == 3) {
 		n1_girl[0].ShowGirl(550, 750, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), beauty_time, evolution, stop_man_left, bump_delay, over_delay);
@@ -776,6 +847,14 @@ void CGameStateRun::OnShow()
 				}
 			}
 			else {
+				if (beauty_time) {
+					beauty_time = false;
+					hp_sys.hp = hp_sys.get_default_hp();
+				}
+				
+				if (af_bump == 0) {
+					af_bump = 1;
+				}
 				if (bump_left == true) {
 					main_girl[7].ShowBitmap();
 				}
@@ -818,9 +897,13 @@ void CGameStateRun::OnShow()
 		}
 	}
 
-	if (hp_sys.hp >= 900 && !bool_moving_up_and_down_state) {
+	if ((hp_sys.hp >= 900 && !bool_moving_up_and_down_state) || beauty_time) {
+		if (!beauty_time) {
+			af_reinforcing = true;
+		}
 		beauty_time = true;
-
+		hp_sys.bool_invincible_state = true;
+		
 		if (main_girl[5].GetFrameIndexOfBitmap() == 31 || main_girl[6].GetFrameIndexOfBitmap() == 31) {
 			evolution = false;
 		}
@@ -835,14 +918,22 @@ void CGameStateRun::OnShow()
 			evo_left = true;
 			main_girl[5].SetTopLeft(main_girl[2].GetLeft() - 150, main_girl[2].GetTop() - 300);
 		}
-		hp_sys.bool_invincible_state = true;
-		hp_sys.show_invincible();
+		if (hp_sys.show_invincible()) {
+			beauty_time = false;
+			hp_sys.bool_invincible_state = false;
+			hp_sys.hp = hp_sys.get_default_hp();
+		}
 	}
 	else if (hp_sys.hp > 300) {
 		beauty_time = false;
+		af_warning = 0;
 		hp_sys.show_hp();
 	}
 	else if (hp_sys.hp > 0) {
+		beauty_time = false;
+		if (af_warning == 0) {
+			af_warning = 1;
+		}
 		hp_sys.shine_hp();
 	}
 	else {
@@ -886,22 +977,34 @@ void CGameStateRun::OnShow()
 		n1_girl[1].ShowGirl(1350, 1550, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), beauty_time, evolution, stop_man_left, bump_delay, over_delay);
 	}
 	if (Man::man_stop != 7) {
-		n2[floor * 2 - 2].ShowMan(750, 1150, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay);
+		if (n2[floor * 2 - 2].ShowMan(750, 1150, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay)) {
+			audio_sys.play_ui_audio(7);
+		}
 	}
 	else {
-		n2[floor * 2 - 2].ShowMan(750, 1150, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay);
+		if (n2[floor * 2 - 2].ShowMan(750, 1150, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay)) {
+			audio_sys.play_ui_audio(7);
+		}
 	}
 	if (Man::man_stop != 8) {
-		n3[floor * 2 - 2].ShowMan(1350, 1650, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay);
+		if (n3[floor * 2 - 2].ShowMan(1350, 1650, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay)) {
+			audio_sys.play_ui_audio(7);
+		}
 	}
 	else {
-		n3[floor * 2 - 2].ShowMan(750, 1150, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay);
+		if (n3[floor * 2 - 2].ShowMan(750, 1150, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay)) {
+			audio_sys.play_ui_audio(7);
+		}
 	}
 	if (Man::man_stop != 9) {
-		n2[floor * 2 - 1].ShowMan(1700, 1900, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay);
+		if (n2[floor * 2 - 1].ShowMan(1700, 1900, map.GetLeft(), maingirl_state, false, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay)) {
+			audio_sys.play_ui_audio(7);
+		}
 	}
 	else {
-		n2[floor * 2 - 1].ShowMan(750, 1150, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay);
+		if (n2[floor * 2 - 1].ShowMan(750, 1150, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay)) {
+			audio_sys.play_ui_audio(7);
+		}
 	}
 	if (maingirl_state == 6 && Man::man_stop == 0 && hp_sys.hp > 0 && !evolution) {
 		crosshair_on.ShowBitmap();
