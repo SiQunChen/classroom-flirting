@@ -4,8 +4,11 @@
 #include "mygame.h"
 
 std::vector<Man*> Man::dead_man;
+bool Man::clicking = false; //when you LButtondown, until LButtonup
 int Man::man_stop = 0;
 int Man::total_follower = 0;
+bool Man::click = false; //when click_bar appear, until man dead
+bool Man::click_win = false;
 
 void Man::Load() {
 	flash.LoadBitmapByString({
@@ -15,6 +18,14 @@ void Man::Load() {
 		"./RES/Man/flash (4).bmp", },
 		RGB(255, 255, 255));
 	flash.SetAnimation(150, false);
+
+	flash_multiple.LoadBitmapByString({
+		"./RES/Man/flash_multiple (1).bmp",
+		"./RES/Man/flash_multiple (2).bmp",
+		"./RES/Man/flash_multiple (3).bmp",
+		"./RES/Man/flash_multiple (4).bmp", },
+		RGB(0, 0, 0));
+	flash_multiple.SetAnimation(150, false);
 
 	weakening.LoadBitmapByString({
 		"./RES/Man/weakening (1).bmp",
@@ -95,14 +106,14 @@ void Man::Load() {
 	man_on_top_big_heart.SetAnimation(30, true);
 	man_on_top_big_heart.ToggleAnimation();
 
-	for (int i = 0; i < 68; i++) {
+	for (int i = 67; i >= 0; i--) {
 		auto I = std::to_string(i);
-		clicking_bar[i].LoadBitmapByString({"./RES/Man/clicking_bar/clicking_bar (" + I + ").bmp"});
+		clicking_bar.LoadBitmapByString({"./RES/Man/clicking_bar/clicking_bar (" + I + ").bmp"});
 	}
 }
 
 int Man::count_girl(int maingirl_state, bool evolution, int bump_delay, int over_delay) {
-	if (evolution == false && Teacher::bump == false && bump_delay == 0 && over_delay == 0) {
+	if (evolution == false && Teacher::bump == false && bump_delay == 0 && over_delay == 0 && click == false) {
 		if (maingirl_state == 1) {
 			return -2;
 		}
@@ -166,33 +177,32 @@ void Man::ManMove(int start, int end, int map) {
 void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, int maingirl_left, bool maingirl_stop_left, bool beauty_time, bool evolution, int bump_delay, Score* score_sys, int over_delay) {
 	girl = count_girl(maingirl_state, evolution, bump_delay, over_delay);
 	if (dead == false) {
-		being_attacking = false;
 		not_stop_state = true;
-		if (stop == 0) {
+		if (stop == 0 && this_man_is_be_clicked == false) {
+			delay = 0;
+			being_attacking = false;
 			not_stop_state = false;
 			ManMove(start, end, map);
 		}
 		else {
 			being_attacking = true;
+			if ((Girl::shooting_girl.size() == 0 && this_man_is_be_clicked == false) || delay < 5) {
+				flash.SetTopLeft(ManState[0].GetLeft() - 40, ManState[0].GetTop() - 30);
+				flash.ShowBitmap();
 
-			flash.SetTopLeft(ManState[0].GetLeft() - 40, ManState[0].GetTop() - 30);
-			flash.ShowBitmap();
-
-			weakening.SetTopLeft(ManState[0].GetLeft() - 20, ManState[0].GetTop() - 20);
-			weakening.ShowBitmap();
-
-			if (Girl::how_many_girl == 0) {
+				delay++;
 				blood.SetTopLeft(ManState[0].GetLeft(), ManState[0].GetTop() - 50);
 				if (beauty_time == false) {
 					blood.ShowBitmap();
 				}
 				else {
-					blood_in_beauty_time = blood_in_beauty_time + 2;
+					blood_in_beauty_time++;
 					blood.SetFrameIndexOfBitmap(blood_in_beauty_time);
 					blood.ShowBitmap();
 				}
 
 				if (blood.GetFrameIndexOfBitmap() == 13) {
+					delay = 0;
 					dead = true;
 					man_stop = 0;
 					if (total_follower >= 0) {
@@ -210,8 +220,62 @@ void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 				}
 			}
 			else {
+				flash_multiple.SetTopLeft(ManState[0].GetLeft() - 60, ManState[0].GetTop() - 50);
+				flash_multiple.ShowBitmap();
 
+				if (click_win == true) {
+					click = false;
+					dead = true;
+					clicking = false;
+					man_stop = 0;
+					if (total_follower >= 0) {
+						total_follower++;
+					}
+					else {
+						total_follower--;
+					}
+					follower_rank = total_follower;
+					this->ManState[2].SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop());
+					this->ManState[3].SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop());
+					man_on_bottom_small_heart.SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop() - 30);
+					man_on_top_small_heart.SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop() - 50);
+					man_on_top_big_heart.SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop() - 50);
+				}
+				else if (clicking_bar.GetFrameIndexOfBitmap() == 67) {
+					click = false;
+					clicking = false;
+				}
+				else {
+					if (set_click_bar == false) {
+						click = true;
+						this_man_is_be_clicked = true;
+						clicking_bar.SetTopLeft(ManState[0].GetLeft() - 50, ManState[0].GetTop() - 50);
+						clicking_bar.SetAnimation(350 - 85 * Girl::shooting_girl.size(), true);
+						clicking_bar.ToggleAnimation();
+						clicking_bar.SetFrameIndexOfBitmap(34);
+						set_click_bar = true;
+						delay = 0;
+					}
+					if (clicking == true) {
+						if (beauty_time == true) {
+							attack = 15;
+						}
+						else {
+							attack = 5;
+						}
+						if (clicking_bar.GetFrameIndexOfBitmap() < attack) {
+							click_win = true;
+						}
+						else {
+							clicking_bar.SetFrameIndexOfBitmap(clicking_bar.GetFrameIndexOfBitmap() - attack);
+						}
+						clicking = false;
+					}
+					clicking_bar.ShowBitmap();
+				}
 			}
+			weakening.SetTopLeft(ManState[0].GetLeft() - 20, ManState[0].GetTop() - 20);
+			weakening.ShowBitmap();
 		}
 	}
 	else {

@@ -426,7 +426,10 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
-	if (maingirl_state == 6 && hp_sys.hp > 0) {
+	if (Man::click == true) {
+		Man::clicking = true;
+	}
+	else if (maingirl_state == 6 && hp_sys.hp > 0) {
 		if (p.x > n1[floor * 2 - 2].ManState[0].GetLeft() && p.x < n1[floor * 2 - 2].ManState[0].GetLeft() + 65 && p.y > 150 && p.y < 230 && n1[floor * 2 - 2].dead == false) {
 			Man::man_stop = 1;
 			stop_man_left = n1[floor * 2 - 2].ManState[0].GetLeft();
@@ -494,7 +497,9 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 		}
 	}
 	Man::man_stop = 0;
-	Girl::how_many_girl = 0;
+	if (Man::click == false && Man::click_win == false) {
+		Girl::shooting_girl.clear();
+	}
 }
 
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
@@ -544,26 +549,20 @@ void CGameStateRun::OnMove()							// 移動遊戲元素{
 		}
 	}
 
-	if (!(bool_moving_up_and_down_state) && hp_sys.hp > 0 && !(clock_sys.get_time_over())) {
-		clock_sys.time_sys();
-		
-		HDYLM.kill_man_earn_score(Man::man_stop, 680);
-
-		if (Girl::how_many_girl > 0) {		// 連打
-			score_sys.score += 3 * Girl::how_many_girl;
+	if (!(bool_moving_up_and_down_state) && hp_sys.hp > 0 && Man::man_stop != 0) {
+		if (Girl::shooting_girl.size() > 0) {		// 連打
+			score_sys.score += 3 * Girl::shooting_girl.size();
 		}
 		else {								// 普通
-			if (HDYLM.flirting_earn_score(Man::man_stop != 0)) {
-				hp_sys.hp -= 1;
-				score_sys.score += 1;
-			}
+			hp_sys.hp -= 1;
+			score_sys.score += 1;
 		}
 	}
 
 	GetCursorPos(&p);
 	HWND hwnd = FindWindowA(NULL, "Game");
 	ScreenToClient(hwnd, &p);
-	if (evolution == false && Teacher::bump == false && bump_delay == 0 && over_delay == 0) {
+	if (evolution == false && Teacher::bump == false && bump_delay == 0 && over_delay == 0 && Man::click == false) {
 		if (map.GetLeft() >= -2094 && map.GetLeft() <= 0) {
 			MainGirlMove();
 		}
@@ -791,13 +790,13 @@ void CGameStateRun::OnShow()
 	}
 
 	if (floor == 2 || floor == 4) {
-		teacher.ShowTeacher(maingirl_start_on_left, maingirl_state, main_girl[2].GetLeft(), evolution, bump_delay);
+		teacher.ShowTeacher(maingirl_start_on_left, maingirl_state, main_girl[2].GetLeft(), evolution, bump_delay, over_delay);
 	}
 	else if ((floor == 1 && up_down == 1) || (floor == 3 && up_down == 2)) {
 		teacher.Setup(maingirl_start_on_left);
 	}
 
-	if ((Teacher::bump == true && evolution == false) || (bump_delay != 0 && hp_sys.hp > 0 && over_delay == 0)) {
+	if ((Teacher::bump == true && evolution == false && over_delay == 0 && Man::click == false) || (bump_delay != 0 && hp_sys.hp > 0)) {
 		if (bump_delay < 80) {
 			bump_delay++;
 		}
@@ -905,5 +904,15 @@ void CGameStateRun::OnShow()
 	}
 	if (maingirl_state == 6 && Man::man_stop == 0 && hp_sys.hp > 0 && !evolution) {
 		crosshair_on.ShowBitmap();
+	}
+
+	if (Man::click_win == true) {
+		for (auto &m : Girl::shooting_girl) {
+			m->fly();
+		}
+		if (Girl::fly_out == Girl::shooting_girl.size()) {
+			Man::click_win = false;
+			Girl::fly_out = 0;
+		}
 	}
 }

@@ -263,7 +263,6 @@
     <ClCompile Include="Source\Game\SpecialMan1.cpp" />
     <ClCompile Include="Source\Game\SpecialMan2.cpp" />
     <ClCompile Include="Source\Game\SpecialMan3.cpp" />
-    <ClCompile Include="Source\Game\HDYLM_sys.cpp" />
     <ClCompile Include="Source\Library\audio.cpp" />
     <ClCompile Include="Source\Library\gamecore.cpp" />
     <ClCompile Include="Source\Library\gameutil.cpp">

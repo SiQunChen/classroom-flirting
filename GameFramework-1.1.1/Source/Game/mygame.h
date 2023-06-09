@@ -111,7 +111,6 @@ namespace game_framework {
 		void OnMouseMove(UINT nFlags, CPoint point) override;	// 處理滑鼠的動作 
 		void OnRButtonUp(UINT nFlags, CPoint point) override;	// 處理滑鼠的動作
 		void OnRButtonDown(UINT nFlags, CPoint point) override;  // 處理滑鼠的動作
-		HDYLM_sys HDYLM;
 		static Score score_sys;
 	protected:
 		CMovingBitmap map;
