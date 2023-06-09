@@ -200,7 +200,7 @@ void CGameStateOver::OnShow()
 			end3_start.ShowBitmap();
 		}
 	}
-	else if (CGameStateRun::score_sys.score < 80000) {
+	else if (CGameStateRun::score_sys.score < 90000) {
 		if (end4_start.GetFrameIndexOfBitmap() == 4) {
 			end4_loop.ShowBitmap();
 		}
@@ -208,7 +208,7 @@ void CGameStateOver::OnShow()
 			end4_start.ShowBitmap();
 		}
 	}
-	else if (CGameStateRun::score_sys.score < 100000) {
+	else if (CGameStateRun::score_sys.score < 120000) {
 		if (end5_start.GetFrameIndexOfBitmap() == 6) {
 			end5_loop.ShowBitmap();
 		}

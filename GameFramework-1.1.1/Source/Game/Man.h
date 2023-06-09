@@ -23,6 +23,8 @@ public:
 	static int man_stop;
 	static bool click;
 	static bool click_win;
+	static bool click_lose;
+	bool lose = false;
 	static bool clicking;
 protected:
 	bool get_heart = false;

@@ -34,6 +34,7 @@ private:
 	int delay = 0;
 	bool girl_stop = false;
 	bool dead = false;
+	bool init_delay = false;
 };
 
 #endif

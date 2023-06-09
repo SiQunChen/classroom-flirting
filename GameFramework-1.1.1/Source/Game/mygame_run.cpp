@@ -428,6 +428,8 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 {
 	if (Man::click == true) {
 		Man::clicking = true;
+		score_sys.score += 3 * Girl::shooting_girl.size();
+		hp_sys.hp -= 5;
 	}
 	else if (maingirl_state == 6 && hp_sys.hp > 0) {
 		if (p.x > n1[floor * 2 - 2].ManState[0].GetLeft() && p.x < n1[floor * 2 - 2].ManState[0].GetLeft() + 65 && p.y > 150 && p.y < 230 && n1[floor * 2 - 2].dead == false) {
@@ -530,6 +532,15 @@ void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 //在地圖範圍內的話，女主做移動，否則就上下樓。
 void CGameStateRun::OnMove()							// 移動遊戲元素{
 {
+	if (Man::click_lose == true) {
+		if (sub_blood_flag == false) {
+			hp_sys.hp -= 150;
+			sub_blood_flag = true;
+			if (hp_sys.hp >= 0) {
+				Teacher::bump = true;
+			}
+		}
+	}
 	if (clock_sys.get_time_over()) {
 		over_delay++;
 		if (maingirl_state == 3 || maingirl_state == 4 || (maingirl_stop_left == true && (maingirl_state == 6 || maingirl_state == 5))) {
@@ -651,6 +662,32 @@ void CGameStateRun::OnShow()
 		n1_girl[0].ShowGirl(550, 750, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), beauty_time, evolution, stop_man_left, bump_delay, over_delay);
 		n2_girl[0].ShowGirl(1350, 1650, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), beauty_time, evolution, stop_man_left, bump_delay, over_delay);
 	}
+
+	if ((Teacher::bump == true && evolution == false && over_delay == 0 && Man::click == false) || (bump_delay != 0 && hp_sys.hp > 0)) {
+		if (bump_delay < 80) {
+			bump_delay++;
+		}
+		else {
+			if (Man::click_lose == true) {
+				Man::click_lose = false;
+				sub_blood_flag = false;
+			}
+			bump_delay = 0;
+			Teacher::bump = false;
+			main_girl[7].SetFrameIndexOfBitmap(0);
+			main_girl[8].SetFrameIndexOfBitmap(0);
+		}
+
+		if (maingirl_state == 1 || maingirl_state == 2 || (maingirl_stop_left == false && (maingirl_state == 6 || maingirl_state == 5))) {
+			bump_left = false;
+			main_girl[8].SetTopLeft(main_girl[2].GetLeft(), 270);
+		}
+		else {
+			bump_left = true;
+			main_girl[7].SetTopLeft(main_girl[2].GetLeft(), 270);
+		}
+	}
+
 	if (evolution == false && Teacher::bump == false && bump_delay == 0 && over_delay == 0) {
 		if (maingirl_state == 1) {
 			main_girl[2].ShowBitmap(0.9);
@@ -796,27 +833,6 @@ void CGameStateRun::OnShow()
 		teacher.Setup(maingirl_start_on_left);
 	}
 
-	if ((Teacher::bump == true && evolution == false && over_delay == 0 && Man::click == false) || (bump_delay != 0 && hp_sys.hp > 0)) {
-		if (bump_delay < 80) {
-			bump_delay++;
-		}
-		else {
-			bump_delay = 0;
-			Teacher::bump = false;
-			main_girl[7].SetFrameIndexOfBitmap(0);
-			main_girl[8].SetFrameIndexOfBitmap(0);
-		}
-
-		if (maingirl_state == 1 || maingirl_state == 2 || (maingirl_stop_left == false && (maingirl_state == 6 || maingirl_state == 5))) {
-			bump_left = false;
-			main_girl[8].SetTopLeft(main_girl[2].GetLeft(), 270);
-		}
-		else {
-			bump_left = true;
-			main_girl[7].SetTopLeft(main_girl[2].GetLeft(), 270);
-		}
-	}
-
 	if (hp_sys.hp >= 900 && !bool_moving_up_and_down_state) {
 		beauty_time = true;
 
@@ -902,7 +918,7 @@ void CGameStateRun::OnShow()
 	else {
 		n2[floor * 2 - 1].ShowMan(750, 1150, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), maingirl_stop_left, beauty_time, evolution, bump_delay, &score_sys, over_delay);
 	}
-	if (maingirl_state == 6 && Man::man_stop == 0 && hp_sys.hp > 0 && !evolution) {
+	if (maingirl_state == 6 && Man::man_stop == 0 && hp_sys.hp > 0 && !evolution && !Man::click_lose) {
 		crosshair_on.ShowBitmap();
 	}
 

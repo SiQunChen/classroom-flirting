@@ -9,6 +9,7 @@ int Man::man_stop = 0;
 int Man::total_follower = 0;
 bool Man::click = false; //when click_bar appear, until man dead
 bool Man::click_win = false;
+bool Man::click_lose = false;
 
 void Man::Load() {
 	flash.LoadBitmapByString({
@@ -186,7 +187,7 @@ void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 		}
 		else {
 			being_attacking = true;
-			if ((Girl::shooting_girl.size() == 0 && this_man_is_be_clicked == false) || delay < 5) {
+			if ((Girl::shooting_girl.size() == 0 && this_man_is_be_clicked == false) || delay < 10) {
 				flash.SetTopLeft(ManState[0].GetLeft() - 40, ManState[0].GetTop() - 30);
 				flash.ShowBitmap();
 
@@ -244,6 +245,12 @@ void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 				else if (clicking_bar.GetFrameIndexOfBitmap() == 67) {
 					click = false;
 					clicking = false;
+					click_lose = true;
+					lose = true;
+					dead = true;
+					man_stop = 0;
+					this->ManState[2].SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop());
+					this->ManState[3].SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop());
 				}
 				else {
 					if (set_click_bar == false) {
@@ -285,7 +292,9 @@ void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 		}
 		else if (delay == 25) {
 			delay++;
-			dead_man.push_back(this);
+			if (lose == false) {
+				dead_man.push_back(this);
+			}
 			if (left == true) {
 				this->ManState[4].SetTopLeft(this->ManState[2].GetLeft(), this->ManState[2].GetTop());
 			}
@@ -293,7 +302,7 @@ void Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 				this->ManState[4].SetTopLeft(this->ManState[3].GetLeft(), this->ManState[3].GetTop());
 			}
 		}
-		if (get_heart == false) {
+		if (get_heart == false && lose != true) {
 			heart(maingirl_left,score_sys);
 		}
 	}

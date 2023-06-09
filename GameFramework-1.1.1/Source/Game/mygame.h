@@ -149,6 +149,7 @@ namespace game_framework {
 		bool maingirl_stop_front = false;
 		bool bool_moving_up_and_down_state = false;
 		bool maingirl_start_on_left = false;
+		bool sub_blood_flag = false;
 		/*
 		0: stand
 		1: walk left 2: walk right

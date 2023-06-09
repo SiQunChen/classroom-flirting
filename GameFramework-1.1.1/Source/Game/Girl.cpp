@@ -90,10 +90,48 @@ void Girl::ShowGirl(int start, int end, int map, int maingirl_state, bool stop, 
 		else {
 			auto it = std::find(shooting_girl.begin(), shooting_girl.end(), this);
 
-			if (Man::click_win == true && it != shooting_girl.end()) {
-				this->fly_left.SetTopLeft(this->walk_left.GetLeft(), this->walk_left.GetTop());
-				this->fly_right.SetTopLeft(this->walk_left.GetLeft(), this->walk_left.GetTop());
-				dead = true;
+			if (it != shooting_girl.end()) {
+				if (Man::click_win == true) {
+					this->fly_left.SetTopLeft(this->walk_left.GetLeft(), this->walk_left.GetTop());
+					this->fly_right.SetTopLeft(this->walk_left.GetLeft(), this->walk_left.GetTop());
+					dead = true;
+				}
+				else {
+					if (!init_delay) {
+						delay = 0;
+						init_delay = true;
+					}
+					if (delay == 0) {
+						this->win_left.SetTopLeft(this->walk_left.GetLeft(), this->walk_left.GetTop());
+						this->win_right.SetTopLeft(this->walk_left.GetLeft(), this->walk_left.GetTop());
+					}
+					if (this->walk_left.GetLeft() > maingirl_left) {
+						left = true;
+					}
+					else {
+						left = false;
+					}
+					if (left == true) {
+						if (delay < 80) {
+							delay++;
+							this->win_right.SetTopLeft(this->win_right.GetLeft() + 5, this->walk_left.GetTop());
+							this->win_right.ShowBitmap();
+						}
+						else {
+							dead = true;
+						}
+					}
+					else {
+						if (delay < 80) {
+							delay++;
+							this->win_left.SetTopLeft(this->win_left.GetLeft() - 5, this->walk_left.GetTop());
+							this->win_left.ShowBitmap();
+						}
+						else {
+							dead = true;
+						}
+					}
+				}
 			}
 			else {
 				delay = 0;
