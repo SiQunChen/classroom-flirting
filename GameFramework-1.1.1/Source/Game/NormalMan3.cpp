@@ -77,7 +77,7 @@ void Normalman3::Load_state() {
 	over_score.ToggleAnimation();
 }
 
-void Normalman3::heart(int maingirl_left, Score* score_sys) {
+int Normalman3::heart(int maingirl_left, Score* score_sys) {
 	if (this->ManState[0].GetTop() > 300) {
 		man_on_bottom_small_heart.SetTopLeft(man_on_bottom_small_heart.GetLeft() + girl, man_on_bottom_small_heart.GetTop());
 		man_on_bottom_small_heart.ShowBitmap();
@@ -88,15 +88,20 @@ void Normalman3::heart(int maingirl_left, Score* score_sys) {
 		man_on_top_small_heart.ShowBitmap();
 		get_heart = touch(maingirl_left, man_on_top_small_heart.GetLeft());
 	}
-	modify_hp(score_sys);
+	if (modify_hp(score_sys)) {
+		return 1;
+	}
+	return 0;
 }
 
-void Normalman3::modify_hp(Score* score_sys)
+int Normalman3::modify_hp(Score* score_sys)
 {
 	if (get_heart) {
 		HP::hp += 100;
 		(*score_sys).score += 500;
+		return 1;
 	}
+	return 0;
 }
 
 int Normalman3::get_score()

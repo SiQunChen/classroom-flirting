@@ -83,6 +83,7 @@ namespace game_framework {
 		void OnLButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
 	protected:
 		void OnShow();									// 顯示這個狀態的遊戲畫面
+		Audio_sys audio_sys;
 	private:
 		CMovingBitmap logo;								// csie的logo
 		void load_background();
@@ -117,6 +118,7 @@ namespace game_framework {
 		void MainGirlMove();
 		void OnBeginState() override;							// 設定每次重玩所需的變數
 		void MainGirlMoveUpAndDown();
+		void PlayAudio();
 		void Setup(int floor, bool left);
 		POINT p;
 		// Elevator up;	//
@@ -167,6 +169,19 @@ namespace game_framework {
 		Normalgirl1 n1_girl[5];
 		Normalgirl2 n2_girl[5];
 		Specialgirl Sgirl;
+
+		// audio flag, play on true state
+		bool af_run = false;
+		bool af_bell = false;
+		bool af_blink = false;
+		int af_bump = 0;
+		bool af_flying = false;
+		bool af_laser = false;
+		bool af_press = false;
+		bool af_reinforcing = false;
+		bool af_snatch = false;
+		bool af_summarize = false;
+		int af_warning = 0;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

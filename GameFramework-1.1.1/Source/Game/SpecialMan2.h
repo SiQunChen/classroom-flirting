@@ -10,8 +10,8 @@ public:
 	void Load_state() override;
 	int get_score() override;
 private:
-	void heart(int maingirl_left, Score* score_sys) override;
-	void modify_hp(Score* score_sys) override;
+	int heart(int maingirl_left, Score* score_sys) override;
+	int modify_hp(Score* score_sys) override;
 };
 
 #endif // !SPECIAL_H

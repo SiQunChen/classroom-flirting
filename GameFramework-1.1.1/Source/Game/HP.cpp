@@ -14,6 +14,12 @@ HP::HP() {
 	bool_invincible_state = false;
 }
 
+int HP::get_default_hp()
+{
+	return (DEFAULT_HP);
+}
+
+
 bool HP::is_invincible() {
 	return (bool_invincible_state);
 }
@@ -77,7 +83,7 @@ void HP::shine_hp()
 	}
 }
 
-int HP::show_invincible()
+bool HP::show_invincible()
 {
 	if(bool_invincible_state && ++invincible_time < 6 * CYCLE) {
 		show_invincible_start();
@@ -87,10 +93,11 @@ int HP::show_invincible()
 		show_invincible_bar();
 	}
 	else {
-		show_invincible_end();
-		return 1;
+		if (show_invincible_end()) {
+			return true;
+		}
 	}
-	return 0;
+	return false;
 }
 
 void HP::show_invincible_start()
@@ -107,13 +114,14 @@ void HP::show_invincible_bar()
 	invincible_board.ShowBitmap();
 }
 
-void HP::show_invincible_end()
+bool HP::show_invincible_end()
 {
 	invincible_animate[5 - (invincible_time - (6 + INNER_OVERLAP) * CYCLE)/ CYCLE].SetTopLeft(20, 34);
 	invincible_animate[5 - (invincible_time - (6 + INNER_OVERLAP) * CYCLE)/ CYCLE].ShowBitmap();
 
 	if(invincible_time >= (12 + INNER_OVERLAP) * CYCLE) {
 		invincible_time = 0;
-		hp = DEFAULT_HP;
+		return true;
 	}
+	return false;
 }

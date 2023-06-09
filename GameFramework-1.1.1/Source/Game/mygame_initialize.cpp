@@ -27,6 +27,10 @@ void CGameStateInit::OnInit()
 
 	ShowInitProgress(66, "Initializing...");
 
+	audio_sys.load_ui_audio_init();
+	audio_sys.play_ui_audio(0);
+
+
 	//
 	// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
 	//
@@ -34,7 +38,6 @@ void CGameStateInit::OnInit()
 
 void CGameStateInit::OnBeginState()
 {
-
 }
 
 void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -59,6 +62,7 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 			}
 		}
 		if (nChar == VK_RETURN) {
+			audio_sys.pause();
 			GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
 		}
 	}
@@ -73,6 +77,7 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 		HWND hwnd = FindWindowA(NULL, "Game");
 		ScreenToClient(hwnd, &p);
 		if (p.x >= 300 && p.x <= 500 && p.y >= 520 && p.y <= 600) {
+			audio_sys.pause();
 			GotoGameState(GAME_STATE_RUN);
 		}
 		else if (tutorial_stage == 0) {

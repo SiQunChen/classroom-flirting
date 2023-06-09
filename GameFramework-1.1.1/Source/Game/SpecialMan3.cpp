@@ -79,19 +79,24 @@ void Specialman3::Load_state() {
 	over_score.ToggleAnimation();
 }
 
-void Specialman3::heart(int maingirl_left, Score* score_sys) {
+int Specialman3::heart(int maingirl_left, Score* score_sys) {
 	man_on_top_big_heart.SetTopLeft(man_on_top_big_heart.GetLeft() + girl, -50);
 	man_on_top_big_heart.ShowBitmap(1.5);
 	get_heart = touch(maingirl_left, man_on_top_big_heart.GetLeft());
-	modify_hp(score_sys);
+	if (modify_hp(score_sys)) {
+		return 1;
+	}
+	return 0;
 }
 
-void Specialman3::modify_hp(Score* score_sys)
+int Specialman3::modify_hp(Score* score_sys)
 {
 	if (get_heart) {
 		HP::hp += 150;
 		(*score_sys).score += 10000;
+		return 1;
 	}
+	return 0;
 }
 
 int Specialman3::get_score()
