@@ -169,6 +169,8 @@ void CGameStateOver::OnInit()
 	end6_loop.SetTopLeft(0, 0);
 	end6_loop.SetAnimation(200, false);
 
+	audio_sys.load_ui_audio_end();
+
 	ShowInitProgress(100, "OK!");
 
 	Sleep(1000);
@@ -177,6 +179,10 @@ void CGameStateOver::OnInit()
 void CGameStateOver::OnShow()
 {
 	if (CGameStateRun::score_sys.score < 5000) {
+		if (!af_end) {
+			audio_sys.play_ui_audio(4);
+			af_end = !af_end;
+		}
 		if (end1_start.GetFrameIndexOfBitmap() == 9) {
 			end1_loop.ShowBitmap();
 		}
@@ -185,6 +191,10 @@ void CGameStateOver::OnShow()
 		}
 	}
 	else if (CGameStateRun::score_sys.score < 10000) {
+		if (!af_end) {
+			audio_sys.play_ui_audio(6);
+			af_end = !af_end;
+		}
 		if (end2_start.GetFrameIndexOfBitmap() == 5) {
 			end2_loop.ShowBitmap();
 		}
@@ -193,6 +203,10 @@ void CGameStateOver::OnShow()
 		}
 	}
 	else if (CGameStateRun::score_sys.score < 50000) {
+		if (!af_end) {
+			audio_sys.play_ui_audio(6);
+			af_end = !af_end;
+		}
 		if (end3_start.GetFrameIndexOfBitmap() == 4) {
 			end3_loop.ShowBitmap();
 		}
@@ -201,6 +215,10 @@ void CGameStateOver::OnShow()
 		}
 	}
 	else if (CGameStateRun::score_sys.score < 90000) {
+		if (!af_end) {
+			audio_sys.play_ui_audio(8);
+			af_end = !af_end;
+		}
 		if (end4_start.GetFrameIndexOfBitmap() == 4) {
 			end4_loop.ShowBitmap();
 		}
@@ -209,6 +227,10 @@ void CGameStateOver::OnShow()
 		}
 	}
 	else if (CGameStateRun::score_sys.score < 120000) {
+		if (!af_end) {
+			audio_sys.play_ui_audio(10);
+			af_end = !af_end;
+		}
 		if (end5_start.GetFrameIndexOfBitmap() == 6) {
 			end5_loop.ShowBitmap();
 		}
@@ -217,6 +239,10 @@ void CGameStateOver::OnShow()
 		}
 	}
 	else {
+		if (!af_end) {
+			audio_sys.play_ui_audio(12);
+			af_end = !af_end;
+		}
 		end6_start.ShowBitmap();
 		end6_loop.ShowBitmap();
 	}

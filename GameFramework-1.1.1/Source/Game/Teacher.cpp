@@ -59,7 +59,7 @@ bool Teacher::touch(int main, int target) {
 	return false;
 }
 
-void Teacher::ShowTeacher(bool left, int maingirl_state, int maingirl_left, bool evolution, int bump_delay, int over_delay) {
+void Teacher::ShowTeacher(bool left, int maingirl_state, int maingirl_left, bool evolution, int bump_delay, int over_delay, bool up_down_floor) {
 	girl = count_girl(maingirl_state, evolution, bump_delay, over_delay);
 	if (left == true) {
 		teacher_left.SetTopLeft(teacher_left.GetLeft() - 3 + girl, 220);
@@ -69,7 +69,7 @@ void Teacher::ShowTeacher(bool left, int maingirl_state, int maingirl_left, bool
 		teacher_right.SetTopLeft(teacher_right.GetLeft() + 3 + girl, 220);
 		teacher_right.ShowBitmap();
 	}
-	if (delay == 0) {
+	if (delay == 0 && up_down_floor == false) {
 		if (left == true) {
 			bump = touch(maingirl_left, teacher_left.GetLeft());
 		}
