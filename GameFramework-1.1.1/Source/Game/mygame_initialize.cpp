@@ -24,10 +24,10 @@ void CGameStateInit::OnInit()
 
 	load_background();
 	load_tutorial();
+	audio_sys.load_ui_audio_init();
 
 	ShowInitProgress(66, "Initializing...");
 
-	audio_sys.load_ui_audio_init();
 	audio_sys.play_ui_audio(0);
 
 
@@ -62,23 +62,25 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 			}
 		}
 		if (nChar == VK_RETURN) {
-			audio_sys.pause();
-			GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
+			audio_sys.stop_ui_audio(0);
+			audio_sys.play_ui_audio(3);
+			delay = 1;
 		}
 	}
-	
+
 }
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	if (start_frame == 1) {
+	if (start_frame == 1 && delay == 0) {
 		POINT p;
 		GetCursorPos(&p);
 		HWND hwnd = FindWindowA(NULL, "Game");
 		ScreenToClient(hwnd, &p);
 		if (p.x >= 300 && p.x <= 500 && p.y >= 520 && p.y <= 600) {
-			audio_sys.pause();
-			GotoGameState(GAME_STATE_RUN);
+			audio_sys.stop_ui_audio(0);
+			audio_sys.play_ui_audio(3);
+			delay = 1;
 		}
 		else if (tutorial_stage == 0) {
 			if (p.x >= 730 && p.x <= 760 && p.y >= 300 && p.y <= 450) {
@@ -136,7 +138,14 @@ void CGameStateInit::OnShow()
 			tutorial[5].ShowBitmap();
 			tutorial[6] = tutorial[5];
 		}
-	} 
+	}
+
+	if (delay != 0 && delay < 120) {
+		delay++;
+	}
+	else if(delay > 49){
+		GotoGameState(GAME_STATE_RUN);
+	}
 }
 
 void CGameStateInit::load_background() {

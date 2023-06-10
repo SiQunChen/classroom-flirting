@@ -29,19 +29,6 @@ public:
 	void Load_over_notice_right();
 	void Load_over_right();
 private:
-	/* 
-	POINT p;
-	int maingirl = -1;
-	int flag_girl_movement = -1;
-	*/
-
-    /*
-     0: stand
-     1: walk left
-     2: walk right
-     3: run left
-     4: run right
-     */
 };
 
 #endif

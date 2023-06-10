@@ -93,6 +93,7 @@ namespace game_framework {
 		int tutorial_stage = 0;							// FLAG: tutorial stage
 		int start_frame = 0;							// start frame
 		CTextDraw mouse_tracking;
+		int delay = 0;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -153,10 +154,14 @@ namespace game_framework {
 		bool maingirl_start_on_left = false;
 		bool sub_blood_flag = false;
 		/*
-		0: stand
-		1: walk left 2: walk right
-		3: run left 4: run right
-		5: beauty left 6: beauty right
+		 0: stand
+		 1: walk left		   2: walk right
+		 3: run left		   4: run right
+		 5: beauty left		   6: beauty right
+		 7: bump left		   8: bump right
+		 9: lose left		  10: lose right
+	    11: over notice left  12: over left
+	    13: over notice right 14: over right
 		*/
 		Main_girl main_girl[15];
 		Normalman1 n1[8];
@@ -175,13 +180,14 @@ namespace game_framework {
 		bool af_bell = false;
 		bool af_blink = false;
 		int af_bump = 0;
-		bool af_flying = false;
-		bool af_laser = false;
+		int af_flying = 0;
+		int af_laser = 0;
 		bool af_press = false;
 		bool af_reinforcing = false;
-		bool af_snatch = false;
-		bool af_summarize = false;
+		int af_snatch = 0;
+		int af_summarize = 0;
 		int af_warning = 0;
+		int af_lose = 0;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -198,6 +204,7 @@ namespace game_framework {
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
+		Audio_sys audio_sys;
 		CMovingBitmap end1_start;
 		CMovingBitmap end1_loop;
 		CMovingBitmap end2_start;
@@ -211,6 +218,7 @@ namespace game_framework {
 		CMovingBitmap end6_start;
 		CMovingBitmap end6_loop;
 		int counter;									// 倒數之計數器
+		bool af_end = false;
 	};
 
 }
