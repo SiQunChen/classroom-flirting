@@ -65,7 +65,7 @@ void Girl::ShowGirl(int start, int end, int map, int maingirl_state, bool stop, 
 				left = false;
 			}
 			if (left == true) {
-				if (delay != 15) {
+				if (delay != 10) {
 					delay++;
 					this->notice_left.SetTopLeft(this->walk_left.GetLeft(), this->walk_left.GetTop());
 					this->notice_left.ShowBitmap();
@@ -76,7 +76,7 @@ void Girl::ShowGirl(int start, int end, int map, int maingirl_state, bool stop, 
 				}
 			}
 			else {
-				if (delay != 15) {
+				if (delay != 10) {
 					delay++;
 					this->notice_right.SetTopLeft(this->walk_left.GetLeft(), this->walk_left.GetTop());
 					this->notice_right.ShowBitmap();
@@ -90,7 +90,7 @@ void Girl::ShowGirl(int start, int end, int map, int maingirl_state, bool stop, 
 		else {
 			auto it = std::find(shooting_girl.begin(), shooting_girl.end(), this);
 
-			if (it != shooting_girl.end()) {
+			if (it != shooting_girl.end() && (Man::click_win == true || Man::click_lose == true)) {
 				if (Man::click_win == true) {
 					this->fly_left.SetTopLeft(this->walk_left.GetLeft(), this->walk_left.GetTop());
 					this->fly_right.SetTopLeft(this->walk_left.GetLeft(), this->walk_left.GetTop());

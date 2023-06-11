@@ -187,7 +187,7 @@ bool Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 		}
 		else {
 			being_attacking = true;
-			if ((Girl::shooting_girl.size() == 0 && this_man_is_be_clicked == false) || delay < 10) {
+			if ((Girl::shooting_girl.size() == 0 && this_man_is_be_clicked == false) || delay < 5) {
 				flash.SetTopLeft(ManState[0].GetLeft() - 40, ManState[0].GetTop() - 30);
 				flash.ShowBitmap();
 
@@ -212,6 +212,7 @@ bool Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 					else {
 						total_follower--;
 					}
+					Girl::shooting_girl.clear();
 					follower_rank = total_follower;
 					this->ManState[2].SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop());
 					this->ManState[3].SetTopLeft(this->ManState[0].GetLeft(), this->ManState[0].GetTop());
@@ -257,7 +258,7 @@ bool Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 						click = true;
 						this_man_is_be_clicked = true;
 						clicking_bar.SetTopLeft(ManState[0].GetLeft() - 50, ManState[0].GetTop() - 50);
-						clicking_bar.SetAnimation(350 - 85 * Girl::shooting_girl.size(), true);
+						clicking_bar.SetAnimation(200 - 49 * Girl::shooting_girl.size(), true);
 						clicking_bar.ToggleAnimation();
 						clicking_bar.SetFrameIndexOfBitmap(34);
 						set_click_bar = true;
@@ -265,7 +266,7 @@ bool Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 					}
 					if (clicking == true) {
 						if (beauty_time == true) {
-							attack = 15;
+							attack = 12;
 						}
 						else {
 							attack = 5;
@@ -287,6 +288,7 @@ bool Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 	}
 	else {
 		if (delay < 25) {
+			click = false;
 			delay++;
 			ManMove(start, end, map);
 		}
