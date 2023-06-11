@@ -17,10 +17,10 @@ void Clock::load_ui_clock_pointer() {
 		clock_pointer.LoadBitmapByString({"./RES/UI/Cpointer/pointer (" + I + ").bmp"}, RGB(255, 255, 255));
 	}
 	color.SetTopLeft(362, 5);
-	color.SetAnimation(400, true);
+	color.SetAnimation(300, true);
 	color.ToggleAnimation();
 	clock_pointer.SetTopLeft(375, 15);
-	clock_pointer.SetAnimation(400, true);
+	clock_pointer.SetAnimation(300, true);
 	clock_pointer.ToggleAnimation();
 }
 

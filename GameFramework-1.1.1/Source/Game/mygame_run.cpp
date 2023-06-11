@@ -46,10 +46,10 @@ void CGameStateRun::Setup(int floor, bool left) {
 			n1_girl[3].walk_right.SetTopLeft(1550, 300);
 			n2_girl[3].walk_left.SetTopLeft(1750, 120);
 			n2_girl[3].walk_right.SetTopLeft(1750, 120);
-			n1_girl[4].walk_left.SetTopLeft(1000, 300);
-			n1_girl[4].walk_right.SetTopLeft(1000, 300);
-			n2_girl[4].walk_left.SetTopLeft(1100, 120);
-			n2_girl[4].walk_right.SetTopLeft(1100, 120);
+			n1_girl[4].walk_left.SetTopLeft(750, 300);
+			n1_girl[4].walk_right.SetTopLeft(750, 300);
+			n2_girl[4].walk_left.SetTopLeft(850, 120);
+			n2_girl[4].walk_right.SetTopLeft(850, 120);
 			Sgirl.walk_left.SetTopLeft(1600, 200);
 			Sgirl.walk_right.SetTopLeft(1600, 200);
 		}
@@ -94,10 +94,10 @@ void CGameStateRun::Setup(int floor, bool left) {
 			n1_girl[3].walk_right.SetTopLeft(-544, 300);
 			n2_girl[3].walk_left.SetTopLeft(-344, 120);
 			n2_girl[3].walk_right.SetTopLeft(-344, 120);
-			n1_girl[4].walk_left.SetTopLeft(-1094, 300);
-			n1_girl[4].walk_right.SetTopLeft(-1094, 300);
-			n2_girl[4].walk_left.SetTopLeft(-944, 120);
-			n2_girl[4].walk_right.SetTopLeft(-944, 120);
+			n1_girl[4].walk_left.SetTopLeft(-1344, 300);
+			n1_girl[4].walk_right.SetTopLeft(-1344, 300);
+			n2_girl[4].walk_left.SetTopLeft(-1244, 120);
+			n2_girl[4].walk_right.SetTopLeft(-1244, 120);
 			Sgirl.walk_left.SetTopLeft(-494, 200);
 			Sgirl.walk_right.SetTopLeft(-494, 200);
 		}
@@ -519,6 +519,9 @@ void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動
 			Man::man_stop = 0;
 		}
 	}
+	if (Man::click == false && Man::click_win == false) {
+		Girl::shooting_girl.clear();
+	}
 }
 
 void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
@@ -703,7 +706,7 @@ void CGameStateRun::OnShow()
 	}
 	else if (floor == 4) {
 		n2_girl[3].ShowGirl(1650, 1850, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), beauty_time, evolution, stop_man_left, bump_delay, over_delay);
-		n2_girl[4].ShowGirl(1000, 1250, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), beauty_time, evolution, stop_man_left, bump_delay, over_delay);
+		n2_girl[4].ShowGirl(850, 950, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), beauty_time, evolution, stop_man_left, bump_delay, over_delay);
 	}
 
 	if (Man::man_stop != 1) {
@@ -771,7 +774,7 @@ void CGameStateRun::OnShow()
 		n2_girl[0].ShowGirl(1500, 1800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), beauty_time, evolution, stop_man_left, bump_delay, over_delay);
 	}
 	else if (floor == 4) {
-		n1_girl[2].ShowGirl(800, 1050, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), beauty_time, evolution, stop_man_left, bump_delay, over_delay);
+		n1_girl[2].ShowGirl(650, 850, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), beauty_time, evolution, stop_man_left, bump_delay, over_delay);
 		n2_girl[2].ShowGirl(1350, 1650, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), beauty_time, evolution, stop_man_left, bump_delay, over_delay);
 		Sgirl.ShowGirl(1550, 1650, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), beauty_time, evolution, stop_man_left, bump_delay, over_delay);
 	}
@@ -1086,7 +1089,7 @@ void CGameStateRun::OnShow()
 	}
 	else if (floor == 4) {
 		n1_girl[3].ShowGirl(1450, 1650, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), beauty_time, evolution, stop_man_left, bump_delay, over_delay);
-		n1_girl[4].ShowGirl(950, 1050, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), beauty_time, evolution, stop_man_left, bump_delay, over_delay);
+		n1_girl[4].ShowGirl(700, 800, map.GetLeft(), maingirl_state, true, main_girl[2].GetLeft(), beauty_time, evolution, stop_man_left, bump_delay, over_delay);
 	}
 
 	if (Man::man_stop != 7) {

@@ -159,15 +159,16 @@ END
 // Dialog
 //
 
-IDD_ABOUTBOX DIALOGEX 0, 0, 340, 60
+IDD_ABOUTBOX DIALOGEX 0, 0, 150, 60
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About game"
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
-    LTEXT           "Leistungsstarkes Game Framework by ntut-xuan",IDC_STATIC,39,10,300,8,SS_NOPREFIX
-	LTEXT           "It is a revised game framework, base on game framework made by woei-kae, Chen", IDC_STATIC, 39, 23, 300, 8
-    LTEXT           "Copyright (C) 2022-2023",IDC_STATIC,39,36,119,8
+    LTEXT           "Game Name : classroom flirting", IDC_STATIC, 39, 10, 300, 8
+    LTEXT           "Maker : Jerry, Rick",IDC_STATIC,39,23,300,8,SS_NOPREFIX
+	LTEXT           "Advisor : Shuo-Han Chen", IDC_STATIC, 39, 36, 300, 8
+    LTEXT           "Date : 2023/06/11",IDC_STATIC,39,49,119,8
 END
 
 

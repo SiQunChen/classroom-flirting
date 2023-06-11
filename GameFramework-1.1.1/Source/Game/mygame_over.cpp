@@ -178,7 +178,7 @@ void CGameStateOver::OnInit()
 
 void CGameStateOver::OnShow()
 {
-	if (CGameStateRun::score_sys.score < 5000) {
+	if (CGameStateRun::score_sys.score < 20000) {
 		if (!af_end) {
 			audio_sys.play_ui_audio(4);
 			af_end = !af_end;
@@ -190,7 +190,7 @@ void CGameStateOver::OnShow()
 			end1_start.ShowBitmap();
 		}
 	}
-	else if (CGameStateRun::score_sys.score < 10000) {
+	else if (CGameStateRun::score_sys.score < 50000) {
 		if (!af_end) {
 			audio_sys.play_ui_audio(6);
 			af_end = !af_end;
@@ -202,7 +202,7 @@ void CGameStateOver::OnShow()
 			end2_start.ShowBitmap();
 		}
 	}
-	else if (CGameStateRun::score_sys.score < 50000) {
+	else if (CGameStateRun::score_sys.score < 80000) {
 		if (!af_end) {
 			audio_sys.play_ui_audio(6);
 			af_end = !af_end;
@@ -214,7 +214,7 @@ void CGameStateOver::OnShow()
 			end3_start.ShowBitmap();
 		}
 	}
-	else if (CGameStateRun::score_sys.score < 90000) {
+	else if (CGameStateRun::score_sys.score < 110000) {
 		if (!af_end) {
 			audio_sys.play_ui_audio(8);
 			af_end = !af_end;
@@ -226,7 +226,7 @@ void CGameStateOver::OnShow()
 			end4_start.ShowBitmap();
 		}
 	}
-	else if (CGameStateRun::score_sys.score < 120000) {
+	else if (CGameStateRun::score_sys.score < 150000) {
 		if (!af_end) {
 			audio_sys.play_ui_audio(10);
 			af_end = !af_end;
