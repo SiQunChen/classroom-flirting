@@ -60,3 +60,9 @@ void Audio_sys::stop_ui_audio(int audio_tag)
 {
 	audio->Stop(audio_tag);
 }
+
+void Audio_sys::resume()
+{
+	audio->Resume();
+}
+

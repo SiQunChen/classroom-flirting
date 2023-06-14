@@ -80,11 +80,12 @@ namespace game_framework {
 		void OnInit();  								// 遊戲的初值及圖形設定
 		void OnBeginState();							// 設定每次重玩所需的變數
 		void OnKeyUp(UINT, UINT, UINT); 				// 處理鍵盤Up的動作
-		void OnLButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
+		void OnLButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
 	protected:
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 		Audio_sys audio_sys;
 	private:
+		POINT p;
 		CMovingBitmap logo;								// csie的logo
 		void load_background();
 		void load_tutorial();
@@ -95,6 +96,11 @@ namespace game_framework {
 		int start_frame = 0;							// start frame
 		CTextDraw mouse_tracking;
 		int delay = 0;
+		CMovingBitmap voice_on;
+		CMovingBitmap voice_on_hover;
+		CMovingBitmap voice_off;
+		CMovingBitmap voice_off_hover;
+		bool show_voice_off = false;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -135,6 +141,11 @@ namespace game_framework {
 		CMovingBitmap hp_board;
 		HP hp_sys;
 		Audio_sys audio_sys;
+		CMovingBitmap voice_on;
+		CMovingBitmap voice_on_hover;
+		CMovingBitmap voice_off;
+		CMovingBitmap voice_off_hover;
+		bool show_voice_off = false;
 		int up_down = 0; // 1 = 上樓，2 = 下樓
 		int time = 0;
 		int bump_delay = 0;
@@ -200,10 +211,12 @@ namespace game_framework {
 		CGameStateOver(CGame *g);
 		void OnBeginState();							// 設定每次重玩所需的變數
 		void OnInit();
+		void OnLButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
 	protected:
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
+		POINT p;
 		Audio_sys audio_sys;
 		CMovingBitmap end1_start;
 		CMovingBitmap end1_loop;
@@ -217,6 +230,11 @@ namespace game_framework {
 		CMovingBitmap end5_loop;
 		CMovingBitmap end6_start;
 		CMovingBitmap end6_loop;
+		CMovingBitmap voice_on;
+		CMovingBitmap voice_on_hover;
+		CMovingBitmap voice_off;
+		CMovingBitmap voice_off_hover;
+		bool show_voice_off = false;
 		int counter;									// 倒數之計數器
 		bool af_end = false;
 	};
