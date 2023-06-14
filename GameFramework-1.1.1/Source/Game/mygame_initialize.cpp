@@ -1,4 +1,7 @@
 #include "stdafx.h"
+
+#include <string>
+
 #include "mygame.h"
 
 using namespace game_framework;
@@ -17,23 +20,24 @@ void CGameStateInit::OnInit()
 	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
 	//
 	ShowInitProgress(0, "Start Initialize...");	// 一開始的loading進度為0%
-	//
-	// 開始載入資料
-	//
-	//Sleep(200);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
+	
+	voice_on.LoadBitmapByString({"./RES/end/voice_button_on.bmp"}, RGB(255, 255, 255));
+	voice_on.SetTopLeft(400, 500);
+	voice_off.LoadBitmapByString({"./RES/end/voice_button_off.bmp"}, RGB(255, 255, 255));
+	voice_off.SetTopLeft(400, 500);
+	voice_off_hover.LoadBitmapByString({"./RES/end/voice_button_off_hover.bmp"}, RGB(255, 255, 255));
+	voice_off.SetTopLeft(400, 500);
+	voice_on_hover.LoadBitmapByString({"./RES/end/voice_button_on_hover.bmp"}, RGB(255, 255, 255));
+	voice_off.SetTopLeft(400, 500);
 
+	ShowInitProgress(10, "Initializing...");
+	
 	load_background();
 	load_tutorial();
 	audio_sys.load_ui_audio_init();
 
-	ShowInitProgress(66, "Initializing...");
-
 	audio_sys.play_ui_audio(0);
-
-
-	//
-	// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
-	//
+	ShowInitProgress(20, "Initializing...");
 }
 
 void CGameStateInit::OnBeginState()
@@ -72,11 +76,12 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
+	POINT p;
+	GetCursorPos(&p);
+	HWND hwnd = FindWindowA(NULL, "Game");
+	ScreenToClient(hwnd, &p);
+	
 	if (start_frame == 1 && delay == 0) {
-		POINT p;
-		GetCursorPos(&p);
-		HWND hwnd = FindWindowA(NULL, "Game");
-		ScreenToClient(hwnd, &p);
 		if (p.x >= 300 && p.x <= 500 && p.y >= 520 && p.y <= 600) {
 			audio_sys.stop_ui_audio(0);
 			audio_sys.play_ui_audio(3);
@@ -101,11 +106,40 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 			}
 		}
 	}
+	
+	if (p.x >= 600 && p.x <= 650 && p.y >=525 && p.y <= 575) {
+		TRACE("%d\n",show_voice_off);
+		if (show_voice_off) {
+			voice_off.UnshowBitmap();
+			voice_on.ShowBitmap();
+			audio_sys.resume();
+		}
+		else {
+			voice_on.UnshowBitmap();
+			voice_off.ShowBitmap();
+			audio_sys.pause();
+		}
+		show_voice_off = !show_voice_off;
+	}
 	start_frame = 1;
 }
 
 void CGameStateInit::OnShow()
 {
+	POINT p;
+	GetCursorPos(&p);
+	HWND hwnd = FindWindowA(NULL, "Game");
+	ScreenToClient(hwnd, &p);
+	if (p.x >= 600 && p.x <= 650 && p.y >=525 && p.y <= 575) {
+		TRACE("hov\n");
+		if (show_voice_off) {
+			voice_on_hover.ShowBitmap();
+		}
+		else {
+			voice_off_hover.ShowBitmap();
+		}
+	}
+	
 	init_back.ShowBitmap();
 	if (start_frame == 1) {
 		if (tutorial_stage == 0) {

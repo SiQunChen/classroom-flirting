@@ -314,6 +314,7 @@ void CGameStateRun::OnBeginState()
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
+	ShowInitProgress(25, "Initializing...");	// 接個前一個狀態的進度，此處進度視為66%
 	audio_sys.load_ui_audio_run();
 	audio_sys.load_ui_audio_man();
 	
@@ -323,6 +324,8 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 		"./RES/map3.bmp",
 		"./RES/map4.bmp", });
 	map.SetTopLeft(0, 0);
+
+	ShowInitProgress(30, "Still...");	// 接個前一個狀態的進度，此處進度視為66%
 
 	main_girl[0].Load_main();
 	main_girl[1].Load_walk_left();
@@ -339,6 +342,8 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	main_girl[12].Load_over_left();
 	main_girl[13].Load_over_notice_right();
 	main_girl[14].Load_over_right();
+
+	ShowInitProgress(50, "Still...");	// 接個前一個狀態的進度，此處進度視為66%
 
 	up.LoadBitmapByString({
 		"./RES/UI/elevator/up.bmp",
@@ -358,6 +363,8 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 		"./RES/UI/heart/heartPointBoard.bmp" });
 	hp_board.SetTopLeft(0, 0);
 	hp_sys.load_ui_hp_num();
+
+	ShowInitProgress(55, "Initializing...");
 	
 	clock_sys.load_ui_clock_pointer();
 	clock_sys.load_ui_clock_board();
@@ -376,6 +383,8 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 		"./RES/maingirl/right/focusing_front.bmp", },
 		RGB(0, 0, 0));
 
+	ShowInitProgress(65, "Working on it...");	// 接個前一個狀態的進度，此處進度視為66%
+
 	for (int i = 0; i < 8; i++) {
 		n1[i].Load_state();
 		n1[i].Load();
@@ -392,7 +401,8 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 		}
 	}
 	Sgirl.Load();
-
+	ShowInitProgress(70, "Working on it...");	// 接個前一個狀態的進度，此處進度視為66%
+	
 	s1.Load_state();
 	s1.Load();
 
@@ -404,6 +414,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	Setup(1, true);
 
 	teacher.Load();
+	ShowInitProgress(75, "Almost...");	// 接個前一個狀態的進度，此處進度視為66%
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -416,6 +427,9 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	}
 	else if (nChar == VK_UP) {
 		hp_sys.hp += 100;
+	}
+	else if (nChar == VK_DOWN) {
+		hp_sys.hp -= 100;
 	}
 }
 
@@ -544,7 +558,7 @@ void CGameStateRun::PlayAudio()
 		af_bell = !af_bell;
 	}
 
-	if (af_bump == 1) {							// tbfix: reset to 0 when normal sate
+	if (af_bump == 1) {
 		audio_sys.play_ui_audio(5);
 		af_bump = 2;
 	}
