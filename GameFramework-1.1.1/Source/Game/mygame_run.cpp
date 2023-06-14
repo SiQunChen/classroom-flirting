@@ -220,9 +220,11 @@ void CGameStateRun::MainGirlMoveUpAndDown() {
 	}
 	else if (maingirl_state == 1 && floor == 4) {
 		main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 3, 300);
+		Setup(3, false);
 	}
 	else if (maingirl_state == 3 && floor == 4) {
 		main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 3, 300);
+		Setup(3, true);
 	}
 	else if (maingirl_state == 1 && up_down == 1) {
 		if (main_girl[2].GetLeft() < 380) {
@@ -245,6 +247,12 @@ void CGameStateRun::MainGirlMoveUpAndDown() {
 		else {
 			main_girl[2].SetTopLeft(main_girl[2].GetLeft() + 5, main_girl[2].GetTop() + 5);
 		}
+		if (floor == 2) {
+			Setup(1, false);
+		}
+		else {
+			Setup(2, false);
+		}
 	}
 	else if (maingirl_state == 3 && up_down == 1) {
 		if (main_girl[2].GetLeft() > 330) {
@@ -266,6 +274,12 @@ void CGameStateRun::MainGirlMoveUpAndDown() {
 		}
 		else {
 			main_girl[2].SetTopLeft(main_girl[2].GetLeft() - 5, main_girl[2].GetTop() + 5);
+		}
+		if (floor == 2) {
+			Setup(1, true);
+		}
+		else {
+			Setup(2, true);
 		}
 	}
 	main_girl[1].SetTopLeft(main_girl[2].GetLeft(), main_girl[2].GetTop());
@@ -344,6 +358,15 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	main_girl[14].Load_over_right();
 
 	ShowInitProgress(50, "Still...");	// 接個前一個狀態的進度，此處進度視為66%
+
+	voice_on.LoadBitmapByString({ "./RES/end/voice_button_on.bmp" }, RGB(255, 255, 255));
+	voice_on.SetTopLeft(700, 0);
+	voice_off.LoadBitmapByString({ "./RES/end/voice_button_off.bmp" }, RGB(255, 255, 255));
+	voice_off.SetTopLeft(700, 0);
+	voice_on_hover.LoadBitmapByString({ "./RES/end/voice_button_on_hover.bmp" }, RGB(255, 255, 255));
+	voice_on_hover.SetTopLeft(703, 2);
+	voice_off_hover.LoadBitmapByString({ "./RES/end/voice_button_off_hover.bmp" }, RGB(255, 255, 255));
+	voice_off_hover.SetTopLeft(703, 2);
 
 	up.LoadBitmapByString({
 		"./RES/UI/elevator/up.bmp",
@@ -490,10 +513,6 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
-	GetCursorPos(&p);
-	HWND hwnd = FindWindowA(NULL, "Game");
-	ScreenToClient(hwnd, &p);
-
 	if (maingirl_state == 5) {
 		if ((p.x >= 100 && p.x <= 215) && (p.y >= 230 && p.y <= 340)) { //左邊上樓
 			maingirl_state = 3;
@@ -515,6 +534,16 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 	Man::man_stop = 0;
 	if (Man::click == false && Man::click_win == false) {
 		Girl::shooting_girl.clear();
+	}
+
+	if (p.x >= 700 && p.x <= 750 && p.y >= 0 && p.y <= 70) {
+		if (show_voice_off) {
+			audio_sys.resume();
+		}
+		else {
+			audio_sys.pause();
+		}
+		show_voice_off = !show_voice_off;
 	}
 }
 
@@ -605,6 +634,10 @@ void CGameStateRun::OnMove()							// 移動遊戲元素{
 {
 	PlayAudio();
 
+	GetCursorPos(&p);
+	HWND hwnd = FindWindowA(NULL, "Game");
+	ScreenToClient(hwnd, &p);
+
 	if (Man::click == true) {
 		af_snatch++;
 	}
@@ -674,9 +707,6 @@ void CGameStateRun::OnMove()							// 移動遊戲元素{
 		}
 	}
 
-	GetCursorPos(&p);
-	HWND hwnd = FindWindowA(NULL, "Game");
-	ScreenToClient(hwnd, &p);
 	if (evolution == false && Teacher::bump == false && bump_delay == 0 && over_delay == 0 && Man::click == false) {
 		if (map.GetLeft() >= -2094 && map.GetLeft() <= 0) {
 			MainGirlMove();
@@ -1138,5 +1168,22 @@ void CGameStateRun::OnShow()
 	}
 	if (maingirl_state == 6 && Man::man_stop == 0 && hp_sys.hp > 0 && !evolution && !Man::click_lose) {
 		crosshair_on.ShowBitmap();
+	}
+
+	if (p.x >= 700 && p.x <= 750 && p.y >= 0 && p.y <= 70) {
+		if (show_voice_off) {
+			voice_off_hover.ShowBitmap(0.85);
+		}
+		else {
+			voice_on_hover.ShowBitmap(0.85);
+		}
+	}
+	else {
+		if (show_voice_off) {
+			voice_off.ShowBitmap(0.85);
+		}
+		else {
+			voice_on.ShowBitmap(0.85);
+		}
 	}
 }
