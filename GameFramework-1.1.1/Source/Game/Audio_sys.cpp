@@ -25,13 +25,11 @@ void Audio_sys::load_ui_audio_run()
 
 	audio->Load(2, "./Sounds/game.mp3");
 	audio->Load(16, "./Sounds/warning.mp3");
-	audio->Load(14, "./Sounds/laser.mp3");
-	
 	audio->Load(11, "./Sounds/lose.mp3");
 	audio->Load(1, "./Sounds/bell.mp3");
 	audio->Load(5, "./Sounds/bump.mp3");
 	audio->Load(9, "./Sounds/flying.mp3");
-	audio->Load(13, "./Sounds/blink.mp3");
+	audio->Load(14, "./Sounds/laser.mp3");
 	audio->Load(15, "./Sounds/reinforcing.mp3");
 	audio->Load(17, "./Sounds/snatch.mp3");
 	audio->Load(19, "./Sounds/summarize.mp3");

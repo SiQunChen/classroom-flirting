@@ -22,13 +22,13 @@ void CGameStateInit::OnInit()
 	ShowInitProgress(0, "Start Initialize...");	// 一開始的loading進度為0%
 	
 	voice_on.LoadBitmapByString({"./RES/end/voice_button_on.bmp"}, RGB(255, 255, 255));
-	voice_on.SetTopLeft(400, 500);
+	voice_on.SetTopLeft(585, 510);
 	voice_off.LoadBitmapByString({"./RES/end/voice_button_off.bmp"}, RGB(255, 255, 255));
-	voice_off.SetTopLeft(400, 500);
+	voice_off.SetTopLeft(585, 510);
+	voice_on_hover.LoadBitmapByString({ "./RES/end/voice_button_on_hover.bmp" }, RGB(255, 255, 255));
+	voice_on_hover.SetTopLeft(588, 512);
 	voice_off_hover.LoadBitmapByString({"./RES/end/voice_button_off_hover.bmp"}, RGB(255, 255, 255));
-	voice_off.SetTopLeft(400, 500);
-	voice_on_hover.LoadBitmapByString({"./RES/end/voice_button_on_hover.bmp"}, RGB(255, 255, 255));
-	voice_off.SetTopLeft(400, 500);
+	voice_off_hover.SetTopLeft(588, 512);
 
 	ShowInitProgress(10, "Initializing...");
 	
@@ -74,14 +74,15 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 }
 
-void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
+void CGameStateInit::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	POINT p;
-	GetCursorPos(&p);
-	HWND hwnd = FindWindowA(NULL, "Game");
-	ScreenToClient(hwnd, &p);
-	
-	if (start_frame == 1 && delay == 0) {
+	if (start_frame == 0) {
+		start_frame = 1;
+	}
+	else if (start_frame == 1) {
+		start_frame = 2;
+	}
+	else if (start_frame == 2 && delay == 0) {
 		if (p.x >= 300 && p.x <= 500 && p.y >= 520 && p.y <= 600) {
 			audio_sys.stop_ui_audio(0);
 			audio_sys.play_ui_audio(3);
@@ -106,71 +107,68 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 			}
 		}
 	}
-	
-	if (p.x >= 600 && p.x <= 650 && p.y >=525 && p.y <= 575) {
-		TRACE("%d\n",show_voice_off);
+
+	if (p.x >= 600 && p.x <= 650 && p.y >= 525 && p.y <= 575) {
 		if (show_voice_off) {
-			voice_off.UnshowBitmap();
-			voice_on.ShowBitmap();
 			audio_sys.resume();
 		}
 		else {
-			voice_on.UnshowBitmap();
-			voice_off.ShowBitmap();
 			audio_sys.pause();
 		}
 		show_voice_off = !show_voice_off;
 	}
-	start_frame = 1;
 }
 
 void CGameStateInit::OnShow()
 {
-	POINT p;
 	GetCursorPos(&p);
 	HWND hwnd = FindWindowA(NULL, "Game");
 	ScreenToClient(hwnd, &p);
-	if (p.x >= 600 && p.x <= 650 && p.y >=525 && p.y <= 575) {
-		TRACE("hov\n");
-		if (show_voice_off) {
-			voice_on_hover.ShowBitmap();
-		}
-		else {
-			voice_off_hover.ShowBitmap();
-		}
+
+	if (start_frame == 0) {
+		init_back.ShowBitmap();
 	}
-	
-	init_back.ShowBitmap();
-	if (start_frame == 1) {
+	else if (start_frame == 1) {
+		about.ShowBitmap();
+	}
+	else{
 		if (tutorial_stage == 0) {
-			tutorial[6].UnshowBitmap();
 			tutorial[0].ShowBitmap();
-			tutorial[6] = tutorial[0];
 		}
 		else if (tutorial_stage == 1) {
-			tutorial[6].UnshowBitmap();
 			tutorial[1].ShowBitmap();
-			tutorial[6] = tutorial[1];
 		}
 		else if (tutorial_stage == 2) {
-			tutorial[6].UnshowBitmap();
 			tutorial[2].ShowBitmap();
-			tutorial[6] = tutorial[2];
 		}
 		else if (tutorial_stage == 3) {
-			tutorial[6].UnshowBitmap();
 			tutorial[3].ShowBitmap();
-			tutorial[6] = tutorial[3];
 		}
 		else if (tutorial_stage == 4) {
-			tutorial[6].UnshowBitmap();
 			tutorial[4].ShowBitmap();
-			tutorial[6] = tutorial[4];
 		}
 		else if (tutorial_stage == 5) {
-			tutorial[6].UnshowBitmap();
 			tutorial[5].ShowBitmap();
-			tutorial[6] = tutorial[5];
+		}
+		else {
+			tutorial[6].ShowBitmap();
+		}
+
+		if (p.x >= 590 && p.x <= 640 && p.y >= 515 && p.y <= 585) {
+			if (show_voice_off) {
+				voice_off_hover.ShowBitmap();
+			}
+			else {
+				voice_on_hover.ShowBitmap();
+			}
+		}
+		else {
+			if (show_voice_off) {
+				voice_off.ShowBitmap();
+			}
+			else {
+				voice_on.ShowBitmap();
+			}
 		}
 	}
 
@@ -185,6 +183,9 @@ void CGameStateInit::OnShow()
 void CGameStateInit::load_background() {
 	init_back.LoadBitmapByString({ "./RES/initScreen2.bmp" });
 	init_back.SetTopLeft(0, 0);
+
+	about.LoadBitmapByString({ "./RES/About_oop.bmp" });
+	about.SetTopLeft(0, 0);
 }
 
 void CGameStateInit::load_tutorial()
@@ -295,10 +296,8 @@ void CGameStateInit::load_tutorial()
 		"./RES/init/intro/intro6/intro6 (4).bmp"
 		});
 
-	tutorial[6].LoadEmptyBitmap(800, 600);						// spared, in order to unshow picture
-
 	for (int i = 0; i < 6; i++) {
 		tutorial[i].SetTopLeft(0, 0);
-		tutorial[i].SetAnimation(280, false);
+		tutorial[i].SetAnimation(150, false);
 	}
 }

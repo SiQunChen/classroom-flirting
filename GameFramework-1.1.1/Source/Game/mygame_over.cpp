@@ -24,14 +24,14 @@ void CGameStateOver::OnBeginState()
 void CGameStateOver::OnInit()
 {
 	ShowInitProgress(80, "Almost...");	// 接個前一個狀態的進度，此處進度視為66%
-	voice_on.LoadBitmapByString({"./RES/end/voice_button_on.bmp"}, RGB(255, 255, 255));
-	voice_on.SetTopLeft(400, 500);
-	voice_off.LoadBitmapByString({"./RES/end/voice_button_off.bmp"}, RGB(255, 255, 255));
-	voice_off.SetTopLeft(400, 500);
-	voice_off_hover.LoadBitmapByString({"./RES/end/voice_button_off_hover.bmp"}, RGB(255, 255, 255));
-	voice_off.SetTopLeft(400, 500);
-	voice_on_hover.LoadBitmapByString({"./RES/end/voice_button_on_hover.bmp"}, RGB(255, 255, 255));
-	voice_off.SetTopLeft(400, 500);
+	voice_on.LoadBitmapByString({ "./RES/end/voice_button_on.bmp" }, RGB(255, 255, 255));
+	voice_on.SetTopLeft(595, 515);
+	voice_off.LoadBitmapByString({ "./RES/end/voice_button_off.bmp" }, RGB(255, 255, 255));
+	voice_off.SetTopLeft(595, 515);
+	voice_on_hover.LoadBitmapByString({ "./RES/end/voice_button_on_hover.bmp" }, RGB(255, 255, 255));
+	voice_on_hover.SetTopLeft(598, 517);
+	voice_off_hover.LoadBitmapByString({ "./RES/end/voice_button_off_hover.bmp" }, RGB(255, 255, 255));
+	voice_off_hover.SetTopLeft(598, 517);
 	
 	end1_start.LoadBitmapByString({
 		"./RES/end/end1/start (1).bmp" ,
@@ -172,21 +172,13 @@ void CGameStateOver::OnInit()
 	ShowInitProgress(100, "Ready!");	// 接個前一個狀態的進度，此處進度視為66%
 }
 
-void CGameStateOver::OnLButtonDown(UINT nFlags, CPoint point)
+void CGameStateOver::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	POINT p;
-	GetCursorPos(&p);
-	HWND hwnd = FindWindowA(NULL, "Game");
-	ScreenToClient(hwnd, &p);
-	if (p.x >= 600 && p.x <= 650 && p.y >=525 && p.y <= 575) {
+	if (p.x >= 600 && p.x <= 650 && p.y >= 525 && p.y <= 575) {
 		if (show_voice_off) {
-			voice_off.UnshowBitmap();
-			voice_on.ShowBitmap();
 			audio_sys.resume();
 		}
 		else {
-			voice_on.UnshowBitmap();
-			voice_off.ShowBitmap();
 			audio_sys.pause();
 		}
 		show_voice_off = !show_voice_off;
@@ -195,6 +187,10 @@ void CGameStateOver::OnLButtonDown(UINT nFlags, CPoint point)
 
 void CGameStateOver::OnShow()
 {
+	GetCursorPos(&p);
+	HWND hwnd = FindWindowA(NULL, "Game");
+	ScreenToClient(hwnd, &p);
+
 	if (CGameStateRun::score_sys.score < 20000) {
 		if (!af_end) {
 			audio_sys.play_ui_audio(4);
@@ -264,16 +260,20 @@ void CGameStateOver::OnShow()
 		end6_loop.ShowBitmap();
 	}
 
-	POINT p;
-	GetCursorPos(&p);
-	HWND hwnd = FindWindowA(NULL, "Game");
-	ScreenToClient(hwnd, &p);
-	if (p.x >= 600 && p.x <= 650 && p.y >=525 && p.y <= 575) {
+	if (p.x >= 590 && p.x <= 640 && p.y >= 515 && p.y <= 585) {
 		if (show_voice_off) {
-			voice_on_hover.ShowBitmap();
+			voice_off_hover.ShowBitmap();
 		}
 		else {
-			voice_off_hover.ShowBitmap();
+			voice_on_hover.ShowBitmap();
+		}
+	}
+	else {
+		if (show_voice_off) {
+			voice_off.ShowBitmap();
+		}
+		else {
+			voice_on.ShowBitmap();
 		}
 	}
 	
