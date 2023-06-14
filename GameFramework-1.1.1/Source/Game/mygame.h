@@ -94,6 +94,11 @@ namespace game_framework {
 		int start_frame = 0;							// start frame
 		CTextDraw mouse_tracking;
 		int delay = 0;
+		CMovingBitmap voice_on;
+		CMovingBitmap voice_on_hover;
+		CMovingBitmap voice_off;
+		CMovingBitmap voice_off_hover;
+		bool show_voice_off = false;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -200,6 +205,7 @@ namespace game_framework {
 		CGameStateOver(CGame *g);
 		void OnBeginState();							// 設定每次重玩所需的變數
 		void OnInit();
+		void OnLButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
 	protected:
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
@@ -217,6 +223,11 @@ namespace game_framework {
 		CMovingBitmap end5_loop;
 		CMovingBitmap end6_start;
 		CMovingBitmap end6_loop;
+		CMovingBitmap voice_on;
+		CMovingBitmap voice_on_hover;
+		CMovingBitmap voice_off;
+		CMovingBitmap voice_off_hover;
+		bool show_voice_off = false;
 		int counter;									// 倒數之計數器
 		bool af_end = false;
 	};

@@ -15,7 +15,6 @@ CGameStateOver::CGameStateOver(CGame *g): CGameState(g)
 
 void CGameStateOver::OnMove()
 {
-	// GotoGameState(GAME_STATE_INIT);
 }
 
 void CGameStateOver::OnBeginState()
@@ -24,18 +23,16 @@ void CGameStateOver::OnBeginState()
 
 void CGameStateOver::OnInit()
 {
-	//
-	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
-	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
-	//
-	ShowInitProgress(66, "Initialize...");	// 接個前一個狀態的進度，此處進度視為66%
-	//
-	// 開始載入資料
-	//
-	// Sleep(1000);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
-	//
-	// 最終進度為100%
-	//
+	ShowInitProgress(80, "Almost...");	// 接個前一個狀態的進度，此處進度視為66%
+	voice_on.LoadBitmapByString({"./RES/end/voice_button_on.bmp"}, RGB(255, 255, 255));
+	voice_on.SetTopLeft(400, 500);
+	voice_off.LoadBitmapByString({"./RES/end/voice_button_off.bmp"}, RGB(255, 255, 255));
+	voice_off.SetTopLeft(400, 500);
+	voice_off_hover.LoadBitmapByString({"./RES/end/voice_button_off_hover.bmp"}, RGB(255, 255, 255));
+	voice_off.SetTopLeft(400, 500);
+	voice_on_hover.LoadBitmapByString({"./RES/end/voice_button_on_hover.bmp"}, RGB(255, 255, 255));
+	voice_off.SetTopLeft(400, 500);
+	
 	end1_start.LoadBitmapByString({
 		"./RES/end/end1/start (1).bmp" ,
 		"./RES/end/end1/start (2).bmp" ,
@@ -121,6 +118,8 @@ void CGameStateOver::OnInit()
 	end4_start.SetAnimation(200, true);
 	end4_start.ToggleAnimation();
 
+	ShowInitProgress(90, "Almost...");	// 接個前一個狀態的進度，此處進度視為66%
+
 	end4_loop.LoadBitmapByString({
 		"./RES/end/end4/loop (1).bmp" ,
 		"./RES/end/end4/loop (2).bmp" ,
@@ -170,10 +169,28 @@ void CGameStateOver::OnInit()
 	end6_loop.SetAnimation(200, false);
 
 	audio_sys.load_ui_audio_end();
+	ShowInitProgress(100, "Ready!");	// 接個前一個狀態的進度，此處進度視為66%
+}
 
-	ShowInitProgress(100, "OK!");
-
-	Sleep(1000);
+void CGameStateOver::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	POINT p;
+	GetCursorPos(&p);
+	HWND hwnd = FindWindowA(NULL, "Game");
+	ScreenToClient(hwnd, &p);
+	if (p.x >= 600 && p.x <= 650 && p.y >=525 && p.y <= 575) {
+		if (show_voice_off) {
+			voice_off.UnshowBitmap();
+			voice_on.ShowBitmap();
+			audio_sys.resume();
+		}
+		else {
+			voice_on.UnshowBitmap();
+			voice_off.ShowBitmap();
+			audio_sys.pause();
+		}
+		show_voice_off = !show_voice_off;
+	}
 }
 
 void CGameStateOver::OnShow()
@@ -245,6 +262,19 @@ void CGameStateOver::OnShow()
 		}
 		end6_start.ShowBitmap();
 		end6_loop.ShowBitmap();
+	}
+
+	POINT p;
+	GetCursorPos(&p);
+	HWND hwnd = FindWindowA(NULL, "Game");
+	ScreenToClient(hwnd, &p);
+	if (p.x >= 600 && p.x <= 650 && p.y >=525 && p.y <= 575) {
+		if (show_voice_off) {
+			voice_on_hover.ShowBitmap();
+		}
+		else {
+			voice_off_hover.ShowBitmap();
+		}
 	}
 	
 	CGameStateRun::score_sys.over();

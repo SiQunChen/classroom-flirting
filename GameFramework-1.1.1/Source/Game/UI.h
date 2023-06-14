@@ -30,6 +30,7 @@ public:
 	void load_ui_audio_end();
 	void load_ui_audio_man();
 	void pause();
+	void resume();
 	void play_ui_audio(int audio_tag);
 	void stop_ui_audio(int audio_tag);
 private:
