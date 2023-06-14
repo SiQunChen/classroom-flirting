@@ -89,7 +89,8 @@ namespace game_framework {
 		void load_background();
 		void load_tutorial();
 		CMovingBitmap init_back;
-		CMovingBitmap tutorial[7];						// 6 tutorial+ 1 tutorial_current_show (spare, to unshow scene)
+		CMovingBitmap about;
+		CMovingBitmap tutorial[6];
 		int tutorial_stage = 0;							// FLAG: tutorial stage
 		int start_frame = 0;							// start frame
 		CTextDraw mouse_tracking;
@@ -178,7 +179,6 @@ namespace game_framework {
 		// audio flag, play on true state
 		bool af_run = false;
 		bool af_bell = false;
-		bool af_blink = false;
 		int af_bump = 0;
 		int af_flying = 0;
 		int af_laser = 0;

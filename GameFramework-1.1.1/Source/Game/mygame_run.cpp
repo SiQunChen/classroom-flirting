@@ -417,6 +417,9 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	else if (nChar == VK_UP) {
 		hp_sys.hp += 100;
 	}
+	else if (nChar == VK_DOWN) {
+		hp_sys.hp -= 100;
+	}
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -544,7 +547,7 @@ void CGameStateRun::PlayAudio()
 		af_bell = !af_bell;
 	}
 
-	if (af_bump == 1) {							// tbfix: reset to 0 when normal sate
+	if (af_bump == 1) {	
 		audio_sys.play_ui_audio(5);
 		af_bump = 2;
 	}

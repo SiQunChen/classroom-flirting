@@ -72,7 +72,13 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	if (start_frame == 1 && delay == 0) {
+	if (start_frame == 0) {
+		start_frame = 1;
+	}
+	else if (start_frame == 1) {
+		start_frame = 2;
+	}
+	else if (start_frame == 2 && delay == 0) {
 		POINT p;
 		GetCursorPos(&p);
 		HWND hwnd = FindWindowA(NULL, "Game");
@@ -101,42 +107,37 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 			}
 		}
 	}
-	start_frame = 1;
 }
 
 void CGameStateInit::OnShow()
 {
-	init_back.ShowBitmap();
-	if (start_frame == 1) {
+	if (start_frame == 0) {
+		init_back.ShowBitmap();
+	}
+	else if (start_frame == 1) {
+		about.ShowBitmap();
+	}
+	else{
 		if (tutorial_stage == 0) {
-			tutorial[6].UnshowBitmap();
 			tutorial[0].ShowBitmap();
-			tutorial[6] = tutorial[0];
 		}
 		else if (tutorial_stage == 1) {
-			tutorial[6].UnshowBitmap();
 			tutorial[1].ShowBitmap();
-			tutorial[6] = tutorial[1];
 		}
 		else if (tutorial_stage == 2) {
-			tutorial[6].UnshowBitmap();
 			tutorial[2].ShowBitmap();
-			tutorial[6] = tutorial[2];
 		}
 		else if (tutorial_stage == 3) {
-			tutorial[6].UnshowBitmap();
 			tutorial[3].ShowBitmap();
-			tutorial[6] = tutorial[3];
 		}
 		else if (tutorial_stage == 4) {
-			tutorial[6].UnshowBitmap();
 			tutorial[4].ShowBitmap();
-			tutorial[6] = tutorial[4];
 		}
 		else if (tutorial_stage == 5) {
-			tutorial[6].UnshowBitmap();
 			tutorial[5].ShowBitmap();
-			tutorial[6] = tutorial[5];
+		}
+		else {
+			tutorial[6].ShowBitmap();
 		}
 	}
 
@@ -151,6 +152,9 @@ void CGameStateInit::OnShow()
 void CGameStateInit::load_background() {
 	init_back.LoadBitmapByString({ "./RES/initScreen2.bmp" });
 	init_back.SetTopLeft(0, 0);
+
+	about.LoadBitmapByString({ "./RES/About_oop.bmp" });
+	about.SetTopLeft(0, 0);
 }
 
 void CGameStateInit::load_tutorial()
@@ -261,10 +265,8 @@ void CGameStateInit::load_tutorial()
 		"./RES/init/intro/intro6/intro6 (4).bmp"
 		});
 
-	tutorial[6].LoadEmptyBitmap(800, 600);						// spared, in order to unshow picture
-
 	for (int i = 0; i < 6; i++) {
 		tutorial[i].SetTopLeft(0, 0);
-		tutorial[i].SetAnimation(280, false);
+		tutorial[i].SetAnimation(150, false);
 	}
 }
