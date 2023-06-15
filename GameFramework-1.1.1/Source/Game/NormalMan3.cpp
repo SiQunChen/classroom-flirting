@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "NormalMan3.h"
+#include "NormalMan.h"
 
 void Normalman3::Load_state() {
 	ManState[0].LoadBitmapByString({

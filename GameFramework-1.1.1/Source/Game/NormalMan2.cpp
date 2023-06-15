@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "NormalMan2.h"
+#include "NormalMan.h"
 
 void Normalman2::Load_state() {
 	ManState[0].LoadBitmapByString({ //left walking

@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Teacher.h"
+#include "Role.h"
 #include "UI.h"
 #include "mygame.h"
 

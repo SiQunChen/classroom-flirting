@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "SpecialMan3.h"
+#include "SpecialMan.h"
 
 void Specialman3::Load_state() {
 	ManState[0].LoadBitmapByString({

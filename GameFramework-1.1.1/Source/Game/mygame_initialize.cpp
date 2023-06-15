@@ -6,6 +6,8 @@
 
 using namespace game_framework;
 
+bool CGameStateRun::show_voice_off = false;
+
 CGameStateInit::CGameStateInit(CGame *g) : CGameState(g)
 {
 }
@@ -59,8 +61,10 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 			}
 		}
 		if (nChar == VK_RETURN) {
-			audio_sys.stop_ui_audio(0);
-			audio_sys.play_ui_audio(3);
+			if (CGameStateRun::show_voice_off == false) {
+				audio_sys.stop_ui_audio(0);
+				audio_sys.play_ui_audio(3);
+			}
 			delay = 1;
 		}
 	}
@@ -77,8 +81,10 @@ void CGameStateInit::OnLButtonUp(UINT nFlags, CPoint point)
 	}
 	else if (start_frame == 2 && delay == 0) {
 		if (p.x >= 300 && p.x <= 500 && p.y >= 520 && p.y <= 600) {
-			audio_sys.stop_ui_audio(0);
-			audio_sys.play_ui_audio(3);
+			if (CGameStateRun::show_voice_off == false) {
+				audio_sys.stop_ui_audio(0);
+				audio_sys.play_ui_audio(3);
+			}
 			delay = 1;
 		}
 		else if (tutorial_stage == 0) {
@@ -102,13 +108,13 @@ void CGameStateInit::OnLButtonUp(UINT nFlags, CPoint point)
 	}
 
 	if (p.x >= 600 && p.x <= 650 && p.y >= 525 && p.y <= 575) {
-		if (show_voice_off) {
+		if (CGameStateRun::show_voice_off) {
 			audio_sys.resume();
 		}
 		else {
 			audio_sys.pause();
 		}
-		show_voice_off = !show_voice_off;
+		CGameStateRun::show_voice_off = !CGameStateRun::show_voice_off;
 	}
 }
 
@@ -148,7 +154,7 @@ void CGameStateInit::OnShow()
 		}
 
 		if (p.x >= 590 && p.x <= 640 && p.y >= 515 && p.y <= 585) {
-			if (show_voice_off) {
+			if (CGameStateRun::show_voice_off) {
 				voice_off_hover.ShowBitmap();
 			}
 			else {
@@ -156,7 +162,7 @@ void CGameStateInit::OnShow()
 			}
 		}
 		else {
-			if (show_voice_off) {
+			if (CGameStateRun::show_voice_off) {
 				voice_off.ShowBitmap();
 			}
 			else {

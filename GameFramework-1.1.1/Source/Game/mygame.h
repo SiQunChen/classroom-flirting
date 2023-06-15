@@ -2,18 +2,12 @@
 #include <ddraw.h>
 #include "../Library/gameutil.h"
 #include "../Library/gamecore.h"
-#include "Main_girl.h"
-#include "NormalMan1.h"
-#include "NormalMan2.h"
-#include "NormalMan3.h"
-#include "SpecialMan1.h"
-#include "SpecialMan2.h"
-#include "SpecialMan3.h"
-#include "UI.h"
-#include "Teacher.h"
-#include "NormalGirl1.h"
-#include "NormalGirl2.h"
+#include "Role.h"
+#include "NormalMan.h"
+#include "SpecialMan.h"
+#include "NormalGirl.h"
 #include "SpecialGirl.h"
+#include "UI.h"
 
 namespace game_framework {
 	class CGameStateInit : public CGameState {
@@ -42,7 +36,6 @@ namespace game_framework {
 		CMovingBitmap voice_on_hover;
 		CMovingBitmap voice_off;
 		CMovingBitmap voice_off_hover;
-		bool show_voice_off = false;
 	};
 
 	class CGameStateRun : public CGameState {
@@ -58,6 +51,7 @@ namespace game_framework {
 		void OnRButtonUp(UINT nFlags, CPoint point) override;	// 處理滑鼠的動作
 		void OnRButtonDown(UINT nFlags, CPoint point) override;  // 處理滑鼠的動作
 		static Score score_sys;
+		static bool show_voice_off;
 	protected:
 		CMovingBitmap map;
 		void MainGirlMove();
@@ -80,7 +74,6 @@ namespace game_framework {
 		CMovingBitmap voice_on_hover;
 		CMovingBitmap voice_off;
 		CMovingBitmap voice_off_hover;
-		bool show_voice_off = false;
 		int up_down = 0; // 1 = 上樓，2 = 下樓
 		int time = 0;
 		int bump_delay = 0;
@@ -164,7 +157,6 @@ namespace game_framework {
 		CMovingBitmap voice_on_hover;
 		CMovingBitmap voice_off;
 		CMovingBitmap voice_off_hover;
-		bool show_voice_off = false;
 		int counter;									// 倒數之計數器
 		bool af_end = false;
 	};

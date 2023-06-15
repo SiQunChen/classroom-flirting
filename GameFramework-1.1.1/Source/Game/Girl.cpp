@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Girl.h"
+#include "Role.h"
 #include "mygame.h"
 
 std::vector<Girl*> Girl::shooting_girl;
@@ -89,7 +89,6 @@ void Girl::ShowGirl(int start, int end, int map, int maingirl_state, bool stop, 
 		}
 		else {
 			auto it = std::find(shooting_girl.begin(), shooting_girl.end(), this);
-
 			if (it != shooting_girl.end() && (Man::click_win == true || Man::click_lose == true)) {
 				if (Man::click_win == true) {
 					this->fly_left.SetTopLeft(this->walk_left.GetLeft(), this->walk_left.GetTop());
@@ -148,6 +147,10 @@ int Girl::get_how_many_girl_in_view()
 }
 
 void Girl::fly() {
+	if (this->fly_left.GetLeft() == 0) {
+		this->fly_left.SetTopLeft(this->walk_left.GetLeft(), this->walk_left.GetTop());
+		this->fly_right.SetTopLeft(this->walk_left.GetLeft(), this->walk_left.GetTop());
+	}
 	if (left == true) {
 		this->fly_left.SetTopLeft(this->fly_left.GetLeft() + 50, this->fly_left.GetTop() - 50);
 		this->fly_left.ShowBitmap();

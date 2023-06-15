@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Girl.h"
+#include "Role.h"
 
 class Specialgirl : public Girl
 {
