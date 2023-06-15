@@ -244,7 +244,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Source\Game\Audio_sys.cpp" />
-    <ClCompile Include="Source\Game\Elevator.cpp" />
     <ClCompile Include="Source\Game\Girl.cpp" />
     <ClCompile Include="Source\Game\HP.cpp" />
     <ClCompile Include="Source\Game\Main_girl.cpp" />
@@ -302,9 +301,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Source\Game\main.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Source\Game\wip.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

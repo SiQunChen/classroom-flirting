@@ -376,3 +376,4 @@ void Man::over(Score* score_sys, bool over_left) {
 	}
 	over_score.ShowBitmap();
 }
+ 

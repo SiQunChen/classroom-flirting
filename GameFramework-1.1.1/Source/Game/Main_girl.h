@@ -1,12 +1,8 @@
-#ifndef MAIN_GIRL
-#define MAIN_GIRL
+#pragma once
 
-#include "../Core/Resource.h"
 #include <mmsystem.h>
 #include <ddraw.h>
-#include "../Library/audio.h"
 #include "../Library/gameutil.h"
-#include "../Library/gamecore.h"
 
 class Main_girl : public game_framework::CMovingBitmap
 {
@@ -28,7 +24,4 @@ public:
 	void Load_over_left();
 	void Load_over_notice_right();
 	void Load_over_right();
-private:
 };
-
-#endif

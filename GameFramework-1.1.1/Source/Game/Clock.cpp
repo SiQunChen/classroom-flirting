@@ -1,8 +1,6 @@
 #include "stdafx.h"
-#include <string>
-
 #include "UI.h"
-#include "config.h"
+#include <string>
 
 void Clock::load_ui_clock_board() {
 	clock.LoadBitmapByString({

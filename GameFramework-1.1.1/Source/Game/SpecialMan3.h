@@ -1,5 +1,5 @@
-#ifndef SPECIALMAN3
-#define SPECIALMAN3
+#pragma once
+
 #include "Man.h"
 
 class Specialman3 : public Man
@@ -13,5 +13,3 @@ private:
 	int heart(int maingirl_left, Score* score_sys) override;
 	int modify_hp(Score* score_sys) override;
 };
-
-#endif // !SPECIAL_H
