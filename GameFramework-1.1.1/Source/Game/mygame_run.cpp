@@ -668,7 +668,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素{
 		}
 	}
 
-	if (Man::man_stop != 0 || Man::click == true) {
+	if ((Man::man_stop != 0 || Man::click == true) && bump_delay == 0) {
 		af_laser++;
 	}
 	else {
@@ -1168,7 +1168,7 @@ void CGameStateRun::OnShow()
 			audio_sys.play_ui_audio(7);
 		}
 	}
-	if (maingirl_state == 6 && Man::man_stop == 0 && hp_sys.hp > 0 && !evolution && !Man::click_lose) {
+	if (maingirl_state == 6 && Man::man_stop == 0 && hp_sys.hp > 0 && !evolution && !Man::click_lose && bump_delay == 0) {
 		crosshair_on.ShowBitmap();
 	}
 

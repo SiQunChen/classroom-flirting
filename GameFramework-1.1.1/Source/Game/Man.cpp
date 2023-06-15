@@ -179,7 +179,7 @@ bool Man::ShowMan(int start, int end, int map, int maingirl_state, bool stop, in
 	girl = count_girl(maingirl_state, evolution, bump_delay, over_delay);
 	if (dead == false) {
 		not_stop_state = true;
-		if (stop == 0 && this_man_is_be_clicked == false) {
+		if ((stop == 0 && this_man_is_be_clicked == false) || (bump_delay != 0)) {
 			delay = 0;
 			being_attacking = false;
 			not_stop_state = false;
