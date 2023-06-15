@@ -18,7 +18,6 @@
 #include <comdef.h>
 using namespace std::experimental::filesystem::v1;
 
-
 namespace game_framework {
 
 	/////////////////////////////////////////////////////////////////////////////

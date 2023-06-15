@@ -171,13 +171,13 @@ void CGameStateOver::OnInit()
 void CGameStateOver::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	if (p.x >= 600 && p.x <= 650 && p.y >= 525 && p.y <= 575) {
-		if (show_voice_off) {
+		if (CGameStateRun::show_voice_off) {
 			audio_sys.resume();
 		}
 		else {
 			audio_sys.pause();
 		}
-		show_voice_off = !show_voice_off;
+		CGameStateRun::show_voice_off = !CGameStateRun::show_voice_off;
 	}
 }
 
@@ -188,7 +188,7 @@ void CGameStateOver::OnShow()
 	ScreenToClient(hwnd, &p);
 
 	if (CGameStateRun::score_sys.score < 20000) {
-		if (!af_end) {
+		if (!af_end && !CGameStateRun::show_voice_off) {
 			audio_sys.play_ui_audio(4);
 			af_end = !af_end;
 		}
@@ -200,7 +200,7 @@ void CGameStateOver::OnShow()
 		}
 	}
 	else if (CGameStateRun::score_sys.score < 50000) {
-		if (!af_end) {
+		if (!af_end && !CGameStateRun::show_voice_off) {
 			audio_sys.play_ui_audio(6);
 			af_end = !af_end;
 		}
@@ -212,7 +212,7 @@ void CGameStateOver::OnShow()
 		}
 	}
 	else if (CGameStateRun::score_sys.score < 80000) {
-		if (!af_end) {
+		if (!af_end && !CGameStateRun::show_voice_off) {
 			audio_sys.play_ui_audio(6);
 			af_end = !af_end;
 		}
@@ -224,7 +224,7 @@ void CGameStateOver::OnShow()
 		}
 	}
 	else if (CGameStateRun::score_sys.score < 110000) {
-		if (!af_end) {
+		if (!af_end && !CGameStateRun::show_voice_off) {
 			audio_sys.play_ui_audio(8);
 			af_end = !af_end;
 		}
@@ -236,7 +236,7 @@ void CGameStateOver::OnShow()
 		}
 	}
 	else if (CGameStateRun::score_sys.score < 150000) {
-		if (!af_end) {
+		if (!af_end && !CGameStateRun::show_voice_off) {
 			audio_sys.play_ui_audio(10);
 			af_end = !af_end;
 		}
@@ -248,7 +248,7 @@ void CGameStateOver::OnShow()
 		}
 	}
 	else {
-		if (!af_end) {
+		if (!af_end && !CGameStateRun::show_voice_off) {
 			audio_sys.play_ui_audio(12);
 			af_end = !af_end;
 		}
@@ -257,7 +257,7 @@ void CGameStateOver::OnShow()
 	}
 
 	if (p.x >= 590 && p.x <= 640 && p.y >= 515 && p.y <= 585) {
-		if (show_voice_off) {
+		if (CGameStateRun::show_voice_off) {
 			voice_off_hover.ShowBitmap();
 		}
 		else {
@@ -265,7 +265,7 @@ void CGameStateOver::OnShow()
 		}
 	}
 	else {
-		if (show_voice_off) {
+		if (CGameStateRun::show_voice_off) {
 			voice_off.ShowBitmap();
 		}
 		else {

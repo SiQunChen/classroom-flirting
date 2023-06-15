@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Main_girl.h"
+#include "Role.h"
 
 void Main_girl::Load_main() {
     LoadBitmapByString({ 

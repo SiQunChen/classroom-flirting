@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "NormalGirl2.h"
+#include "NormalGirl.h"
 
 void Normalgirl2::Load() {
 	walk_left.LoadBitmapByString({

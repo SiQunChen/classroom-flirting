@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Man.h"
+#include "Role.h"
 #include <string>
 #include "mygame.h"
 
