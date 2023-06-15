@@ -1,5 +1,4 @@
-#ifndef GIRL
-#define GIRL
+#pragma once
 
 #include "../Library/gameutil.h"
 
@@ -24,8 +23,6 @@ public:
 	CMovingBitmap shoot_left;
 	CMovingBitmap shoot_right;
 	static std::vector<Girl*> shooting_girl;
-protected:
-	
 private:
 	int girl = 0;
 	int count_girl(int maingirl_state, bool evolution, int bump_delay, int over_delay);
@@ -36,5 +33,3 @@ private:
 	bool dead = false;
 	bool init_delay = false;
 };
-
-#endif

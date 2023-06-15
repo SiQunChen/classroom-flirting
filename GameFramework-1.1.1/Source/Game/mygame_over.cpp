@@ -5,10 +5,6 @@ using namespace game_framework;
 
 Score CGameStateRun::score_sys;
 
-////////////////////////////////////
-// 這個class為遊戲的結束狀態(Game Over)
-////////////////////////////////////
-
 CGameStateOver::CGameStateOver(CGame *g): CGameState(g)
 {
 }
@@ -276,6 +272,5 @@ void CGameStateOver::OnShow()
 			voice_on.ShowBitmap();
 		}
 	}
-	
 	CGameStateRun::score_sys.over();
 }

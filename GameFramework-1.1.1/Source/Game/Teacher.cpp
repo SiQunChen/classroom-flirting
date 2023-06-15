@@ -98,3 +98,4 @@ void Teacher::modify_hp()
 {
 		HP::hp -= 150;
 }
+ 

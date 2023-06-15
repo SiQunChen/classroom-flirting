@@ -1,7 +1,6 @@
 #include "stdafx.h"
 
 #include <string>
-
 #include "UI.h"
 
 #define DEFAULT_HP 400

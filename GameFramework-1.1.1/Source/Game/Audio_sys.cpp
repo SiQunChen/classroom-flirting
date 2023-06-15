@@ -65,4 +65,3 @@ void Audio_sys::resume()
 {
 	audio->Resume();
 }
-

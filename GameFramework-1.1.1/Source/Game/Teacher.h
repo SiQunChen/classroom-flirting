@@ -11,8 +11,6 @@ public:
 	void ShowTeacher(bool left, int maingirl_state, int maingirl_left, bool evolution, int bump_delay, int over_delay, bool up_down_floor);
 	void Setup(bool left);
 	static bool bump;
-protected:
-	
 private:
 	void modify_hp();
 	int girl;
