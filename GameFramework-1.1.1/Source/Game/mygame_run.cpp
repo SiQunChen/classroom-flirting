@@ -540,6 +540,7 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 	if (p.x >= 700 && p.x <= 750 && p.y >= 0 && p.y <= 70) {
 		if (show_voice_off) {
 			audio_sys.resume();
+			audio_sys.stop_ui_audio(0);
 		}
 		else {
 			audio_sys.pause();
