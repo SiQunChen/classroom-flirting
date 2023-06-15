@@ -173,6 +173,7 @@ void CGameStateOver::OnLButtonUp(UINT nFlags, CPoint point)
 	if (p.x >= 600 && p.x <= 650 && p.y >= 525 && p.y <= 575) {
 		if (CGameStateRun::show_voice_off) {
 			audio_sys.resume();
+			audio_sys.stop_ui_audio(2);
 		}
 		else {
 			audio_sys.pause();
