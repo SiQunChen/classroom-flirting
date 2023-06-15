@@ -41,7 +41,7 @@ void CGameStateInit::OnBeginState()
 
 void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	if (start_frame == 1) {
+	if (start_frame == 2) {
 		if (tutorial_stage == 0) {
 			if (nChar == VK_RIGHT) {
 				tutorial_stage = 1;					// assign to ensure safety
